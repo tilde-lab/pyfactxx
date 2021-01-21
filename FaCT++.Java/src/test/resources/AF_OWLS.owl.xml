@@ -1,0 +1,1681 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.w3.org/2002/07/owl#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace">
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Any-Order"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#AtomicProcess"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Binding"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Choice"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#CompositeProcess"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ConditionalEffect"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ConditionalOutput"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstruct"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstructBag"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstructList"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#If-Then-Else"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Input"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#InputBinding"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Iterate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Local"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Output"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#OutputBinding"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Parameter"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Participant"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Perform"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Process"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ProcessComponent"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Produce"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Repeat-Until"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Repeat-While"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Result"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ResultVar"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Sequence"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#SimpleProcess"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Split"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Split-Join"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Unordered"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ValueOf"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#Profile"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#ServiceCategory"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#ServiceParameter"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#Service"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#ServiceGrounding"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#ServiceModel"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#ServiceProfile"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Condition"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#DRS-Condition"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#DRS-Expression"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Expression"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#KIF-Condition"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#KIF-Expression"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#LogicLanguage"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#SWRL-Condition"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#SWRL-Expression"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#List"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.isi.edu/~pan/damltime/time-entry.owl#IntervalThing"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.w3.org/2003/11/swrl#AtomList"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.w3.org/2003/11/swrl#Variable"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#collapse"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#collapsesTo"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#components"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#composedOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#computedEffect"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#computedInput"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#computedOutput"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#computedPrecondition"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#else"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#expand"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#expandsTo"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#fromProcess"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasClient"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasDataFrom"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasEffect"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasInput"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasLocal"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasOutput"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasParameter"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasParticipant"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasPrecondition"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasResult"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasResultVar"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ifCondition"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#inCondition"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#performedBy"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#process"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#producedBinding"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#realizedBy"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#realizes"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#theVar"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#then"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#timeout"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#toParam"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#untilCondition"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#untilProcess"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueSource"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#whileCondition"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#whileProcess"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#withOutput"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#contactInformation"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#hasInput"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#hasOutput"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#hasParameter"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#hasPrecondition"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#hasResult"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#has_process"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#sParameter"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#serviceCategory"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#serviceParameter"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#describedBy"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#describes"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#isDescribedBy"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#isPresentedBy"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#isSupportedBy"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#presentedBy"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#presents"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#providedBy"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#provides"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#supportedBy"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#supports"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#expressionLanguage"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#first"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#rest"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#invocable"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#name"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#parameterType"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#parameterValue"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueData"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueForm"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueFunction"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueSpecifier"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueType"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#categoryName"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#code"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#serviceClassification"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#serviceName"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#serviceParameterName"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#serviceProduct"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#taxonomy"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#textDescription"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#value"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#expressionBody"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#refURI"/>
+    </Declaration>
+    <EquivalentClasses>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Any-Order"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Unordered"/>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#CompositeProcess"/>
+        <ObjectIntersectionOf>
+            <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Process"/>
+            <ObjectExactCardinality cardinality="1">
+                <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#composedOf"/>
+            </ObjectExactCardinality>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstruct"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ProcessComponent"/>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#InputBinding"/>
+        <ObjectIntersectionOf>
+            <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Binding"/>
+            <ObjectAllValuesFrom>
+                <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#toParam"/>
+                <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Input"/>
+            </ObjectAllValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#OutputBinding"/>
+        <ObjectIntersectionOf>
+            <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Binding"/>
+            <ObjectAllValuesFrom>
+                <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#toParam"/>
+                <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Output"/>
+            </ObjectAllValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Process"/>
+        <ObjectUnionOf>
+            <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#AtomicProcess"/>
+            <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#CompositeProcess"/>
+            <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#SimpleProcess"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Any-Order"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstruct"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Any-Order"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#components"/>
+            <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstructBag"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Any-Order"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#components"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#AtomicProcess"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Process"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#AtomicProcess"/>
+        <ObjectHasValue>
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasClient"/>
+            <NamedIndividual IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#TheClient"/>
+        </ObjectHasValue>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#AtomicProcess"/>
+        <ObjectHasValue>
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#performedBy"/>
+            <NamedIndividual IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#TheServer"/>
+        </ObjectHasValue>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Binding"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#toParam"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Binding"/>
+        <ObjectMaxCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueSource"/>
+        </ObjectMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Binding"/>
+        <DataMaxCardinality cardinality="1">
+            <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueData"/>
+        </DataMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Binding"/>
+        <DataMaxCardinality cardinality="1">
+            <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueSpecifier"/>
+        </DataMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Choice"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstruct"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Choice"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#components"/>
+            <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstructBag"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Choice"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#components"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#CompositeProcess"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Process"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#CompositeProcess"/>
+        <ObjectMaxCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#computedEffect"/>
+        </ObjectMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#CompositeProcess"/>
+        <ObjectMaxCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#computedInput"/>
+        </ObjectMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#CompositeProcess"/>
+        <ObjectMaxCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#computedOutput"/>
+        </ObjectMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#CompositeProcess"/>
+        <ObjectMaxCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#computedPrecondition"/>
+        </ObjectMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#CompositeProcess"/>
+        <DataMaxCardinality cardinality="1">
+            <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#invocable"/>
+        </DataMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstruct"/>
+        <ObjectMaxCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#timeout"/>
+        </ObjectMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstructBag"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#List"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstructBag"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#first"/>
+            <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstruct"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstructBag"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#rest"/>
+            <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstructBag"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstructList"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#List"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstructList"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#first"/>
+            <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstruct"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstructList"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#rest"/>
+            <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstructList"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#If-Then-Else"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstruct"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#If-Then-Else"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ifCondition"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#If-Then-Else"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#then"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#If-Then-Else"/>
+        <ObjectMaxCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#else"/>
+        </ObjectMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Input"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Parameter"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#InputBinding"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Binding"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Iterate"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstruct"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Local"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Parameter"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Output"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Parameter"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#OutputBinding"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Binding"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Parameter"/>
+        <Class IRI="http://www.w3.org/2003/11/swrl#Variable"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Parameter"/>
+        <DataMinCardinality cardinality="1">
+            <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#parameterType"/>
+        </DataMinCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Perform"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstruct"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Perform"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#process"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Process"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#ServiceModel"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Process"/>
+        <DataMaxCardinality cardinality="1">
+            <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#name"/>
+        </DataMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Produce"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstruct"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Repeat-Until"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Iterate"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Repeat-Until"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#untilCondition"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Repeat-Until"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#untilProcess"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Repeat-While"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Iterate"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Repeat-While"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#whileCondition"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Repeat-While"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#whileProcess"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ResultVar"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Parameter"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Sequence"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstruct"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Sequence"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#components"/>
+            <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstructList"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Sequence"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#components"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#SimpleProcess"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Process"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Split"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstruct"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Split"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#components"/>
+            <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstructBag"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Split"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#components"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Split-Join"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstruct"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Split-Join"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#components"/>
+            <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstructBag"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ValueOf"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#theVar"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ValueOf"/>
+        <ObjectMaxCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#fromProcess"/>
+        </ObjectMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#Profile"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#ServiceProfile"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#Profile"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#serviceName"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#Profile"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#textDescription"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#ServiceCategory"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#categoryName"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#ServiceCategory"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#code"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#ServiceCategory"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#taxonomy"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#ServiceCategory"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#value"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#ServiceParameter"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#sParameter"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#ServiceParameter"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#serviceParameterName"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#Service"/>
+        <ObjectMaxCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#describedBy"/>
+        </ObjectMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#ServiceGrounding"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#supportedBy"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Condition"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Expression"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#DRS-Condition"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Condition"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#DRS-Condition"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#DRS-Expression"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#DRS-Expression"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Expression"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#DRS-Expression"/>
+        <ObjectHasValue>
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#expressionLanguage"/>
+            <NamedIndividual IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#DRS"/>
+        </ObjectHasValue>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#DRS-Expression"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#expressionBody"/>
+            <Datatype abbreviatedIRI="rdf:XMLLiteral"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Expression"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#expressionLanguage"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Expression"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#expressionBody"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#KIF-Condition"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Condition"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#KIF-Condition"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#KIF-Expression"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#KIF-Expression"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Expression"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#KIF-Expression"/>
+        <ObjectHasValue>
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#expressionLanguage"/>
+            <NamedIndividual IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#KIF"/>
+        </ObjectHasValue>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#SWRL-Condition"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Condition"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#SWRL-Condition"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#SWRL-Expression"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#SWRL-Expression"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Expression"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#SWRL-Expression"/>
+        <ObjectHasValue>
+            <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#expressionLanguage"/>
+            <NamedIndividual IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#SWRL"/>
+        </ObjectHasValue>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#SWRL-Expression"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#expressionBody"/>
+            <Datatype abbreviatedIRI="rdf:XMLLiteral"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <DisjointClasses>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#AtomicProcess"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#CompositeProcess"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#AtomicProcess"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#SimpleProcess"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#CompositeProcess"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#SimpleProcess"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Input"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Local"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Input"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Output"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Input"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ResultVar"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Local"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Output"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Local"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ResultVar"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Output"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ResultVar"/>
+    </DisjointClasses>
+    <ClassAssertion>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Participant"/>
+        <NamedIndividual IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#TheClient"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Perform"/>
+        <NamedIndividual IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#TheParentPerform"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Participant"/>
+        <NamedIndividual IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#TheServer"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Perform"/>
+        <NamedIndividual IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ThisPerform"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#SWRL-Condition"/>
+        <NamedIndividual IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#AlwaysTrue"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#LogicLanguage"/>
+        <NamedIndividual IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#DRS"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#LogicLanguage"/>
+        <NamedIndividual IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#KIF"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#LogicLanguage"/>
+        <NamedIndividual IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#SWRL"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#List"/>
+        <NamedIndividual IRI="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#nil"/>
+    </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#expressionLanguage"/>
+        <NamedIndividual IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#AlwaysTrue"/>
+        <NamedIndividual IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#SWRL"/>
+    </ObjectPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#refURI"/>
+        <NamedIndividual IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#DRS"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">http://www.daml.org/services/owl-s/1.1/generic/drs.owl</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#refURI"/>
+        <NamedIndividual IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#KIF"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">http://logic.stanford.edu/kif/kif.html</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#refURI"/>
+        <NamedIndividual IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#SWRL"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">http://www.w3.org/2003/11/swrl</Literal>
+    </DataPropertyAssertion>
+    <EquivalentObjectProperties>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#collapse"/>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#collapsesTo"/>
+    </EquivalentObjectProperties>
+    <EquivalentObjectProperties>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#expand"/>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#expandsTo"/>
+    </EquivalentObjectProperties>
+    <EquivalentObjectProperties>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#describedBy"/>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#isDescribedBy"/>
+    </EquivalentObjectProperties>
+    <EquivalentObjectProperties>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#isPresentedBy"/>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#presentedBy"/>
+    </EquivalentObjectProperties>
+    <EquivalentObjectProperties>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#isSupportedBy"/>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#supportedBy"/>
+    </EquivalentObjectProperties>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasClient"/>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasParticipant"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasInput"/>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasParameter"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasLocal"/>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasParameter"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasOutput"/>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasParameter"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#performedBy"/>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasParticipant"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#hasInput"/>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#hasParameter"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#hasOutput"/>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#hasParameter"/>
+    </SubObjectPropertyOf>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#expandsTo"/>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#collapsesTo"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#realizedBy"/>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#realizes"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#describedBy"/>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#describes"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#presentedBy"/>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#presents"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#providedBy"/>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#provides"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#supportedBy"/>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#supports"/>
+    </InverseObjectProperties>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#has_process"/>
+    </FunctionalObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#collapsesTo"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#CompositeProcess"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#components"/>
+        <ObjectUnionOf>
+            <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Any-Order"/>
+            <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Choice"/>
+            <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Sequence"/>
+            <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Split"/>
+            <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Split-Join"/>
+        </ObjectUnionOf>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#composedOf"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#CompositeProcess"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#computedEffect"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#CompositeProcess"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#computedInput"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#CompositeProcess"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#computedOutput"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#CompositeProcess"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#computedPrecondition"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#CompositeProcess"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#else"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#If-Then-Else"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#expandsTo"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#SimpleProcess"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#fromProcess"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ValueOf"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasClient"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Process"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasDataFrom"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Perform"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasEffect"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Result"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasInput"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Process"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasLocal"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Process"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasOutput"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Process"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasParameter"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Process"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasParticipant"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Process"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasPrecondition"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Process"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasResult"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Process"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasResultVar"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Result"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ifCondition"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#If-Then-Else"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#inCondition"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Result"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#performedBy"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Process"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#process"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Perform"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#producedBinding"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Produce"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#realizedBy"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#SimpleProcess"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#realizes"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#AtomicProcess"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#theVar"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ValueOf"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#then"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#If-Then-Else"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#timeout"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstruct"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#toParam"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Binding"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#untilCondition"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Repeat-Until"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#untilProcess"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Repeat-Until"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueSource"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Binding"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#whileCondition"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Repeat-While"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#whileProcess"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Repeat-While"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#withOutput"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Result"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#contactInformation"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#Profile"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#hasParameter"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#Profile"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#hasPrecondition"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#Profile"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#hasResult"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#Profile"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#has_process"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#Profile"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#sParameter"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#ServiceParameter"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#serviceCategory"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#Profile"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#serviceParameter"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#Profile"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#describedBy"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#Service"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#describes"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#ServiceModel"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#presentedBy"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#ServiceProfile"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#presents"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#Service"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#providedBy"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#Service"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#supportedBy"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#ServiceGrounding"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#supports"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#Service"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#expressionLanguage"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Expression"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#first"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#List"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#rest"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#List"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#collapsesTo"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#SimpleProcess"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#composedOf"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstruct"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#computedEffect"/>
+        <Class IRI="Thing"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#computedInput"/>
+        <Class IRI="Thing"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#computedOutput"/>
+        <Class IRI="Thing"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#computedPrecondition"/>
+        <Class IRI="Thing"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#else"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstruct"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#expandsTo"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#CompositeProcess"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#fromProcess"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Perform"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasDataFrom"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Binding"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasEffect"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Expression"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasInput"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Input"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasLocal"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Local"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasOutput"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Output"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasParameter"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Parameter"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasParticipant"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Participant"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasPrecondition"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Condition"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasResult"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Result"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#hasResultVar"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ResultVar"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ifCondition"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Condition"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#inCondition"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Condition"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#process"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Process"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#producedBinding"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#OutputBinding"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#realizedBy"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#AtomicProcess"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#realizes"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#SimpleProcess"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#theVar"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Parameter"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#then"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstruct"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#timeout"/>
+        <Class IRI="http://www.isi.edu/~pan/damltime/time-entry.owl#IntervalThing"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#toParam"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Parameter"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#untilCondition"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Condition"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#untilProcess"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstruct"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueSource"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ValueOf"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#whileCondition"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Condition"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#whileProcess"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#ControlConstruct"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#withOutput"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#OutputBinding"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#hasInput"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Input"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#hasOutput"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Output"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#hasParameter"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Parameter"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#hasPrecondition"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Condition"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#hasResult"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Result"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#has_process"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Process"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#sParameter"/>
+        <Class IRI="Thing"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#serviceCategory"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#ServiceCategory"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#serviceParameter"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#ServiceParameter"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#describedBy"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#ServiceModel"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#describes"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#Service"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#presentedBy"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#Service"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#presents"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#ServiceProfile"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#provides"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#Service"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#supportedBy"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#Service"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#supports"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Service.owl#ServiceGrounding"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#expressionLanguage"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#LogicLanguage"/>
+    </ObjectPropertyRange>
+    <SubDataPropertyOf>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueForm"/>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueSpecifier"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueFunction"/>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueSpecifier"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueType"/>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueSpecifier"/>
+    </SubDataPropertyOf>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#invocable"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#CompositeProcess"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#name"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Process"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#parameterType"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Parameter"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#parameterValue"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Parameter"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueData"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Binding"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueForm"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Binding"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueFunction"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Binding"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueSpecifier"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Binding"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueType"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#Binding"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#categoryName"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#ServiceCategory"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#code"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#ServiceCategory"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#serviceClassification"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#Profile"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#serviceName"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#Profile"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#serviceParameterName"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#ServiceParameter"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#serviceProduct"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#Profile"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#taxonomy"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#ServiceCategory"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#textDescription"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#Profile"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#value"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#ServiceCategory"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#expressionBody"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Expression"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#refURI"/>
+        <Class IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#LogicLanguage"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#invocable"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#parameterType"/>
+        <Datatype abbreviatedIRI="xsd:anyURI"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#parameterValue"/>
+        <Datatype abbreviatedIRI="rdf:XMLLiteral"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueForm"/>
+        <Datatype abbreviatedIRI="rdf:XMLLiteral"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueFunction"/>
+        <Datatype abbreviatedIRI="rdf:XMLLiteral"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Process.owl#valueType"/>
+        <Datatype abbreviatedIRI="xsd:anyURI"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#serviceClassification"/>
+        <Datatype abbreviatedIRI="xsd:anyURI"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/Profile.owl#serviceProduct"/>
+        <Datatype abbreviatedIRI="xsd:anyURI"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#refURI"/>
+        <Datatype abbreviatedIRI="xsd:anyURI"/>
+    </DataPropertyRange>
+</Ontology>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="mavenreleaseowlapi4/src/main/java"/>
+	<classpathentry kind="src" path="mavenreleaseowlapi4/src/test/java">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="bitbucketfactplusplusmine/mavenreleaseowlapi4/src/main/resources/lib/native/64bit"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="mavenreleaseowlapi4/src/test/resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="M2_REPO/net/sourceforge/owlapi/owlapi-osgidistribution/4.0.1/owlapi-osgidistribution-4.0.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/edu/stanford/protege/org.protege.editor.owl/5.0.0-beta-16-SNAPSHOT/org.protege.editor.owl-5.0.0-beta-16-SNAPSHOT.jar" sourcepath="M2_REPO/edu/stanford/protege/org.protege.editor.owl/4.3.0/org.protege.editor.owl-4.3.0-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/edu/stanford/protege/org.protege.editor.core.application/5.0.0-beta-16-SNAPSHOT/org.protege.editor.core.application-5.0.0-beta-16-SNAPSHOT.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,1982 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     ontologyIRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl">
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Declaration><Class IRI="http://www.geneontology.org/formats/oboInOwl#DbXref"/></Declaration>
+<Declaration><Class IRI="http://www.geneontology.org/formats/oboInOwl#Definition"/></Declaration>
+<Declaration><Class IRI="http://www.geneontology.org/formats/oboInOwl#Synonym"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1#Entity"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/snap#Continuant"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/snap#DependentContinuant"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/snap#Disposition"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/snap#FiatObjectPart"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/snap#Function"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/snap#GenericallyDependentContinuant"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/snap#IndependentContinuant"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/snap#Object"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/snap#ObjectAggregate"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/snap#ObjectBoundary"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/snap#OneDimensionalRegion"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/snap#RealizableEntity"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/snap#Role"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/snap#Site"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/snap#SpatialRegion"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/snap#SpecificallyDependentContinuant"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/snap#ThreeDimensionalRegion"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/snap#TwoDimensionalRegion"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/snap#ZeroDimensionalRegion"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/span#ConnectedSpatiotemporalRegion"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/span#ConnectedTemporalRegion"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/span#FiatProcessPart"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/span#Occurrent"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/span#Process"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessAggregate"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessBoundary"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualContext"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualEntity"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/span#ScatteredSpatiotemporalRegion"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/span#ScatteredTemporalRegion"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/span#SpatiotemporalInstant"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/span#SpatiotemporalInterval"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/span#SpatiotemporalRegion"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/span#TemporalInstant"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/span#TemporalInterval"/></Declaration>
+<Declaration><Class IRI="http://www.ifomis.org/bfo/1.1/span#TemporalRegion"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000001"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000002"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000003"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000004"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000005"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000006"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000007"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000008"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000009"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000010"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000011"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000012"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000013"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000014"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000015"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000016"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000017"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000018"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000019"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000020"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000021"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000022"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000023"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000024"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000025"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000026"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000027"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000028"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000029"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000030"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000031"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000032"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000033"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000034"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000035"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000036"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000037"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000038"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000039"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000040"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000041"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000042"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000043"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000044"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000045"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000046"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000047"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000048"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000049"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000050"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000051"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000052"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000053"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000054"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000055"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000056"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000057"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000058"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000059"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000060"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000061"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000062"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000063"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000064"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000065"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000066"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000067"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000068"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000069"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000070"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000071"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000072"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000073"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000074"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000075"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000076"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000077"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000078"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000079"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000080"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000081"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000082"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000083"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000084"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000085"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000086"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000087"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000088"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000089"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000090"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000091"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000092"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000093"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000094"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000095"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000096"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000097"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000098"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000099"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000100"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000101"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000102"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000103"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000104"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000105"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000106"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000107"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000108"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000109"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000110"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000111"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000112"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000113"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000114"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000115"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000116"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000117"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000118"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000119"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000120"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000121"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000122"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000123"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000124"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000125"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000126"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000127"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000128"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000129"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000130"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000131"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000132"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000133"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000134"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000135"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000136"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000137"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000138"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000139"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000140"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000141"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000142"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000143"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000144"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000145"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000146"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000147"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000148"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000149"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000150"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000151"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000152"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000153"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000154"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000155"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000156"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000157"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000158"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000159"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000160"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000161"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000162"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000163"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000164"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000165"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000166"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000167"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000168"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000169"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000170"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000171"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000172"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000173"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000174"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000175"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000176"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000177"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000178"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000179"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000180"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000181"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000182"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000183"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000184"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000185"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000186"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000187"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000188"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000189"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000190"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000191"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000192"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000193"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000194"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000195"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000196"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000197"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000198"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000199"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000200"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000201"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000202"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000203"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000204"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000205"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000206"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000207"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000208"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000209"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000210"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000211"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000212"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000213"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000214"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000215"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000216"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000217"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000218"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000219"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000220"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000221"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000222"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000223"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000224"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000225"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000226"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000227"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000228"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000229"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000230"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000231"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000232"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000233"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000234"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000235"/></Declaration>
+<Declaration><Class IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#HPI:0000236"/></Declaration>
+
+<Declaration><ObjectProperty IRI="http://www.geneontology.org/formats/oboInOwl#ObsoleteProperty"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#agent_in"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#contained_in"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#contains"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#derived_into"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#derives_from"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_agent"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_improper_part"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_integral_part"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_part"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_participant"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_proper_part"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#improper_part_of"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#integral_part_of"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#located_in"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#location_of"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#part_of"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#participates_in"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#preceded_by"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#precedes"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#proper_part_of"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#relationship"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#transformation_of"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#transformed_into"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#bearer_of"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#disposition_of"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#has_quality"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#inheres_in"/></Declaration>
+<Declaration><ObjectProperty IRI="http://www.semanticweb.org/ontologies/2010/5/22/Ontology1277229984000.owl#inheres_in_part_of"/></Declaration>
+
+
+    <EquivalentClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1#Entity"/>
+        <ObjectUnionOf>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Continuant"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/span#Occurrent"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Continuant"/>
+        <ObjectUnionOf>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/snap#DependentContinuant"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/snap#IndependentContinuant"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/snap#SpatialRegion"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#DependentContinuant"/>
+        <ObjectUnionOf>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/snap#GenericallyDependentContinuant"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/snap#SpecificallyDependentContinuant"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#IndependentContinuant"/>
+        <ObjectUnionOf>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ObjectBoundary"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Site"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+        <ObjectUnionOf>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/snap#FiatObjectPart"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Object"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ObjectAggregate"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#SpatialRegion"/>
+        <ObjectUnionOf>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/snap#OneDimensionalRegion"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ThreeDimensionalRegion"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/snap#TwoDimensionalRegion"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ZeroDimensionalRegion"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#SpecificallyDependentContinuant"/>
+        <ObjectUnionOf>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/snap#RealizableEntity"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ConnectedSpatiotemporalRegion"/>
+        <ObjectUnionOf>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/span#SpatiotemporalInstant"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/span#SpatiotemporalInterval"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ConnectedTemporalRegion"/>
+        <ObjectUnionOf>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/span#TemporalInstant"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/span#TemporalInterval"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#Occurrent"/>
+        <ObjectUnionOf>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualEntity"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/span#SpatiotemporalRegion"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/span#TemporalRegion"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualEntity"/>
+        <ObjectUnionOf>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/span#FiatProcessPart"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/span#Process"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessAggregate"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessBoundary"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualContext"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#SpatiotemporalRegion"/>
+        <ObjectUnionOf>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/span#ConnectedSpatiotemporalRegion"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/span#ScatteredSpatiotemporalRegion"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#TemporalRegion"/>
+        <ObjectUnionOf>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/span#ConnectedTemporalRegion"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/span#ScatteredTemporalRegion"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Continuant"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1#Entity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#DependentContinuant"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Continuant"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Disposition"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#RealizableEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#FiatObjectPart"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Function"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#RealizableEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#GenericallyDependentContinuant"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#DependentContinuant"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#IndependentContinuant"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Continuant"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#IndependentContinuant"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Object"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ObjectAggregate"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ObjectBoundary"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#IndependentContinuant"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#OneDimensionalRegion"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#SpatialRegion"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#SpecificallyDependentContinuant"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#RealizableEntity"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#SpecificallyDependentContinuant"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Role"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#RealizableEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Site"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#IndependentContinuant"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#SpatialRegion"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Continuant"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#SpecificallyDependentContinuant"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#DependentContinuant"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ThreeDimensionalRegion"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#SpatialRegion"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#TwoDimensionalRegion"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#SpatialRegion"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ZeroDimensionalRegion"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#SpatialRegion"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ConnectedSpatiotemporalRegion"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#SpatiotemporalRegion"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ConnectedTemporalRegion"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#TemporalRegion"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#FiatProcessPart"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#Occurrent"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1#Entity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#Process"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessAggregate"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessBoundary"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualContext"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualEntity"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#Occurrent"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ScatteredSpatiotemporalRegion"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#SpatiotemporalRegion"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ScatteredTemporalRegion"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#TemporalRegion"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#SpatiotemporalInstant"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ConnectedSpatiotemporalRegion"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#SpatiotemporalInterval"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ConnectedSpatiotemporalRegion"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#SpatiotemporalRegion"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#Occurrent"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#TemporalInstant"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ConnectedTemporalRegion"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#TemporalInterval"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ConnectedTemporalRegion"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#TemporalRegion"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#Occurrent"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000001"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000002"/>
+        <Class IRI="#HPI:0000001"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000003"/>
+        <Class IRI="#HPI:0000001"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000004"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000005"/>
+        <Class IRI="#HPI:0000002"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000006"/>
+        <Class IRI="#HPI:0000005"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000007"/>
+        <Class IRI="#HPI:0000006"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000008"/>
+        <Class IRI="#HPI:0000006"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000009"/>
+        <Class IRI="#HPI:0000008"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000010"/>
+        <Class IRI="#HPI:0000008"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000011"/>
+        <Class IRI="#HPI:0000008"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000012"/>
+        <Class IRI="#HPI:0000008"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000013"/>
+        <Class IRI="#HPI:0000008"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000014"/>
+        <Class IRI="#HPI:0000008"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000015"/>
+        <Class IRI="#HPI:0000002"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000016"/>
+        <Class IRI="#HPI:0000015"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000017"/>
+        <Class IRI="#HPI:0000016"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000018"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000019"/>
+        <Class IRI="#HPI:0000018"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000020"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000021"/>
+        <Class IRI="#HPI:0000019"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000022"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000023"/>
+        <Class IRI="#HPI:0000003"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000024"/>
+        <Class IRI="#HPI:0000023"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000025"/>
+        <Class IRI="#HPI:0000004"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000026"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Disposition"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000027"/>
+        <Class IRI="#HPI:0000026"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000028"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000029"/>
+        <Class IRI="#HPI:0000028"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000030"/>
+        <Class IRI="#HPI:0000028"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000031"/>
+        <Class IRI="#HPI:0000030"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000032"/>
+        <Class IRI="#HPI:0000031"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000033"/>
+        <Class IRI="#HPI:0000028"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000034"/>
+        <Class IRI="#HPI:0000028"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000035"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000036"/>
+        <Class IRI="#HPI:0000037"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000037"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000038"/>
+        <Class IRI="#HPI:0000036"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000039"/>
+        <Class IRI="#HPI:0000037"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000040"/>
+        <Class IRI="#HPI:0000037"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000041"/>
+        <Class IRI="#HPI:0000037"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000042"/>
+        <Class IRI="#HPI:0000037"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000043"/>
+        <Class IRI="#HPI:0000037"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000044"/>
+        <Class IRI="#HPI:0000037"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000045"/>
+        <Class IRI="#HPI:0000037"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000046"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Disposition"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000047"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Disposition"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000048"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Disposition"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000049"/>
+        <Class IRI="#HPI:0000220"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000050"/>
+        <Class IRI="#HPI:0000049"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000051"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Disposition"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000052"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Disposition"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000053"/>
+        <Class IRI="#HPI:0000055"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000054"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Disposition"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000055"/>
+        <Class IRI="#HPI:0000054"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000056"/>
+        <Class IRI="#HPI:0000053"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000057"/>
+        <Class IRI="#HPI:0000052"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000058"/>
+        <Class IRI="#HPI:0000057"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000059"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Function"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000060"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Function"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000061"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Role"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000062"/>
+        <Class IRI="#HPI:0000061"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000063"/>
+        <Class IRI="#HPI:0000062"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000064"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Role"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000065"/>
+        <Class IRI="#HPI:0000063"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000066"/>
+        <Class IRI="#HPI:0000065"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000067"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Role"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000068"/>
+        <Class IRI="#HPI:0000067"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000069"/>
+        <Class IRI="#HPI:0000067"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000070"/>
+        <Class IRI="#HPI:0000067"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000071"/>
+        <Class IRI="#HPI:0000067"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000072"/>
+        <Class IRI="#HPI:0000067"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000073"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Role"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000074"/>
+        <Class IRI="#HPI:0000075"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000075"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000076"/>
+        <Class IRI="#HPI:0000075"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000077"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Role"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000078"/>
+        <Class IRI="#HPI:0000073"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000079"/>
+        <Class IRI="#HPI:0000078"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000080"/>
+        <Class IRI="#HPI:0000077"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000081"/>
+        <Class IRI="#HPI:0000080"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000082"/>
+        <Class IRI="#HPI:0000074"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000083"/>
+        <Class IRI="#HPI:0000082"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000084"/>
+        <Class IRI="#HPI:0000076"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000085"/>
+        <Class IRI="#HPI:0000084"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000086"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Role"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000087"/>
+        <Class IRI="#HPI:0000086"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000088"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Role"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000089"/>
+        <Class IRI="#HPI:0000088"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000090"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000091"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Disposition"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000092"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Disposition"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000093"/>
+        <Class IRI="#HPI:0000092"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000094"/>
+        <Class IRI="#HPI:0000093"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000095"/>
+        <Class IRI="#HPI:0000094"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000096"/>
+        <Class IRI="#HPI:0000094"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000097"/>
+        <Class IRI="#HPI:0000093"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000098"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000099"/>
+        <Class IRI="#HPI:0000098"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000100"/>
+        <Class IRI="#HPI:0000099"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000101"/>
+        <Class IRI="#HPI:0000100"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000102"/>
+        <Class IRI="#HPI:0000101"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000103"/>
+        <Class IRI="#HPI:0000003"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000104"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000105"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000106"/>
+        <Class IRI="#HPI:0000105"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000106"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#inheres_in"/>
+            <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000107"/>
+        <Class IRI="#HPI:0000106"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000108"/>
+        <Class IRI="#HPI:0000107"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000109"/>
+        <Class IRI="#HPI:0000107"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000110"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000111"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000112"/>
+        <Class IRI="#HPI:0000111"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000113"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000114"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000115"/>
+        <Class IRI="#HPI:0000114"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000116"/>
+        <Class IRI="#HPI:0000115"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000117"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000118"/>
+        <Class IRI="#HPI:0000117"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000119"/>
+        <Class IRI="#HPI:0000118"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000120"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000121"/>
+        <Class IRI="#HPI:0000120"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000122"/>
+        <Class IRI="#HPI:0000121"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000123"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000124"/>
+        <Class IRI="#HPI:0000123"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000125"/>
+        <Class IRI="#HPI:0000124"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000126"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000127"/>
+        <Class IRI="#HPI:0000126"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000128"/>
+        <Class IRI="#HPI:0000127"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000129"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000130"/>
+        <Class IRI="#HPI:0000129"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000131"/>
+        <Class IRI="#HPI:0000130"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000132"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000133"/>
+        <Class IRI="#HPI:0000132"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000134"/>
+        <Class IRI="#HPI:0000133"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000135"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000136"/>
+        <Class IRI="#HPI:0000135"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000137"/>
+        <Class IRI="#HPI:0000136"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000138"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000139"/>
+        <Class IRI="#HPI:0000138"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000140"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000141"/>
+        <Class IRI="#HPI:0000140"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000142"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000143"/>
+        <Class IRI="#HPI:0000142"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000144"/>
+        <Class IRI="#HPI:0000143"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000145"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000146"/>
+        <Class IRI="#HPI:0000145"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000147"/>
+        <Class IRI="#HPI:0000146"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000148"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000149"/>
+        <Class IRI="#HPI:0000148"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000150"/>
+        <Class IRI="#HPI:0000149"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000151"/>
+        <Class IRI="#HPI:0000027"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000152"/>
+        <Class IRI="#HPI:0000151"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000153"/>
+        <Class IRI="#HPI:0000100"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000154"/>
+        <Class IRI="#HPI:0000100"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000155"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000156"/>
+        <Class IRI="#HPI:0000162"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000157"/>
+        <Class IRI="#HPI:0000156"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000158"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000159"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000160"/>
+        <Class IRI="#HPI:0000159"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000161"/>
+        <Class IRI="#HPI:0000159"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000162"/>
+        <Class IRI="#HPI:0000159"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000163"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000164"/>
+        <Class IRI="#HPI:0000163"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000165"/>
+        <Class IRI="#HPI:0000164"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000166"/>
+        <Class IRI="#HPI:0000165"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000167"/>
+        <Class IRI="#HPI:0000156"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000168"/>
+        <Class IRI="#HPI:0000156"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000169"/>
+        <Class IRI="#HPI:0000156"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000170"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000171"/>
+        <Class IRI="#HPI:0000170"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000172"/>
+        <Class IRI="#HPI:0000170"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000173"/>
+        <Class IRI="#HPI:0000170"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000174"/>
+        <Class IRI="#HPI:0000170"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000175"/>
+        <Class IRI="#HPI:0000174"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000176"/>
+        <Class IRI="#HPI:0000170"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000177"/>
+        <Class IRI="#HPI:0000170"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000178"/>
+        <Class IRI="#HPI:0000170"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000178"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#has_quality"/>
+            <Class IRI="#HPI:0000113"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000179"/>
+        <Class IRI="#HPI:0000170"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000180"/>
+        <Class IRI="#HPI:0000159"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000181"/>
+        <Class IRI="#HPI:0000157"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000182"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000183"/>
+        <Class IRI="#HPI:0000182"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000184"/>
+        <Class IRI="#HPI:0000183"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000185"/>
+        <Class IRI="#HPI:0000183"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000186"/>
+        <Class IRI="#HPI:0000182"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000187"/>
+        <Class IRI="#HPI:0000186"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000188"/>
+        <Class IRI="#HPI:0000186"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000189"/>
+        <Class IRI="#HPI:0000188"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000190"/>
+        <Class IRI="#HPI:0000188"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000191"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Disposition"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000191"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#disposition_of"/>
+            <Class IRI="#HPI:0000164"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000192"/>
+        <Class IRI="#HPI:0000162"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000193"/>
+        <Class IRI="#HPI:0000192"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000194"/>
+        <Class IRI="#HPI:0000193"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000195"/>
+        <Class IRI="#HPI:0000022"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000196"/>
+        <Class IRI="#HPI:0000022"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000197"/>
+        <Class IRI="#HPI:0000022"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000198"/>
+        <Class IRI="#HPI:0000022"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000199"/>
+        <Class IRI="#HPI:0000003"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000200"/>
+        <Class IRI="#HPI:0000199"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000201"/>
+        <Class IRI="#HPI:0000200"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000202"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000203"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000204"/>
+        <Class IRI="#HPI:0000088"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000205"/>
+        <Class IRI="#HPI:0000204"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000206"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000207"/>
+        <Class IRI="#HPI:0000206"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000208"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000209"/>
+        <Class IRI="#HPI:0000208"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000210"/>
+        <Class IRI="#HPI:0000208"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000211"/>
+        <Class IRI="#HPI:0000208"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000212"/>
+        <Class IRI="#HPI:0000211"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000213"/>
+        <Class IRI="#HPI:0000211"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000214"/>
+        <Class IRI="#HPI:0000213"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000215"/>
+        <Class IRI="#HPI:0000208"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000216"/>
+        <Class IRI="#HPI:0000208"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000217"/>
+        <Class IRI="#HPI:0000199"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000218"/>
+        <Class IRI="#HPI:0000022"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000219"/>
+        <Class IRI="#HPI:0000199"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000220"/>
+        <Class IRI="#HPI:0000052"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000221"/>
+        <Class IRI="#HPI:0000049"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000222"/>
+        <Class IRI="#HPI:0000221"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000223"/>
+        <Class IRI="#HPI:0000049"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000224"/>
+        <Class IRI="#HPI:0000223"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000225"/>
+        <Class IRI="#HPI:0000049"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000226"/>
+        <Class IRI="#HPI:0000225"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000227"/>
+        <Class IRI="#HPI:0000049"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000228"/>
+        <Class IRI="#HPI:0000227"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000229"/>
+        <Class IRI="#HPI:0000027"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000230"/>
+        <Class IRI="#HPI:0000026"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000231"/>
+        <Class IRI="#HPI:0000003"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000232"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Object"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000233"/>
+        <Class IRI="#HPI:0000232"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000234"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000235"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HPI:0000236"/>
+        <Class IRI="#HPI:0000001"/>
+    </SubClassOf>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Continuant"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#Occurrent"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#DependentContinuant"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#IndependentContinuant"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#DependentContinuant"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#SpatialRegion"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Disposition"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Function"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Disposition"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Role"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#FiatObjectPart"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Object"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#FiatObjectPart"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ObjectAggregate"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#FiatObjectPart"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ObjectBoundary"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#FiatObjectPart"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Site"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Function"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Role"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#GenericallyDependentContinuant"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#SpecificallyDependentContinuant"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#IndependentContinuant"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#SpatialRegion"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ObjectBoundary"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Site"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Object"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ObjectAggregate"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Object"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ObjectBoundary"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Object"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Site"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ObjectAggregate"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ObjectBoundary"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ObjectAggregate"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Site"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ObjectBoundary"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Site"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#OneDimensionalRegion"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ThreeDimensionalRegion"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#OneDimensionalRegion"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#TwoDimensionalRegion"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#OneDimensionalRegion"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ZeroDimensionalRegion"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#RealizableEntity"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ThreeDimensionalRegion"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#TwoDimensionalRegion"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ThreeDimensionalRegion"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ZeroDimensionalRegion"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#TwoDimensionalRegion"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/snap#ZeroDimensionalRegion"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ConnectedSpatiotemporalRegion"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ScatteredSpatiotemporalRegion"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ConnectedTemporalRegion"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ScatteredTemporalRegion"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#FiatProcessPart"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#Process"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#FiatProcessPart"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessAggregate"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#FiatProcessPart"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessBoundary"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#FiatProcessPart"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualContext"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#Process"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessAggregate"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#Process"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessBoundary"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#Process"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualContext"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessAggregate"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessBoundary"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessAggregate"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualContext"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessBoundary"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualContext"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualEntity"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#SpatiotemporalRegion"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#ProcessualEntity"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#TemporalRegion"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#SpatiotemporalInstant"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#SpatiotemporalInterval"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#SpatiotemporalRegion"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#TemporalRegion"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#TemporalInstant"/>
+        <Class IRI="http://www.ifomis.org/bfo/1.1/span#TemporalInterval"/>
+    </DisjointClasses>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#Definition"/>
+        <AnonymousIndividual nodeID="_:genid661413"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#DbXref"/>
+        <AnonymousIndividual nodeID="_:genid661414"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#Definition"/>
+        <AnonymousIndividual nodeID="_:genid661415"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#DbXref"/>
+        <AnonymousIndividual nodeID="_:genid661416"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#Definition"/>
+        <AnonymousIndividual nodeID="_:genid661417"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#DbXref"/>
+        <AnonymousIndividual nodeID="_:genid661418"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#Definition"/>
+        <AnonymousIndividual nodeID="_:genid661419"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#DbXref"/>
+        <AnonymousIndividual nodeID="_:genid661420"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#Definition"/>
+        <AnonymousIndividual nodeID="_:genid661421"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#DbXref"/>
+        <AnonymousIndividual nodeID="_:genid661422"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#Definition"/>
+        <AnonymousIndividual nodeID="_:genid661423"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#DbXref"/>
+        <AnonymousIndividual nodeID="_:genid661424"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#Definition"/>
+        <AnonymousIndividual nodeID="_:genid661425"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#DbXref"/>
+        <AnonymousIndividual nodeID="_:genid661426"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#Definition"/>
+        <AnonymousIndividual nodeID="_:genid661427"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#DbXref"/>
+        <AnonymousIndividual nodeID="_:genid661428"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#Synonym"/>
+        <AnonymousIndividual nodeID="_:genid661429"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#Definition"/>
+        <AnonymousIndividual nodeID="_:genid661430"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#DbXref"/>
+        <AnonymousIndividual nodeID="_:genid661431"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#Definition"/>
+        <AnonymousIndividual nodeID="_:genid661432"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#DbXref"/>
+        <AnonymousIndividual nodeID="_:genid661433"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#Definition"/>
+        <AnonymousIndividual nodeID="_:genid661434"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#DbXref"/>
+        <AnonymousIndividual nodeID="_:genid661435"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#Definition"/>
+        <AnonymousIndividual nodeID="_:genid661436"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#DbXref"/>
+        <AnonymousIndividual nodeID="_:genid661437"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#Definition"/>
+        <AnonymousIndividual nodeID="_:genid661438"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.geneontology.org/formats/oboInOwl#DbXref"/>
+        <AnonymousIndividual nodeID="_:genid661439"/>
+    </ClassAssertion>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#agent_in"/>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#participates_in"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_agent"/>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_participant"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_improper_part"/>
+        <ObjectProperty IRI="http://www.geneontology.org/formats/oboInOwl#ObsoleteProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_improper_part"/>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_integral_part"/>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_proper_part"/>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#improper_part_of"/>
+        <ObjectProperty IRI="http://www.geneontology.org/formats/oboInOwl#ObsoleteProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#improper_part_of"/>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#integral_part_of"/>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#proper_part_of"/>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#relationship"/>
+        <ObjectProperty IRI="http://www.geneontology.org/formats/oboInOwl#ObsoleteProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#transformed_into"/>
+        <ObjectProperty IRI="http://www.geneontology.org/formats/oboInOwl#ObsoleteProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#bearer_of"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#disposition_of"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#has_quality"/>
+        <ObjectProperty IRI="#bearer_of"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#inheres_in"/>
+        <ObjectProperty IRI="#inheres_in_part_of"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#inheres_in_part_of"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_agent"/>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#agent_in"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#contained_in"/>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#contains"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#derives_from"/>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#derived_into"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#improper_part_of"/>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_improper_part"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#integral_part_of"/>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_integral_part"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#participates_in"/>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_participant"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_proper_part"/>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#proper_part_of"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#location_of"/>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#located_in"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#preceded_by"/>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#precedes"/>
+    </InverseObjectProperties>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#derived_into"/>
+    </TransitiveObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#derives_from"/>
+    </TransitiveObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_improper_part"/>
+    </TransitiveObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_integral_part"/>
+    </TransitiveObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+    </TransitiveObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#has_proper_part"/>
+    </TransitiveObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#improper_part_of"/>
+    </TransitiveObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#integral_part_of"/>
+    </TransitiveObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#located_in"/>
+    </TransitiveObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#location_of"/>
+    </TransitiveObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+    </TransitiveObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#preceded_by"/>
+    </TransitiveObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#precedes"/>
+    </TransitiveObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#proper_part_of"/>
+    </TransitiveObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="http://www.obofoundry.org/ro/ro.owl#transformation_of"/>
+    </TransitiveObjectProperty>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 3.5.beta) http://owlapi.sourceforge.net -->
+

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<plugin>
+
+    <extension point="org.protege.editor.owl.inference_reasonerfactory"
+               id="factplusplus-factory">
+        <name value="FaCT++ 1.7.0-SNAPSHOT"/>
+        <label value="FaCT++ 1.7.0-SNAPSHOT"/>
+        <class value="uk.ac.manchester.cs.factplusplus.protege.FaCTPlusPlusFactory"/>
+    </extension>
+
+    <!--extension point="org.protege.editor.core.application.ViewComponent"
+               id="factplusplus-rendering">
+        <label value="FaCT++ Rendering"/>
+        <class value="uk.ac.manchester.cs.factplusplus.protege.FaCTPlusPlusRenderingViewComponent"/>
+        <headerColor value="@org.protege.ontologycolor"/>
+        <category value="@org.protege.ontologycategory"/>
+    </extension-->
+
+</plugin>

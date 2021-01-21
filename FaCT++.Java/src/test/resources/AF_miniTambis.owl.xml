@@ -1,0 +1,1347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY miniTambis "http://miniTambis">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xml:base="&miniTambis;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""/>
+
+<!-- Classes -->
+  <owl:Class rdf:about="#AminoAcid"/>
+  <owl:Class rdf:about="#Anion">
+    <rdfs:subClassOf rdf:resource="#Chemical"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#participatesIn"/>
+        <owl:someValuesFrom rdf:resource="#Hydrolysis"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Binding"/>
+  <owl:Class rdf:about="#BindingSite">
+    <owl:equivalentClass>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#target-for"/>
+        <owl:someValuesFrom rdf:resource="#Binding"/>
+      </owl:Restriction>
+    </owl:equivalentClass>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Chemical">
+    <rdfs:subClassOf rdf:resource="#PhysicalSubstance"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#atomicNumber"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ChemicalBindingSite">
+    <rdfs:subClassOf rdf:resource="#BindingSite"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#binds"/>
+        <owl:someValuesFrom rdf:resource="#BindingSite"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DNA">
+    <owl:equivalentClass rdf:resource="#Gene-Product"/>
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#macromolecular-compound"/>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#Deoxy-Ribo-Nucleotide"/>
+        <owl:onProperty rdf:resource="#polymerOf"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#polymerOf"/>
+        <owl:someValuesFrom rdf:resource="#Deoxy-Ribo-Nucleotide"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Deoxy-Ribo-Nucleotide"/>
+  <owl:Class rdf:about="#DivalentIon">
+    <rdfs:subClassOf rdf:resource="#Anion"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:minCardinality>
+        <owl:onProperty rdf:resource="#valency"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Enzyme"/>
+  <owl:Class rdf:about="#EnzymeReaction">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#Reaction"/>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#relatedTo"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#Enzyme"/>
+        <owl:onProperty rdf:resource="#relatedTo"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Gene-Product">
+    <owl:equivalentClass rdf:resource="#Protein"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#HoloEnzyme">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#Enzyme"/>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#participatesIn"/>
+        <owl:someValuesFrom rdf:resource="#HoloProteinReaction"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#HoloProtein">
+    <rdfs:subClassOf rdf:resource="#Protein"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#HoloProteinReaction">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#EnzymeReaction"/>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#involves"/>
+        <owl:someValuesFrom rdf:resource="#HoloProtein"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Hydrolase">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#catalyses"/>
+        <owl:someValuesFrom rdf:resource="#Hydrolysis"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#AminoAcid"/>
+        <owl:onProperty rdf:resource="#polymerOf"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#hasStrand"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Hydrolysis">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#relatedTo"/>
+        <owl:someValuesFrom rdf:resource="#Proteosis"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MonovalentIon">
+    <rdfs:subClassOf rdf:resource="#Anion"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#valency"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MultiStrandedPeptide">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#Peptide"/>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:minCardinality>
+        <owl:onProperty rdf:resource="#hasStrand"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#OxyReductReaction">
+    <rdfs:subClassOf rdf:resource="#Reaction"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#involves"/>
+        <owl:someValuesFrom rdf:resource="#Oxygen"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#relatedTo"/>
+        <owl:someValuesFrom rdf:resource="#ReductProteoseReaction"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Oxygen"/>
+  <owl:Class rdf:about="#Peptide">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#Protein"/>
+        <owl:onProperty rdf:resource="#part-of"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#part-of"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PhysicalSubstance">
+    <rdfs:subClassOf rdf:resource="#substance"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Protein">
+    <owl:disjointWith rdf:resource="#RNA"/>
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#macromolecular-compound"/>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#AminoAcid"/>
+        <owl:onProperty rdf:resource="#polymerOf"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#polymerOf"/>
+        <owl:someValuesFrom rdf:resource="#AminoAcid"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Proteosis">
+    <owl:unionOf rdf:parseType="Collection">
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#catalyses"/>
+        <owl:someValuesFrom rdf:resource="#SingleStrandedPeptide"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#catalyses"/>
+        <owl:someValuesFrom rdf:resource="#MultiStrandedPeptide"/>
+      </owl:Restriction>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#RNA">
+    <owl:disjointWith rdf:resource="#Protein"/>
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#macromolecular-compound"/>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#Ribo-Nucleotide"/>
+        <owl:onProperty rdf:resource="#polymerOf"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#polymerOf"/>
+        <owl:someValuesFrom rdf:resource="#Ribo-Nucleotide"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Reaction"/>
+  <owl:Class rdf:about="#ReductProteoseReaction">
+    <rdfs:subClassOf rdf:resource="#Reaction"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#involves"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+        <owl:onProperty rdf:resource="#participatesIn"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#relatedTo"/>
+        <owl:someValuesFrom rdf:resource="#Proteosis"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Ribo-Nucleotide"/>
+  <owl:Class rdf:about="#SingleStrandedPeptide">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#Peptide"/>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#hasStrand"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#accession-number"/>
+  <owl:Class rdf:about="#amino-acid"/>
+  <owl:Class rdf:about="#binding-site"/>
+  <owl:Class rdf:about="#biological-classification"/>
+  <owl:Class rdf:about="#biological-function"/>
+  <owl:Class rdf:about="#biological-structure">
+    <rdfs:subClassOf rdf:resource="#structure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#carbohydrate"/>
+  <owl:Class rdf:about="#carbon"/>
+  <owl:Class rdf:about="#carbon-nitrogen-bond"/>
+  <owl:Class rdf:about="#cell"/>
+  <owl:Class rdf:about="#chemical"/>
+  <owl:Class rdf:about="#cofactor"/>
+  <owl:Class rdf:about="#compound"/>
+  <owl:Class rdf:about="#covalent-bond"/>
+  <owl:Class rdf:about="#cytosol"/>
+  <owl:Class rdf:about="#deoxy-nucleotide"/>
+  <owl:Class rdf:about="#dna"/>
+  <owl:Class rdf:about="#dna-organisation"/>
+  <owl:Class rdf:about="#dna-site"/>
+  <owl:Class rdf:about="#ec-number"/>
+  <owl:Class rdf:about="#electrical-charge"/>
+  <owl:Class rdf:about="#extra-cellular-space"/>
+  <owl:Class rdf:about="#gene"/>
+  <owl:Class rdf:about="#institution"/>
+  <owl:Class rdf:about="#inter-molecule-transfer">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#binds-strongly"/>
+        <owl:someValuesFrom rdf:resource="#macromolecular-compound"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#isomerisation">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#involves"/>
+        <owl:someValuesFrom rdf:resource="#regulation"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#ligation"/>
+      <rdf:Description rdf:about="#process"/>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#contains"/>
+        <owl:someValuesFrom rdf:resource="#isomers"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#isomers"/>
+  <owl:Class rdf:about="#length-unit"/>
+  <owl:Class rdf:about="#ligand"/>
+  <owl:Class rdf:about="#ligation">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#racemation"/>
+        <owl:onProperty rdf:resource="#involves"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#lipid-attachment-site"/>
+  <owl:Class rdf:about="#lysis"/>
+  <owl:Class rdf:about="#macromolecular-compound"/>
+  <owl:Class rdf:about="#macromolecule-part"/>
+  <owl:Class rdf:about="#match-type"/>
+  <owl:Class rdf:about="#membrane"/>
+  <owl:Class rdf:about="#messenger-rna"/>
+  <owl:Class rdf:about="#metal-ion"/>
+  <owl:Class rdf:about="#modification-site"/>
+  <owl:Class rdf:about="#modifier"/>
+  <owl:Class rdf:about="#molecule"/>
+  <owl:Class rdf:about="#name">
+    <owl:equivalentClass rdf:resource="#protein-name"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#negative"/>
+  <owl:Class rdf:about="#nucleic-acid"/>
+  <owl:Class rdf:about="#nucleotide"/>
+  <owl:Class rdf:about="#nucleus"/>
+  <owl:Class rdf:about="#nucleus-part">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#biological-structure"/>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#nucleus"/>
+        <owl:onProperty rdf:resource="#part-of"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#part-of"/>
+        <owl:someValuesFrom rdf:resource="#nucleus"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#obsolete">
+    <rdfs:subClassOf rdf:resource="#biological-function"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#organelle">
+    <rdfs:subClassOf rdf:resource="#biological-structure"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#cell"/>
+        <owl:onProperty rdf:resource="#part-of"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#part-of"/>
+        <owl:someValuesFrom rdf:resource="#cell"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#organic-molecular-compound">
+    <rdfs:subClassOf rdf:resource="#chemical"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#has-bond"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#atom-type"/>
+        <owl:someValuesFrom rdf:resource="&xsd;string"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#has-bond"/>
+        <owl:someValuesFrom rdf:resource="#covalent-bond"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#number-of-atoms"/>
+        <owl:someValuesFrom rdf:resource="&xsd;integer"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#contains"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#contains"/>
+        <owl:someValuesFrom rdf:resource="#carbon"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#organism-classification">
+    <rdfs:subClassOf rdf:resource="#biological-classification"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#other-bond-lysis">
+    <rdfs:subClassOf rdf:resource="#lysis"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#oxidation">
+    <rdfs:subClassOf rdf:resource="#oxidation-and-reduction"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#oxidation-and-reduction">
+    <rdfs:subClassOf rdf:resource="#reaction"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#involves"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#isomerisation"/>
+        <owl:onProperty rdf:resource="#involves"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#oxidoreductase">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#macromolecular-compound"/>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#has-ec-number"/>
+        <owl:someValuesFrom rdf:resource="#ec-number"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#amino-acid"/>
+        <owl:onProperty rdf:resource="#polymer-of"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#polymer-of"/>
+        <owl:someValuesFrom rdf:resource="#amino-acid"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#catalyses"/>
+        <owl:someValuesFrom rdf:resource="#oxidation-and-reduction"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#oxygen">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#chemical"/>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#atomic-number"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#atomic-number"/>
+        <owl:someValuesFrom rdf:resource="&xsd;integer"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#oxygenation">
+    <rdfs:subClassOf rdf:resource="#oxidation-and-reduction"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#palmitate-attachment-site">
+    <rdfs:subClassOf rdf:resource="#lipid-attachment-site"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#part-of-biological-structure">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#biological-structure"/>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#biological-structure"/>
+        <owl:onProperty rdf:resource="#part-of"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#part-of"/>
+        <owl:someValuesFrom rdf:resource="#biological-structure"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#part-of-physical-structure">
+    <rdfs:subClassOf rdf:resource="#physical-structure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#peptidase">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#macromolecular-compound"/>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#has-ec-number"/>
+        <owl:someValuesFrom rdf:resource="#ec-number"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#catalyses"/>
+        <owl:someValuesFrom rdf:resource="#peptide-bond-hydrolysis"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#amino-acid"/>
+        <owl:onProperty rdf:resource="#polymer-of"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#polymer-of"/>
+        <owl:someValuesFrom rdf:resource="#amino-acid"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#peptide">
+    <rdfs:subClassOf rdf:resource="#small-molecular-compound"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#peptide-bond">
+    <rdfs:subClassOf rdf:resource="#carbon-nitrogen-bond"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#binds"/>
+        <owl:someValuesFrom rdf:resource="#peptide"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#peptide-bond-hydrolysis">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#reaction"/>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hydrolysis-of"/>
+        <owl:someValuesFrom rdf:resource="#peptide-bond"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#peroxidation">
+    <rdfs:subClassOf rdf:resource="#oxidation-and-reduction"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#phosphatase">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#macromolecular-compound"/>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#has-ec-number"/>
+        <owl:someValuesFrom rdf:resource="#ec-number"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#amino-acid"/>
+        <owl:onProperty rdf:resource="#polymer-of"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#catalyses"/>
+        <owl:someValuesFrom rdf:resource="#phosphorus-oxygen-bond-hydrolysis"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#polymer-of"/>
+        <owl:someValuesFrom rdf:resource="#amino-acid"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#phosphate">
+    <rdfs:subClassOf rdf:resource="#ligand"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#phosphate-transfer">
+    <rdfs:subClassOf rdf:resource="#inter-molecule-transfer"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#phosphopantetheine-substitution-site">
+    <rdfs:subClassOf rdf:resource="#modification-site"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#inter-molecule-transfer"/>
+        <owl:onProperty rdf:resource="#target-for"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#target-for"/>
+        <owl:someValuesFrom rdf:resource="#inter-molecule-transfer"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#phosphoric-ester-bond-formation">
+    <rdfs:subClassOf rdf:resource="#ligation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#phosphorous">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#chemical"/>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#atomic-number"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#atomic-number"/>
+        <owl:someValuesFrom rdf:resource="&xsd;integer"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#phosphorus-nitrogen-bond">
+    <rdfs:subClassOf rdf:resource="#covalent-bond"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#phosphorus-nitrogen-bond-hydrolysis">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#reaction"/>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hydrolysis-of"/>
+        <owl:someValuesFrom rdf:resource="#phosphorus-nitrogen-bond"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#phosphorus-oxygen-bond">
+    <rdfs:subClassOf rdf:resource="#covalent-bond"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#phosphorus-oxygen-bond-hydrolysis">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#reaction"/>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hydrolysis-of"/>
+        <owl:someValuesFrom rdf:resource="#phosphorus-oxygen-bond"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#phosphorus-oxygen-lysis">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#reaction"/>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#lysis-of"/>
+        <owl:someValuesFrom rdf:resource="#phosphorus-oxygen-bond"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#phosphorylation-site">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#modification-site"/>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#target-for"/>
+        <owl:someValuesFrom rdf:resource="#phosphate-transfer"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#physical">
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+    <owl:disjointWith rdf:resource="#structure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#physical-organisation">
+    <rdfs:subClassOf rdf:resource="#physical-structure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#physical-process">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#physical"/>
+          <rdf:Description rdf:about="#process"/>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#physical-space">
+    <rdfs:subClassOf rdf:resource="#physical-structure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#physical-structure"/>
+  <owl:Class rdf:about="#physicochemical-property">
+    <rdfs:subClassOf rdf:resource="#property"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#physicochemical-selector">
+    <rdfs:subClassOf rdf:resource="#selector"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#plasma-membrane">
+    <rdfs:subClassOf rdf:resource="#membrane"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#plasmid">
+    <rdfs:subClassOf rdf:resource="#dna-organisation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#polarity">
+    <rdfs:subClassOf rdf:resource="#physicochemical-selector"/>
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#negative"/>
+          <rdf:Description rdf:about="#positive"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#poly-a-tail">
+    <rdfs:subClassOf rdf:resource="#rna-part"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#part-of"/>
+        <owl:someValuesFrom rdf:resource="#messenger-rna"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#polysaccaride">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#macromolecular-compound"/>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#polymer-of"/>
+        <owl:someValuesFrom rdf:resource="#carbohydrate"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#carbohydrate"/>
+        <owl:onProperty rdf:resource="#polymer-of"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#positive">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#polarity"/>
+          <owl:Class>
+            <owl:complementOf rdf:resource="#negative"/>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#positive-charge">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#electrical-charge"/>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#has-polarity"/>
+        <owl:someValuesFrom rdf:resource="#positive"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#potassium">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#chemical"/>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#atomic-number"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#atomic-number"/>
+        <owl:someValuesFrom rdf:resource="&xsd;integer"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#prenyl-group">
+    <rdfs:subClassOf rdf:resource="#ligand"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#prenylation-site">
+    <rdfs:subClassOf rdf:resource="#modification-site"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#target-for"/>
+        <owl:someValuesFrom rdf:resource="#inter-molecule-transfer"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#process">
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#product">
+    <rdfs:subClassOf rdf:resource="#reaction-participant"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#prokaryote">
+    <rdfs:subClassOf rdf:resource="#organism-classification"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#property">
+    <rdfs:subClassOf rdf:resource="#modifier"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#prosthetic-group">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#cofactor"/>
+      <owl:Class>
+        <owl:complementOf rdf:resource="#metal-ion"/>
+      </owl:Class>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#protein-binding-site">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#binding-site"/>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#binds"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#protein-name"/>
+  <owl:Class rdf:about="#protein-part">
+    <owl:equivalentClass>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#part-of"/>
+        <owl:someValuesFrom rdf:resource="#Protein"/>
+      </owl:Restriction>
+    </owl:equivalentClass>
+  </owl:Class>
+
+  <owl:Class rdf:about="#protein-primary-structure">
+    <rdfs:subClassOf rdf:resource="#protein-structure"/>
+    <owl:equivalentClass rdf:resource="#protein-sequence"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#protein-protein-homologue">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#macromolecular-compound"/>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#amino-acid"/>
+        <owl:onProperty rdf:resource="#polymer-of"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#has-match-level"/>
+        <owl:someValuesFrom rdf:resource="#match-type"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#polymer-of"/>
+        <owl:someValuesFrom rdf:resource="#amino-acid"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#protein-secondary-structure">
+    <rdfs:subClassOf rdf:resource="#protein-structure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#protein-sequence">
+    <rdfs:subClassOf rdf:resource="#protein-structure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#protein-structure">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#biological-structure"/>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#macromolecular-compound"/>
+        <owl:onProperty rdf:resource="#structure-of"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#structure-of"/>
+        <owl:someValuesFrom rdf:resource="#macromolecular-compound"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#protein-tagging">
+    <rdfs:subClassOf rdf:resource="#biological-function"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#protein-turn">
+    <rdfs:subClassOf rdf:resource="#protein-secondary-structure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#published-material">
+    <rdfs:subClassOf rdf:resource="#work"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#has-publication-year"/>
+        <owl:someValuesFrom rdf:resource="#year"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#publishing-institution"/>
+        <owl:onProperty rdf:resource="#published-by"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#has-title"/>
+        <owl:someValuesFrom rdf:resource="#work-title"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#published-by"/>
+        <owl:someValuesFrom rdf:resource="#publishing-institution"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#publishing-institution">
+    <rdfs:subClassOf rdf:resource="#institution"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#quarternary-structure">
+    <rdfs:subClassOf rdf:resource="#protein-structure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#racemation">
+    <rdfs:subClassOf rdf:resource="#peroxidation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#reaction">
+    <rdfs:subClassOf rdf:resource="#physical-process"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#chemical"/>
+        <owl:onProperty rdf:resource="#has-substrate"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#transforms"/>
+        <owl:someValuesFrom rdf:resource="#chemical"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#chemical"/>
+        <owl:onProperty rdf:resource="#transforms"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#has-substrate"/>
+        <owl:someValuesFrom rdf:resource="#chemical"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#chemical"/>
+        <owl:onProperty rdf:resource="#has-product"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#has-product"/>
+        <owl:someValuesFrom rdf:resource="#chemical"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#reaction-participant">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#chemical"/>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#takes-part-in"/>
+        <owl:someValuesFrom rdf:resource="#reaction"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#receptor">
+    <rdfs:subClassOf rdf:resource="#signal-transduction"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#receptor-signalling-protein">
+    <rdfs:subClassOf rdf:resource="#signal-transduction"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#regulation">
+    <rdfs:subClassOf rdf:resource="#biological-function"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#residue-number">
+    <rdfs:subClassOf rdf:resource="#length-unit"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#restriction-endonuclease-site">
+    <rdfs:subClassOf rdf:resource="#dna-site"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ribo-nucleotide">
+    <rdfs:subClassOf rdf:resource="#nucleotide"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ribosomal-rna">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#macromolecular-compound"/>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#transcribed-from"/>
+        <owl:someValuesFrom rdf:resource="#gene"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#ribo-nucleotide"/>
+        <owl:onProperty rdf:resource="#polymer-of"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#part-of"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#polymer-of"/>
+        <owl:someValuesFrom rdf:resource="#ribo-nucleotide"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#part-of"/>
+        <owl:someValuesFrom rdf:resource="#ribosome"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#gene"/>
+        <owl:onProperty rdf:resource="#transcribed-from"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ribosomal-rna-function">
+    <rdfs:subClassOf rdf:resource="#biological-function"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#has-function"/>
+        <owl:someValuesFrom rdf:resource="#ribosomal-rna"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ribosome">
+    <rdfs:subClassOf rdf:resource="#biological-structure"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#part-of"/>
+        <owl:someValuesFrom rdf:resource="#cytosol"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#cytosol"/>
+        <owl:onProperty rdf:resource="#part-of"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ribosome-binding-site">
+    <rdfs:subClassOf rdf:resource="#rna-part"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#binds"/>
+        <owl:someValuesFrom rdf:resource="#ribosome"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#part-of"/>
+        <owl:someValuesFrom rdf:resource="#messenger-rna"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#binds"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#rna">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#macromolecular-compound"/>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#ribo-nucleotide"/>
+        <owl:onProperty rdf:resource="#polymer-of"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#polymer-of"/>
+        <owl:someValuesFrom rdf:resource="#ribo-nucleotide"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#rna-part">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#macromolecule-part"/>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Restriction>
+            <owl:allValuesFrom rdf:resource="#rna"/>
+            <owl:onProperty rdf:resource="#part-of"/>
+          </owl:Restriction>
+          <owl:Restriction>
+            <owl:onProperty rdf:resource="#part-of"/>
+            <owl:someValuesFrom rdf:resource="#rna"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#rubidium">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#chemical"/>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#atomic-number"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#atomic-number"/>
+        <owl:someValuesFrom rdf:resource="&xsd;integer"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#sbedberg">
+    <rdfs:subClassOf rdf:resource="#weight-unit"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#selector">
+    <rdfs:subClassOf rdf:resource="#modifier"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#selenium">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#chemical"/>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#atomic-number"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#atomic-number"/>
+        <owl:someValuesFrom rdf:resource="&xsd;integer"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#signal-transduction">
+    <rdfs:subClassOf rdf:resource="#biological-function"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#similarity">
+    <rdfs:subClassOf rdf:resource="#match-type"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#single-stranded">
+    <rdfs:subClassOf rdf:resource="#strandedness-selector"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#single-stranded-dna">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#macromolecular-compound"/>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#deoxy-nucleotide"/>
+        <owl:onProperty rdf:resource="#polymer-of"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#polymer-of"/>
+        <owl:someValuesFrom rdf:resource="#deoxy-nucleotide"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#strandedness"/>
+        <owl:someValuesFrom rdf:resource="#single-stranded"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#site">
+    <rdfs:subClassOf rdf:resource="#protein-part"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#small-molecular-compound">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#compound"/>
+          <rdf:Description rdf:about="#molecule"/>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#has-molecular-weight"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#has-molecular-weight"/>
+        <owl:someValuesFrom rdf:resource="&xsd;integer"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#small-nuclear-rna">
+    <owl:intersectionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#macromolecular-compound"/>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#transcribed-from"/>
+        <owl:someValuesFrom rdf:resource="#gene"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#ribo-nucleotide"/>
+        <owl:onProperty rdf:resource="#polymer-of"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#part-of"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#spliceosome"/>
+        <owl:onProperty rdf:resource="#part-of"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#polymer-of"/>
+        <owl:someValuesFrom rdf:resource="#ribo-nucleotide"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#gene"/>
+        <owl:onProperty rdf:resource="#transcribed-from"/>
+      </owl:Restriction>
+    </owl:intersectionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#small-nuclear-rna-function">
+    <rdfs:subClassOf rdf:resource="#biological-function"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#small-nucleolar-rna-function">
+    <rdfs:subClassOf rdf:resource="#biological-function"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#small-organic-molecular-compound">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#organic-molecular-compound"/>
+          <rdf:Description rdf:about="#small-molecular-compound"/>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#species"/>
+  <owl:Class rdf:about="#spliceosome"/>
+  <owl:Class rdf:about="#strandedness-selector"/>
+  <owl:Class rdf:about="#structure">
+    <owl:disjointWith rdf:resource="#physical"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#substance"/>
+  <owl:Class rdf:about="#weight-unit"/>
+  <owl:Class rdf:about="#work"/>
+  <owl:Class rdf:about="#work-title"/>
+  <owl:Class rdf:about="#year"/>
+  <owl:Class rdf:about="&xsd;integer"/>
+  <owl:Class rdf:about="&xsd;string"/>
+
+<!-- Object Properties -->
+  <owl:ObjectProperty rdf:about="#atom-type"/>
+  <owl:ObjectProperty rdf:about="#atomic-number"/>
+  <owl:ObjectProperty rdf:about="#atomicNumber"/>
+  <owl:ObjectProperty rdf:about="#binds"/>
+  <owl:ObjectProperty rdf:about="#binds-strongly"/>
+  <owl:ObjectProperty rdf:about="#catalyses"/>
+  <owl:ObjectProperty rdf:about="#cited-in"/>
+  <owl:ObjectProperty rdf:about="#contains"/>
+  <owl:ObjectProperty rdf:about="#has-accession-number"/>
+  <owl:ObjectProperty rdf:about="#has-bond"/>
+  <owl:ObjectProperty rdf:about="#has-ec-number"/>
+  <owl:ObjectProperty rdf:about="#has-function"/>
+  <owl:ObjectProperty rdf:about="#has-match-level"/>
+  <owl:ObjectProperty rdf:about="#has-molecular-weight"/>
+  <owl:ObjectProperty rdf:about="#has-name"/>
+  <owl:ObjectProperty rdf:about="#has-polarity"/>
+  <owl:ObjectProperty rdf:about="#has-product"/>
+  <owl:ObjectProperty rdf:about="#has-publication-year"/>
+  <owl:ObjectProperty rdf:about="#has-secondary-structure"/>
+  <owl:ObjectProperty rdf:about="#has-sequence"/>
+  <owl:ObjectProperty rdf:about="#has-species"/>
+  <owl:ObjectProperty rdf:about="#has-substrate"/>
+  <owl:ObjectProperty rdf:about="#has-title"/>
+  <owl:ObjectProperty rdf:about="#hasStrand"/>
+  <owl:ObjectProperty rdf:about="#homologous-to"/>
+  <owl:ObjectProperty rdf:about="#hydrolysis-of"/>
+  <owl:ObjectProperty rdf:about="#involves"/>
+  <owl:ObjectProperty rdf:about="#lysis-of"/>
+  <owl:ObjectProperty rdf:about="#name-of"/>
+  <owl:ObjectProperty rdf:about="#number-of-atoms"/>
+  <owl:ObjectProperty rdf:about="#part-of"/>
+  <owl:ObjectProperty rdf:about="#participatesIn"/>
+  <owl:ObjectProperty rdf:about="#polymer-of"/>
+  <owl:ObjectProperty rdf:about="#polymerOf"/>
+  <owl:ObjectProperty rdf:about="#published-by"/>
+  <owl:ObjectProperty rdf:about="#relatedTo"/>
+  <owl:ObjectProperty rdf:about="#strandedness"/>
+  <owl:ObjectProperty rdf:about="#structure-of"/>
+  <owl:ObjectProperty rdf:about="#takes-part-in"/>
+  <owl:ObjectProperty rdf:about="#target-for"/>
+  <owl:ObjectProperty rdf:about="#transcribed-from"/>
+  <owl:ObjectProperty rdf:about="#transforms"/>
+  <owl:ObjectProperty rdf:about="#translated-from"/>
+  <owl:ObjectProperty rdf:about="#valency"/>
+</rdf:RDF>
