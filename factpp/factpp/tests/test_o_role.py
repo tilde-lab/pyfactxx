@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from .._factpp import Reasoner
+from factpp import Reasoner
 
 def test_equivalent_roles():
     """
