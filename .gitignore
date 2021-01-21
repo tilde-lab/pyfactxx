@@ -2,6 +2,5 @@
 .classpath
 *~
 /bin/
+build/
 .vscode
-__pycache__
-factpp/lib_factpp.cpp

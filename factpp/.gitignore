@@ -1,0 +1,9 @@
+# Ignored files from Python project
+build/
+__pycache__/
+*.egg-info/
+*.so
+
+factpp/*.cpp
+factpp/*.so
+

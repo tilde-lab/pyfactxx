@@ -44,7 +44,7 @@ class build_ext(build_extension, object):
         root = str(pathlib.Path().absolute())
         build_temp = pathlib.Path(self.build_temp)
         build_temp.mkdir(parents=True, exist_ok=True)
-        ext_path = self.get_ext_fullpath(ext.name) + '_' if six.PY2 else self.get_ext_fullpath(ext.name)
+        ext_path = self.get_ext_fullpath(ext.name)
         extdir = pathlib.Path(ext_path)
         extdir.mkdir(parents=True, exist_ok=True)
         # example of cmake args
