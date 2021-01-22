@@ -84,8 +84,8 @@ setup(
     url="",
     download_url="",
     packages=["factpp"],
-    package_dir={"factpp": "${CMAKE_CURRENT_SOURCE_DIR}"},
-    ext_modules=[CMakeExtension("${CMAKE_CURRENT_SOURCE_DIR}/factpp/lib_factpp"),],
+    package_dir={"factpp": "${CMAKE_CURRENT_SOURCE_DIR}/factpp"},
+    ext_modules=[CMakeExtension("factpp/lib_factpp"),],
     cmdclass={
         'build_ext': build_ext,
     }
