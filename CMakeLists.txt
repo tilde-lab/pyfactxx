@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 3.0)
 project(factplusplus)
 
 # global definition
@@ -26,3 +26,4 @@ add_subdirectory(Kernel)
 add_subdirectory(FaCT++)
 add_subdirectory(FaCT++.C)
 add_subdirectory(FaCT++.JNI)
+add_subdirectory(factpp)

@@ -2,5 +2,17 @@
 .classpath
 *~
 /bin/
-build/
+build/**
 .vscode
+
+# cmake files
+CMakeCache.txt
+*.cmake
+Makefile
+CMakeFiles/
+
+# Targets
+fact_test
+libfact.so
+FaCT++
+libKernel.*
