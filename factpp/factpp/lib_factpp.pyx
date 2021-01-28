@@ -187,10 +187,22 @@ cdef extern from 'taxVertex.h':
         vector[TaxonomyVertex*].iterator begin(bool)
         vector[TaxonomyVertex*].iterator end(bool)
 
+cdef extern from 'ifOptions.h':
+    # cdef cppclass ifOption:
+    #     ifOption() except +
+    #     enum ioType:
+    #         iotBool
+    #         iotInt
+    #         iotText
+    cdef cppclass ifOptionSet:
+        ifOptionSet() except +
+        bool setOption(const string, const string)
+
 cdef extern from 'Kernel.h':
     cdef cppclass ReasoningKernel:
         ReasoningKernel() except +
         TExpressionManager* getExpressionManager()
+        ifOptionSet* getOptions()
 
         TDLAxiom* equalORoles()
         TDLAxiom* equalDRoles()
@@ -309,12 +321,21 @@ cdef class Reasoner:
         self.c_kernel = new ReasoningKernel()
         self.c_mgr = self.c_kernel.getExpressionManager()
 
-    def __init__(self):
+    def __init__(self, **kwds):
         self.type_int = self.data_type('http://www.w3.org/2001/XMLSchema#integer')
         self.type_float = self.data_type('http://www.w3.org/2001/XMLSchema#float')
         self.type_str = self.data_type('http://www.w3.org/2001/XMLSchema#string')
         self.type_bool = self.data_type('http://www.w3.org/2001/XMLSchema#boolean')
         self.type_datetime_long = self.data_type('http://www.w3.org/2001/XMLSchema#dateTimeAsLong')
+        # set options
+        cdef string name
+        cdef string value
+        for k, v in kwds.items():
+            name = k.encode('UTF-8')
+            value = v.encode('UTF-8')
+            if self.c_kernel.getOptions().setOption(name, value):
+                raise ValueError(f'Error setting value {v} for option {k}. \n'
+                'Either option does not exist or value is of incorrect type')
 
         self._cache = {}  # it should be weakref dict
 

@@ -111,7 +111,7 @@ protected:	// types
 		/// names to module signature map
 	typedef TBox::NameSigMap NameSigMap;
 
-private:	// members
+public:	// members
 		/// options for the kernel and all related substructures
 	ifOptionSet KernelOptions;
 
