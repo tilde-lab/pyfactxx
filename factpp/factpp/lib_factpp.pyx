@@ -40,6 +40,9 @@ cdef extern from "<vector>" namespace "std":
 cdef extern from "<iostream>" namespace "std":
     cdef cppclass ostream:
         ostream& write(const char*, int) except +
+    
+    cdef cppclass istream:
+        istream& read(const char*, int) except +
 
 cdef extern from "<iostream>" namespace "std::ios_base":
     cdef cppclass open_mode:
@@ -50,6 +53,10 @@ cdef extern from "<fstream>" namespace "std":
     cdef cppclass ofstream(ostream):
         ofstream(const char*) except +
         ofstream(const char*, open_mode) except +
+    
+    cdef cppclass ifstream(istream):
+        ifstream(const char*) except +
+        ifstream(const char*, open_mode) except +
 
 cdef extern from 'taxNamEntry.h':
     cdef cppclass ClassifiableEntry:
@@ -187,13 +194,12 @@ cdef extern from 'taxVertex.h':
         vector[TaxonomyVertex*].iterator begin(bool)
         vector[TaxonomyVertex*].iterator end(bool)
 
+cdef extern from 'parser.h':
+    cdef cppclass DLLispParser:
+        DLLispParser(istream*, ReasoningKernel*) except +
+        void Parse()
+
 cdef extern from 'ifOptions.h':
-    # cdef cppclass ifOption:
-    #     ifOption() except +
-    #     enum ioType:
-    #         iotBool
-    #         iotInt
-    #         iotText
     cdef cppclass ifOptionSet:
         ifOptionSet() except +
         bool setOption(const string, const string)
@@ -240,7 +246,7 @@ cdef extern from 'Kernel.h':
         #CIVec& getRelated(TIndividual*, TRole*)
         #void getRoleFillers(TDLIndividualExpression*, TDLObjectRoleExpression*, IndividualSet&)
         CIVec& getRoleFillers(TDLIndividualExpression*, TDLObjectRoleExpression*)
-        TaxonomyVertex* setUpCache(TDLConceptExpression*);
+        TaxonomyVertex* setUpCache(TDLConceptExpression*)
 
         void realiseKB()
         void classifyKB()
@@ -338,6 +344,14 @@ cdef class Reasoner:
                 'Either option does not exist or value is of incorrect type')
 
         self._cache = {}  # it should be weakref dict
+
+    def parse_lisp(self, str fn):
+        cdef ifstream* in_file = new ifstream(fn.encode(), binary)
+        cdef DLLispParser *parser = new DLLispParser(in_file, self.c_kernel)
+        try:
+            parser.Parse()
+        finally:
+            del in_file
 
     def __dealloc__(self):
         del self.c_kernel

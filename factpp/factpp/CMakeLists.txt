@@ -1,17 +1,21 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(factpp VERSION 0.0.1)
 set(CMAKE_CXX_STANDARD 11)
- 
+include(CMakePrintHelpers)
+
 # list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 find_package (PythonInterp ${PYTHON_VERSION} REQUIRED)                                   
 find_package (PythonLibs ${PYTHON_VERSION} REQUIRED)                                     
 # find_package (Python COMPONENTS Interpreter Development REQUIRED)     
 add_subdirectory(${FACTPP_ROOT}/../Kernel ./Kernel)
+set(FACT_DIR ${FACTPP_ROOT}/../FaCT++)
+file(GLOB FACT_FILES  "${FACT_DIR}/*.cpp")
 # TODO: How to create shared libKernel?
 # target_compile_definitions(Kernel PRIVATE BUILD_SHARED_LIBS)
 set_property(TARGET Kernel PROPERTY POSITION_INDEPENDENT_CODE ON)
-add_library(_factpp SHARED lib_factpp.cpp Kernel)
-target_include_directories(_factpp PRIVATE ${PYTHON_INCLUDE_DIRS} Kernel)
+cmake_print_variables(FACT_FILES)
+add_library(_factpp SHARED lib_factpp.cpp ${FACT_FILES} Kernel)
+target_include_directories(_factpp PRIVATE ${PYTHON_INCLUDE_DIRS} ${FACT_DIR} Kernel)
 target_link_libraries(_factpp PUBLIC Kernel)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
