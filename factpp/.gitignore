@@ -3,7 +3,9 @@ build/
 __pycache__/
 *.egg-info/
 *.so
+dist/
 
 factpp/*.cpp
 factpp/*.so
+setup.py
 

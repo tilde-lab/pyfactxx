@@ -40,6 +40,9 @@ cdef extern from "<vector>" namespace "std":
 cdef extern from "<iostream>" namespace "std":
     cdef cppclass ostream:
         ostream& write(const char*, int) except +
+    
+    cdef cppclass istream:
+        istream& read(const char*, int) except +
 
 cdef extern from "<iostream>" namespace "std::ios_base":
     cdef cppclass open_mode:
@@ -50,6 +53,10 @@ cdef extern from "<fstream>" namespace "std":
     cdef cppclass ofstream(ostream):
         ofstream(const char*) except +
         ofstream(const char*, open_mode) except +
+    
+    cdef cppclass ifstream(istream):
+        ifstream(const char*) except +
+        ifstream(const char*, open_mode) except +
 
 cdef extern from 'taxNamEntry.h':
     cdef cppclass ClassifiableEntry:
@@ -187,10 +194,21 @@ cdef extern from 'taxVertex.h':
         vector[TaxonomyVertex*].iterator begin(bool)
         vector[TaxonomyVertex*].iterator end(bool)
 
+cdef extern from 'parser.h':
+    cdef cppclass DLLispParser:
+        DLLispParser(istream*, ReasoningKernel*) except +
+        void Parse()
+
+cdef extern from 'ifOptions.h':
+    cdef cppclass ifOptionSet:
+        ifOptionSet() except +
+        bool setOption(const string, const string)
+
 cdef extern from 'Kernel.h':
     cdef cppclass ReasoningKernel:
         ReasoningKernel() except +
         TExpressionManager* getExpressionManager()
+        ifOptionSet* getOptions()
 
         TDLAxiom* equalORoles()
         TDLAxiom* equalDRoles()
@@ -228,7 +246,7 @@ cdef extern from 'Kernel.h':
         #CIVec& getRelated(TIndividual*, TRole*)
         #void getRoleFillers(TDLIndividualExpression*, TDLObjectRoleExpression*, IndividualSet&)
         CIVec& getRoleFillers(TDLIndividualExpression*, TDLObjectRoleExpression*)
-        TaxonomyVertex* setUpCache(TDLConceptExpression*);
+        TaxonomyVertex* setUpCache(TDLConceptExpression*)
 
         void realiseKB()
         void classifyKB()
@@ -309,14 +327,31 @@ cdef class Reasoner:
         self.c_kernel = new ReasoningKernel()
         self.c_mgr = self.c_kernel.getExpressionManager()
 
-    def __init__(self):
+    def __init__(self, **kwds):
         self.type_int = self.data_type('http://www.w3.org/2001/XMLSchema#integer')
         self.type_float = self.data_type('http://www.w3.org/2001/XMLSchema#float')
         self.type_str = self.data_type('http://www.w3.org/2001/XMLSchema#string')
         self.type_bool = self.data_type('http://www.w3.org/2001/XMLSchema#boolean')
         self.type_datetime_long = self.data_type('http://www.w3.org/2001/XMLSchema#dateTimeAsLong')
+        # set options
+        cdef string name
+        cdef string value
+        for k, v in kwds.items():
+            name = k.encode('UTF-8')
+            value = v.encode('UTF-8')
+            if self.c_kernel.getOptions().setOption(name, value):
+                raise ValueError(f'Error setting value {v} for option {k}. \n'
+                'Either option does not exist or value is of incorrect type')
 
         self._cache = {}  # it should be weakref dict
+
+    def parse_lisp(self, str fn):
+        cdef ifstream* in_file = new ifstream(fn.encode(), binary)
+        cdef DLLispParser *parser = new DLLispParser(in_file, self.c_kernel)
+        try:
+            parser.Parse()
+        finally:
+            del in_file
 
     def __dealloc__(self):
         del self.c_kernel

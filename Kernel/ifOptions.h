@@ -143,6 +143,16 @@ public:		// interface
 		/// init all registered option using given section of given configuration
 	bool initByConfigure ( Configuration& conf, const std::string& Section );
 
+	bool setOption( const std::string& optionName, const std::string& optionValue)
+	{
+		auto p = Base.find(optionName);
+		if ( p == Base.end() )
+			return true;
+		if ( p->second->setAValue(optionValue))	// ... set up its value
+				return true;	// can't set value
+		return false;
+	}
+
 	// read access
 
 		/// get Boolean value of given option
