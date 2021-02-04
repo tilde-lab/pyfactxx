@@ -1,0 +1,12 @@
+#!/bin/sh
+
+sed 's/DEBUG:factpp.rdflib://' \
+    | grep -B 1 '^skipped' \
+    | grep -v '^--' \
+    | sed 's/^skipped: //' \
+    | sed 'N;s/\n/ /' \
+    | awk '$2 ~ /rdf-syntax-ns.type|rdf-schema.subPropertyOf|rdf-schema.domain|rdf-schema.range/ {print $NF ": " $2 " " $3; next } { print $NF ": " $2}' \
+    | sort \
+    | uniq -c
+
+# vim: sw=4:et:ai
