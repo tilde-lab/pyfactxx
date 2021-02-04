@@ -24,7 +24,7 @@ RDFLib store unit tests.
 from rdflib import BNode
 from rdflib.namespace import FOAF, RDF, RDFS, OWL
 
-import factpp.rdflib
+import factpp.rdflib_interface
 
 from .util import graph, NS
 
@@ -93,7 +93,7 @@ def test_new_class():
     """
     Test adding new classes.
     """
-    g, reasoner = graph()
+    g, _ = graph()
     parsers = g.store._parsers
 
     g.add((NS.A, RDF.type, OWL.Class))
@@ -129,7 +129,7 @@ def test_list_cache():
     """
     Test creating RDF list state.
     """
-    cache = factpp.rdflib.ListState.CACHE
+    cache = factpp.rdflib_interface.ListState.CACHE
     store = mock.Mock()
 
     cache['O1'].store = store

@@ -24,7 +24,7 @@ RDFLib store unit tests utility functions.
 from rdflib import Graph
 from rdflib.namespace import Namespace
 
-import factpp.rdflib
+import factpp.rdflib_interface
 
 from unittest import mock
 
@@ -43,7 +43,7 @@ class MockProxy:
             return getattr(self.reasoner, attr)
 
 def graph(mock=None):
-    store = factpp.rdflib.Store()
+    store = factpp.rdflib_interface.Store()
     if mock:
         store._reasoner = MockProxy(store._reasoner, mock)
         # reset parsers after mock is created

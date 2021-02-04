@@ -21,7 +21,7 @@
 Unit tests for property parser used by RDFLib store.
 """
 
-from factpp.rdflib import PropertyParser
+from factpp.rdflib_interface import PropertyParser
 
 from unittest import mock
 

@@ -21,7 +21,7 @@
 import argparse
 import logging
 
-import factpp.rdflib
+import factpp.rdflib_interface
 from rdflib import Graph, Literal, BNode
 from rdflib.namespace import FOAF
 
@@ -36,7 +36,7 @@ parser.add_argument('input', nargs='+', help='Ontology files')
 
 args = parser.parse_args()
             
-g = Graph(store=factpp.rdflib.Store())
+g = Graph(store=factpp.rdflib_interface.Store())
 for fn in args.input:
     g.parse(fn, format='xml')
 
