@@ -16,7 +16,7 @@ set_property(TARGET Kernel PROPERTY POSITION_INDEPENDENT_CODE ON)
 cmake_print_variables(FACT_FILES)
 add_library(_factpp SHARED lib_factpp.cpp ${FACT_FILES} Kernel)
 target_include_directories(_factpp PRIVATE ${PYTHON_INCLUDE_DIRS} ${FACT_DIR} Kernel)
-target_link_libraries(_factpp PUBLIC Kernel)
+target_link_libraries(_factpp PUBLIC Kernel ${PYTHON_LIBRARIES})
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
