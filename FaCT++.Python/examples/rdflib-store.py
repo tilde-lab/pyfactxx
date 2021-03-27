@@ -20,9 +20,9 @@
 from rdflib import Graph, Literal, BNode
 from rdflib.namespace import FOAF, RDF, RDFS
 
-import factpp.rdflib
+import factpp.rdflib_interface
 
-g = Graph(store=factpp.rdflib.Store())
+g = Graph(store=factpp.rdflib_interface.Store())
 reasoner = g.store._reasoner
 
 p1 = BNode()

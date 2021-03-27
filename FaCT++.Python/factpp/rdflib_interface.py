@@ -78,8 +78,8 @@ class Store(rdflib.store.Store):
 
             RDFS.subClassOf: make_parser('implies_concepts', 'concept', 'concept'),
 
-            OWL.equivalentClass: make_parser('equal_concepts', 'concept', 'concept', as_list=True),
-            OWL.disjointWith: make_parser('disjoint_concepts', 'concept', 'concept', as_list=True),
+            OWL.equivalentClass: make_parser('equal_concepts', 'concept', 'concept'),
+            OWL.disjointWith: make_parser('disjoint_concepts', 'concept', 'concept'),
             OWL.intersectionOf: self._parse_intersection,
 
             # metadata
@@ -105,7 +105,7 @@ class Store(rdflib.store.Store):
 
         assert None in parsers
         parse = next(self._parsers.get(k) for k in keys if k in parsers)
-
+        print(f"PARSER: {parse}")
         assert parse
         parse(s, o)
 
@@ -129,15 +129,12 @@ class Store(rdflib.store.Store):
     #
     # parsers
     #
-    def _make_parser(self, rel, sub, obj, as_list=False):
+    def _make_parser(self, rel, sub, obj):
         f_rel = getattr(self._reasoner, rel)
         f_sub = getattr(self._reasoner, sub)
         f_obj = getattr(self._reasoner, obj)
 
-        if as_list:
-            return lambda s, o: f_rel([f_sub(s), f_obj(o)])
-        else:
-            return lambda s, o: f_rel(f_sub(s), f_obj(o))
+        return lambda s, o: f_rel(f_sub(s), f_obj(o))
 
     def _parse_intersection(self, s, o):
         self._list_cache[o].store = self
@@ -315,8 +312,8 @@ class ListState:
             ref_s = reasoner.concept(self._subject)
             ref_f = reasoner.concept(self._first)
             ref_r = reasoner.concept(self._rest)
-            cls = reasoner.intersection([ref_f, ref_r])
-            reasoner.equal_concepts([cls, ref_s])
+            cls = reasoner.intersection(ref_f, ref_r)
+            reasoner.equal_concepts(cls, ref_s)
 
             # remove from store
             del ListState.CACHE[self.object]

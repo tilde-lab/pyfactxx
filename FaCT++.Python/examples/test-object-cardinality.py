@@ -23,7 +23,7 @@ reasoner = factpp.Reasoner()
 
 cls_a = reasoner.concept('CLS-A')
 cls_b = reasoner.concept('CLS-B')
-reasoner.disjoint_concepts([cls_a, cls_b])
+reasoner.disjoint_concepts(cls_a, cls_b)
 
 r = reasoner.object_role('R')
 reasoner.set_o_domain(r, cls_a)

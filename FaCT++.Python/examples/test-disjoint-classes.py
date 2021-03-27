@@ -27,7 +27,7 @@ classes = [
     reasoner.concept('C'),
 ]
 
-reasoner.disjoint_concepts(classes)
+reasoner.disjoint_concepts(*classes)
 
 a = reasoner.individual('a')
 b = reasoner.individual('b')
