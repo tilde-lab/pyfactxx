@@ -1,0 +1,8 @@
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+SELECT ?name ?age
+WHERE {
+    ?p foaf:name ?name.
+    ?p foaf:age ?age.
+    FILTER (?age >= 18)
+}

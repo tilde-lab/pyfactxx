@@ -1,0 +1,7 @@
+PREFIX z: <http://folk.uio.no/martige/what/2012/04/22/zebra#>
+
+SELECT ?person
+WHERE {
+    ?person z:livesIn z:House1
+}
+

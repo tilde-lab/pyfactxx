@@ -1,0 +1,11 @@
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix : <:>.
+
+:p1  foaf:name  "A B".
+:p1  foaf:age  20.
+:p2  foaf:name  "X Y".
+:p2  foaf:age  26.
+:p3  foaf:name  "U1".
+:p3  foaf:age  17.
+:p4  foaf:name  "U2".
+:p4  foaf:age  15.

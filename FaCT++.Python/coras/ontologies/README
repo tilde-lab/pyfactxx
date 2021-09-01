@@ -1,0 +1,4 @@
+foaf.rdf: http://xmlns.com/foaf/spec/index.rdf
+tsars.rdf: https://github.com/blokhin/genealogical-trees/tree/master/data
+tbl-foaf-card.n3: https://www.w3.org/People/Berners-Lee/card
+zebra.n3: http://folk.uio.no/martige/what/20120422/zebra

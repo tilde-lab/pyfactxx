@@ -1,0 +1,2 @@
+SELECT ?s ?o
+WHERE { ?s <http://www.example.com/genealogy.owl#hasFather> ?o . }
