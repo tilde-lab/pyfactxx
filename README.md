@@ -1,13 +1,13 @@
 # Python bindings for FaCT++ reasoner
 
-FaCT++ is a well-optimized open-source reasoner for **_SROIQ_** description logic with simple datatypes (OWL 2), written in C++. FaCT++ was created in 2003-2015 by [Dmitry Tsarkov](https://scholar.google.com/citations?user=jDcQ7vQAAAAJ) and [Ian Horrocks](https://scholar.google.com/citations?user=0ypdmcYAAAAJ) in the University of Manchester, UK.
+FaCT++ is a well-optimized [open-source](https://bitbucket.org/dtsarkov/factplusplus) reasoner for **_SROIQ(D)_** description logic with simple datatypes (OWL 2), written in C++. FaCT++ was created in 2003-2015 by [Dmitry Tsarkov](https://scholar.google.com/citations?user=jDcQ7vQAAAAJ) and [Ian Horrocks](https://scholar.google.com/citations?user=0ypdmcYAAAAJ) in the University of Manchester, UK.
 
-This repository is the **work in progress** for linking the FaCT++ with the Python's [RDFLib](https://rdflib.dev) package. This repository is based on the work of [Artur Wroblewski](https://bitbucket.org/wrobell/factplusplus). The goals are to create the RDFLib store with inference capabilities and to demonstrate the use of the FaCT++ API.
+This repository is the **work in progress** for linking the FaCT++ with the Python's [RDFLib](https://rdflib.dev) package. This repository is based on the works of Artur Wroblewski [factpp](https://bitbucket.org/wrobell/factplusplus/src/factpp/factpp) and [coras](https://bitbucket.org/wrobell/coras). The goals are to create the RDFLib store with inference capabilities and to demonstrate the use of the FaCT++ API.
 
 
 ## Reasoner details
 
-The FaCT++ implements the [atomic decomposition algorithms](http://ceur-ws.org/Vol-1080/owled2013_13.pdf) (_i.e._ represents the ontologies as terse directed acyclic graphs). A [tableaux decision procedure](http://www.cs.ox.ac.uk/ian.horrocks/Publications/download/2007/HoSa07a.pdf) is applied for **_SROIQ_** together with the set of [optimisation heuristics](https://doi.org/10.1007/11814771_26), such as:
+The FaCT++ implements the [atomic decomposition algorithms](http://ceur-ws.org/Vol-1080/owled2013_13.pdf) (_i.e._ represents the ontologies as terse directed acyclic graphs). A [tableaux decision procedure](http://www.cs.ox.ac.uk/ian.horrocks/Publications/download/2007/HoSa07a.pdf) is applied for **_SROIQ(D)_** together with the set of [optimisation heuristics](https://doi.org/10.1007/11814771_26), such as:
 
 - lexical normalisation and simplification,
 - synonym replacement,
@@ -36,7 +36,7 @@ cd FaCT++.Python
 cmake .
 make && make install
 ```
-(**Sorry, no pip support currently!**)
+**(Sorry, no pip support currently!)**
 
 
 ## Authors of Python part
@@ -49,5 +49,5 @@ make && make install
 
 ## License
 
-Kernel reasoner code: GNU LGPL 2.1
-Coras Python interface: GNU GPL 3.0
+- Kernel reasoner code: GNU LGPL 2.1
+- Coras Python interface: GNU GPL 3.0
