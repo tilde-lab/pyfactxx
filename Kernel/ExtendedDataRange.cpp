@@ -41,7 +41,7 @@ checkDataRelation ( const DataTypeReasoner& Op1, const DataTypeReasoner& Op2, in
 	case 5: // >=
 		return Op2 < Op1 || Op2 == Op1;
 	default:
-		throw new EFaCTPlusPlus("Illegal operation in checkDataRelation()");
+		throw EFaCTPlusPlus("Illegal operation in checkDataRelation()");
 	}
 }
 
