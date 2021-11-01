@@ -47,7 +47,7 @@ protected:	// methods
 	void MustBeM ( GenericToken t, const char* message = nullptr )
 		{ MustBe ( t, message ); NextLex (); }
 		/// general error message
-	void parseError ( const char* p ) const { scan.error(p); }
+	[[noreturn]] void parseError ( const char* p ) const { scan.error(p); }
 
 public:		// interface
 		/// c'tor
