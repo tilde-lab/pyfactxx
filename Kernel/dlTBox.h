@@ -282,6 +282,8 @@ protected:	// members
 	bool useSpecialDomains = false;
 		/// shall verbose output be used
 	bool verboseOutput = false;
+        /// create cache of individual relations during consistency check (much faster but could be incomplete)
+    bool precacheRelated = true;
 
 	//---------------------------------------------------------------------------
 	// Internally defined flags

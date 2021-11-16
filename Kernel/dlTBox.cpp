@@ -411,6 +411,7 @@ void TBox :: readConfig ( const ifOptionSet* Options )
 	addBoolOption(useBackjumping);
 	addBoolOption(useLazyBlocking);
 	addBoolOption(useAnywhereBlocking);
+    addBoolOption(precacheRelated);
 
 	if ( Axioms.initAbsorptionFlags(Options->getText("absorptionFlags")) )
 		throw EFaCTPlusPlus ( "Incorrect absorption flags given" );

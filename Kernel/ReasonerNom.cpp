@@ -98,6 +98,9 @@ NominalReasoner :: consistentNominalCloud ( void )
 	for ( auto& ind: Nominals )
 		updateClassifiedSingleton(ind);
 
+    if (tBox.precacheRelated)
+        precacheRelated();
+
 	return true;
 }
 
@@ -153,4 +156,168 @@ NominalReasoner :: initRelatedNominals ( const TRelated* rel )
 	// return OK iff setup new edge didn't lead to clash
 	// do NOT need to re-check anything: nothing was processed yet
 	return setupEdge ( pA, dep );
+}
+
+bool NominalReasoner::hasIndividuals(const DlCompletionTree* node)
+{
+    auto& label = node->label().getLabel(false);
+
+    for (auto& p = label.begin(); p != label.end(); p++)
+    {
+        auto pName = (*p).bp();
+
+        if (pName > 0 && (DLHeap[pName].Type() == dtPSingleton || DLHeap[pName].Type() == dtNSingleton))
+            return true;
+    }
+
+    return false;
+}
+
+std::vector<TIndividual*> NominalReasoner::getIndividuals(const DlCompletionTree* node)
+{
+    std::vector<TIndividual*> individuals;
+
+    auto& label = node->label().getLabel(false);
+
+    for (auto& p = label.begin(); p != label.end(); p++)
+    {
+        auto pName = (*p).bp();
+
+        if (pName > 0 && (DLHeap[pName].Type() == dtPSingleton || DLHeap[pName].Type() == dtNSingleton))
+            individuals.push_back(static_cast<TIndividual*>(DLHeap[pName].getConcept()));
+    }
+
+    return individuals;
+}
+
+void NominalReasoner::followTransition(std::map<TIndividual*, std::map<const TRole*, std::set<TIndividual*>>>& role_map, const DlCompletionTree* first, const TRole* role, const DlCompletionTree* current, const RoleAutomaton& automaton, RAState state, std::map<RAState, std::set<const DlCompletionTree*>>& visited)
+{
+    // Check whether we already visited this function with this state and this node
+    // If so we won't be able to derive anything new - just return
+
+    if (visited.count(state) == 0)
+        visited[state] = std::set<const DlCompletionTree*>();
+
+    if (visited[state].count(current) > 0)
+        return;
+
+    visited[state].insert(current);
+
+    
+    // Collect all states accessible through an empty transition from the current state
+
+    std::set<RAState> states;
+    states.insert(state);
+
+    for (const RATransition& transition : automaton[state])
+    {
+        if (transition.begin() == transition.end())
+            states.insert(transition.final());
+    }
+
+    
+    // If the set of states contains the final state - add a relation to the map of individual relations
+
+    if (states.count(automaton.final()) > 0)
+    {
+        for (TIndividual* a : getIndividuals(first))
+        {
+            for (TIndividual* b : getIndividuals(current))
+            {
+                if (role_map.count(a) == 0)
+                    role_map[a] = std::map<const TRole*, std::set<TIndividual*>>();
+
+                if (role_map[a].count(role) == 0)
+                    role_map[a][role] = std::set<TIndividual*>();
+
+                role_map[a][role].insert(b);
+            }
+        }
+    }
+
+    
+    // Check the current node for possible (non-empty) transitions from the current state and follow them
+
+    for (auto p_arc = current->begin(); p_arc != current->end(); p_arc++)
+    {
+        DlCompletionTreeArc* arc = *p_arc;
+
+        const TRole* next_role = arc->getRole();
+
+        if (next_role != nullptr)
+        {
+            const DlCompletionTree* next_node = arc->getArcEnd();
+
+            for (RAState state : states)
+            {
+                for (const RATransition& transition : automaton[state])
+                {
+                    for (RATransition::const_iterator q = transition.begin(); q != transition.end(); q++)
+                    {
+                        if (*q == next_role)
+                            followTransition(role_map, first, role, next_node, automaton, transition.final(), visited);
+                    }
+                }
+            }
+        }
+    }
+}
+
+void NominalReasoner::precacheRelated()
+{
+    auto& ORM = tBox.getORM();
+    std::map<TIndividual*, std::map<const TRole*, std::set<TIndividual*>>> role_map;
+
+    
+    // Collect information of all relations going out of all individual nodes in the completion graph
+
+    for (auto p_node = CGraph.begin(); p_node != CGraph.end(); p_node++)
+    {
+        const DlCompletionTree* node = *p_node;
+
+        if (hasIndividuals(node))
+        {
+            for (RoleMaster::iterator p = ORM.begin(); p != ORM.end(); p++)
+            {
+                const RoleAutomaton& automaton = (*p)->getAutomaton();
+                std::map<RAState, std::set<const DlCompletionTree*>> visited;
+                followTransition(role_map, node, *p, node, automaton, automaton.initial(), visited);
+            }
+        }
+    }
+
+
+    // Set individual cache for all collected relations
+
+    for (auto& ind_roles : role_map)
+    {
+        TIndividual* a = ind_roles.first;
+
+        for (auto& role_obj : ind_roles.second)
+        {
+            const TRole* role = role_obj.first;
+            a->setRelatedCache(role, std::vector<const TIndividual*>(role_obj.second.begin(), role_obj.second.end()));
+        }
+    }
+
+
+    // For the rest - either copy related from the role synonym or set up an empty cache
+
+   std::vector<const TIndividual*> empty_cache;
+
+    for (auto& individual : Nominals)
+    {
+        for (RoleMaster::iterator role = ORM.begin(); role != ORM.end(); role++)
+        {
+            if (!individual->hasRelatedCache(*role))
+            {
+                TRole* synonym = static_cast<TRole*>((*role)->getSynonym());
+
+                if (synonym != nullptr && individual->hasRelatedCache(synonym))
+                    individual->setRelatedCache(*role, individual->getRelatedCache(synonym));
+                else
+                    individual->setRelatedCache(*role, empty_cache);
+            }
+        }
+    }
 }

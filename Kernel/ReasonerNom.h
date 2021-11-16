@@ -74,6 +74,18 @@ protected:	// methods
 		}
 	}
 
+    // Checks whether a completion graph node has references to individuals (nominals)
+    bool hasIndividuals(const DlCompletionTree* node);
+
+    // Returns a list of individuals referenced by a completion graph node
+    std::vector<TIndividual*> getIndividuals(const DlCompletionTree* node);
+
+    // Populates individual relations using the completion graph and the automaton transitions of a complex role
+    void followTransition(std::map<TIndividual*, std::map<const TRole*, std::set<TIndividual*>>>& role_map, const DlCompletionTree* first, const TRole* role, const DlCompletionTree* current, const RoleAutomaton& automaton, RAState state, std::map<RAState, std::set<const DlCompletionTree*>>& visited);
+
+    // Creates cache of individual relations based on the completion graph and roles automata (for faster but potentially incomplete queries)
+    void precacheRelated();
+
 public:
 		/// c'tor
 	explicit NominalReasoner ( TBox& tbox )

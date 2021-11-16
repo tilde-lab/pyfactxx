@@ -881,7 +881,17 @@ bool ReasoningKernel :: initOptions ( void )
 		) )
 		return true;
 
-	// all was registered OK
+    // register "precacheRelated" option -- 16/11/2021
+    if (KernelOptions.RegisterOption(
+        "precacheRelated",
+        "Option 'precacheRelated' allows filling cache of individual relations during the consistency check, "
+        "which allows for much faster (but sometimes incomplete) queries.",
+        ifOption::iotBool,
+        "true"
+    ))
+        return true;
+
+    // all was registered OK
 	return false;
 }
 
