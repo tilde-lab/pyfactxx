@@ -162,7 +162,7 @@ bool NominalReasoner::hasIndividuals(const DlCompletionTree* node)
 {
     auto& label = node->label().getLabel(false);
 
-    for (auto& p = label.begin(); p != label.end(); p++)
+    for (auto p = label.begin(); p != label.end(); p++)
     {
         auto pName = (*p).bp();
 
@@ -179,7 +179,7 @@ std::vector<TIndividual*> NominalReasoner::getIndividuals(const DlCompletionTree
 
     auto& label = node->label().getLabel(false);
 
-    for (auto& p = label.begin(); p != label.end(); p++)
+    for (auto p = label.begin(); p != label.end(); p++)
     {
         auto pName = (*p).bp();
 
