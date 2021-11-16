@@ -111,7 +111,7 @@ public:		// visitor interface
 	void visit ( const TDLAxiomRelatedTo& axiom ) override
 		{ *this << "(related" << axiom.getIndividual() << axiom.getRelation() << axiom.getRelatedIndividual() << ")\n"; }
 	void visit ( const TDLAxiomRelatedToNot& axiom ) override
-		{ *this<< "(instance" << axiom.getIndividual() << " (all" << axiom.getRelation() << "(not" << axiom.getRelatedIndividual() << ")))\n"; }
+		{ *this<< "(instance" << axiom.getIndividual() << " (all" << axiom.getRelation() << "(not (one-of" << axiom.getRelatedIndividual() << "))))\n"; }
 	void visit ( const TDLAxiomValueOf& axiom ) override
 		{ *this << "(instance" << axiom.getIndividual() << " (some" << axiom.getAttribute() << axiom.getValue() << "))\n"; }
 	void visit ( const TDLAxiomValueOfNot& axiom ) override
