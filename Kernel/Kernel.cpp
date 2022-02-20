@@ -551,7 +551,7 @@ ReasoningKernel :: isRelated ( const TIndividualExpr* I, const TDRoleExpr* A, co
 	return isInstance(I, &exists);
 }
 
-void ReasoningKernel::getTriples(const TIndividualExpr* q_subj, const TRoleExpr* q_role, const TExpr* q_obj, std::set<std::tuple<const TIndividual*, const TRole*, const TNamedEntry*>>& triples)
+void ReasoningKernel::getTriples(const TIndividualExpr* q_subj, const TRoleExpr* q_role, const TExpr* q_obj, std::set<std::vector<const TNamedEntry*>>& triples)
 {
     if (q_subj != nullptr)
     {
@@ -587,7 +587,15 @@ void ReasoningKernel::getTriples(const TIndividualExpr* q_subj, const TRoleExpr*
             for (const TIndividual* obj : getRoleFillers(q_subj, role_expr))
             {
                 if (obj_ind == nullptr || obj == obj_ind) // fix - add data values
-                    triples.insert(std::tuple<const TIndividual*, const TRole*, const TNamedEntry*>(subj_ind, role, obj));
+                {
+                    std::vector<const TNamedEntry*> triple;
+                    
+                    triple.push_back(subj_ind);
+                    triple.push_back(role);
+                    triple.push_back(obj);
+
+                    triples.insert(triple);
+                }
             }
         }
     }

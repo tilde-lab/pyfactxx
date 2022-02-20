@@ -1314,7 +1314,7 @@ public:
 		/// set RESULT into set of individuals such that they do have data roles R and S, and R op S
 	void getDataRelatedIndividuals ( TDRoleExpr* R, TDRoleExpr* S, int op, IndividualSet& Result );
 
-    void getTriples(const TIndividualExpr* q_subj, const TRoleExpr* q_role, const TExpr* q_obj, std::set<std::tuple<const TIndividual*, const TRole*, const TNamedEntry*>>& triples);
+    void getTriples(const TIndividualExpr* q_subj, const TRoleExpr* q_role, const TExpr* q_obj, std::set<std::vector<const TNamedEntry*>>& triples);
 
 	//----------------------------------------------------------------------------------
 	// knowledge exploration queries
