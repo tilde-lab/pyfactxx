@@ -81,7 +81,7 @@ protected:	// methods
     std::vector<TIndividual*> getIndividuals(const DlCompletionTree* node);
 
     // Populates individual relations using the completion graph and the automaton transitions of a complex role
-    void followTransition(std::map<TIndividual*, std::map<const TRole*, std::set<TIndividual*>>>& role_map, const DlCompletionTree* first, const TRole* role, const DlCompletionTree* current, const RoleAutomaton& automaton, RAState state, std::map<RAState, std::set<const DlCompletionTree*>>& visited);
+    void followTransition(std::map<TIndividual*, std::map<const TRole*, std::set<TIndividual*>>>& role_map, const DlCompletionTree* first, const TRole* role, const DlCompletionTree* current, const RoleAutomaton& automaton, RAState state, std::map<std::vector<std::pair<const DlCompletionTree*, const DlCompletionTree*>>, std::map<RAState, std::set<const DlCompletionTree*>>>& visited, std::vector<std::pair<const DlCompletionTree*, const DlCompletionTree*>> blocker_stack);
 
     // Creates cache of individual relations based on the completion graph and roles automata (for faster but potentially incomplete queries)
     void precacheRelated();
@@ -96,6 +96,11 @@ public:
 
 		/// check whether ontology with nominals is consistent
 	bool consistentNominalCloud ( void );
+
+    virtual const SingletonVector* getNominals() override
+    {
+        return &Nominals;
+    }
 }; // NominalReasoner
 
 //-----------------------------------------------------------------------------

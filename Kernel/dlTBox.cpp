@@ -663,3 +663,12 @@ TBox :: printFeatures ( void ) const
 		   << (GCIs.isReflexive() ? "" : "NO ") << "reflexive roles\nKB contains "
 		   << (GCIs.isRnD() ? "" : "NO ") << "range and domain restrictions\n";
 }
+
+const TBox::SingletonVector* TBox::getIndividuals()
+{
+    if (nomReasoner == nullptr)
+        return nullptr;
+    else
+        return nomReasoner->getNominals();
+}
+

@@ -427,10 +427,6 @@ protected:	// methods
 		if ( pTBox == nullptr )
 			throw EFaCTPlusPlus("FaCT++ Kernel: KB Not Initialised");
 	}
-		/// get RW access to TBox
-	TBox* getTBox ( void ) { checkTBox(); return pTBox; }
-		/// get RO access to TBox
-	const TBox* getTBox ( void ) const { checkTBox(); return pTBox; }
 		/// clear TBox and related structures; keep ontology in place
 	void clearTBox ( void );
 
@@ -709,6 +705,17 @@ public:
 			return true;
 		return releaseKB () || newKB ();
 	}
+
+    /// get RW access to TBox
+    TBox* getTBox(void)
+    {
+        checkTBox(); return pTBox;
+    }
+    /// get RO access to TBox
+    const TBox* getTBox(void) const
+    {
+        checkTBox(); return pTBox;
+    }
 
 	//----------------------------------------------------
 	//	TELLS interface
@@ -1306,6 +1313,8 @@ public:
 
 		/// set RESULT into set of individuals such that they do have data roles R and S, and R op S
 	void getDataRelatedIndividuals ( TDRoleExpr* R, TDRoleExpr* S, int op, IndividualSet& Result );
+
+    void getTriples(const TIndividualExpr* q_subj, const TRoleExpr* q_role, const TExpr* q_obj, std::set<std::tuple<const TIndividual*, const TRole*, const TNamedEntry*>>& triples);
 
 	//----------------------------------------------------------------------------------
 	// knowledge exploration queries

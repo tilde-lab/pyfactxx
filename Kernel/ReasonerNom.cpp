@@ -190,20 +190,23 @@ std::vector<TIndividual*> NominalReasoner::getIndividuals(const DlCompletionTree
     return individuals;
 }
 
-void NominalReasoner::followTransition(std::map<TIndividual*, std::map<const TRole*, std::set<TIndividual*>>>& role_map, const DlCompletionTree* first, const TRole* role, const DlCompletionTree* current, const RoleAutomaton& automaton, RAState state, std::map<RAState, std::set<const DlCompletionTree*>>& visited)
+void NominalReasoner::followTransition(std::map<TIndividual*, std::map<const TRole*, std::set<TIndividual*>>>& role_map, const DlCompletionTree* first, const TRole* role, const DlCompletionTree* current, const RoleAutomaton& automaton, RAState state, std::map<std::vector<std::pair<const DlCompletionTree*, const DlCompletionTree*>>, std::map<RAState, std::set<const DlCompletionTree*>>>& visited, std::vector<std::pair<const DlCompletionTree*, const DlCompletionTree*>> blocker_stack)
 {
     // Check whether we already visited this function with this state and this node
     // If so we won't be able to derive anything new - just return
 
-    if (visited.count(state) == 0)
-        visited[state] = std::set<const DlCompletionTree*>();
+    if (visited.count(blocker_stack) == 0)
+        visited[blocker_stack] = std::map<RAState, std::set<const DlCompletionTree*>>();
 
-    if (visited[state].count(current) > 0)
+    if (visited[blocker_stack].count(state) == 0)
+        visited[blocker_stack][state] = std::set<const DlCompletionTree*>();
+
+    if (visited[blocker_stack][state].count(current) > 0)
         return;
 
-    visited[state].insert(current);
+    visited[blocker_stack][state].insert(current);
 
-    
+
     // Collect all states accessible through an empty transition from the current state
 
     std::set<RAState> states;
@@ -215,10 +218,10 @@ void NominalReasoner::followTransition(std::map<TIndividual*, std::map<const TRo
             states.insert(transition.final());
     }
 
-    
-    // If the set of states contains the final state - add a relation to the map of individual relations
 
-    if (states.count(automaton.final()) > 0)
+    // If the set of states contains the final state (and there are no blockers) - add a relation to the map of individual relations
+
+    if (blocker_stack.empty() && states.count(automaton.final()) > 0)
     {
         for (TIndividual* a : getIndividuals(first))
         {
@@ -235,7 +238,7 @@ void NominalReasoner::followTransition(std::map<TIndividual*, std::map<const TRo
         }
     }
 
-    
+
     // Check the current node for possible (non-empty) transitions from the current state and follow them
 
     for (auto p_arc = current->begin(); p_arc != current->end(); p_arc++)
@@ -248,14 +251,44 @@ void NominalReasoner::followTransition(std::map<TIndividual*, std::map<const TRo
         {
             const DlCompletionTree* next_node = arc->getArcEnd();
 
-            for (RAState state : states)
+            std::vector<std::pair<const DlCompletionTree*, std::vector<std::pair<const DlCompletionTree*, const DlCompletionTree*>>>> next_nodes;
+
+            if (!blocker_stack.empty() && (*blocker_stack.rbegin()).first == next_node)
             {
-                for (const RATransition& transition : automaton[state])
+                std::vector<std::pair<const DlCompletionTree*, const DlCompletionTree*>> smaller_blocker_stack(blocker_stack);
+                smaller_blocker_stack.pop_back();
+                next_nodes.push_back(std::pair<const DlCompletionTree*, std::vector<std::pair<const DlCompletionTree*, const DlCompletionTree*>>>((*blocker_stack.rbegin()).second, smaller_blocker_stack));
+            }
+
+            next_nodes.push_back(std::pair<const DlCompletionTree*, std::vector<std::pair<const DlCompletionTree*, const DlCompletionTree*>>>(next_node, blocker_stack));
+
+            std::vector<std::pair<const DlCompletionTree*, const DlCompletionTree*>> bigger_blocker_stack(blocker_stack);
+
+            if (next_node->getBlocker() != nullptr && next_node->getBlocker() != next_node)
+            {
+                auto pair = std::pair<const DlCompletionTree*, const DlCompletionTree*>(next_node->getBlocker(), next_node);
+
+                if (std::find(bigger_blocker_stack.begin(), bigger_blocker_stack.end(), pair) == bigger_blocker_stack.end())
                 {
-                    for (RATransition::const_iterator q = transition.begin(); q != transition.end(); q++)
+                    bigger_blocker_stack.push_back(pair);
+                    next_nodes.push_back(std::pair<const DlCompletionTree*, std::vector<std::pair<const DlCompletionTree*, const DlCompletionTree*>>>(next_node->getBlocker(), bigger_blocker_stack));
+                }
+            }
+
+            for (auto& next : next_nodes)
+            {
+                const DlCompletionTree* next_node = next.first;
+                std::vector<std::pair<const DlCompletionTree*, const DlCompletionTree*>>  next_blocker_stack = next.second;
+
+                for (RAState state : states)
+                {
+                    for (const RATransition& transition : automaton[state])
                     {
-                        if (*q == next_role)
-                            followTransition(role_map, first, role, next_node, automaton, transition.final(), visited);
+                        for (RATransition::const_iterator q = transition.begin(); q != transition.end(); q++)
+                        {
+                            if (*q == next_role)
+                                followTransition(role_map, first, role, next_node, automaton, transition.final(), visited, next_blocker_stack);
+                        }
                     }
                 }
             }
@@ -279,9 +312,13 @@ void NominalReasoner::precacheRelated()
         {
             for (RoleMaster::iterator p = ORM.begin(); p != ORM.end(); p++)
             {
+                //if (std::string(getIndividuals(node)[0]->getName()) == "i0" && std::string((*p)->getName()) == "isSecondCousinOf")
+                //    int a = 0;
+
                 const RoleAutomaton& automaton = (*p)->getAutomaton();
-                std::map<RAState, std::set<const DlCompletionTree*>> visited;
-                followTransition(role_map, node, *p, node, automaton, automaton.initial(), visited);
+                std::map<std::vector<std::pair<const DlCompletionTree*, const DlCompletionTree*>>, std::map<RAState, std::set<const DlCompletionTree*>>> empty_visited;
+                std::vector<std::pair<const DlCompletionTree*, const DlCompletionTree*>> empty_blocker_stack;
+                followTransition(role_map, node, *p, node, automaton, automaton.initial(), empty_visited, empty_blocker_stack);
             }
         }
     }

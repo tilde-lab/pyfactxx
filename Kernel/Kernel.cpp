@@ -551,6 +551,61 @@ ReasoningKernel :: isRelated ( const TIndividualExpr* I, const TDRoleExpr* A, co
 	return isInstance(I, &exists);
 }
 
+void ReasoningKernel::getTriples(const TIndividualExpr* q_subj, const TRoleExpr* q_role, const TExpr* q_obj, std::set<std::tuple<const TIndividual*, const TRole*, const TNamedEntry*>>& triples)
+{
+    if (q_subj != nullptr)
+    {
+        TIndividual* subj_ind = getIndividual(q_subj, "Cannot parse the subject");
+
+        TORoleExpr* obj_role = dynamic_cast<TORoleExpr*>(q_role); // fix - add support for data roles
+
+        TIndividual* obj_ind = nullptr; // fix - add data values
+        if (q_obj != nullptr)
+            obj_ind = getIndividual(dynamic_cast<TIndividualExpr*>(q_obj), "Cannot parse the object");
+
+        NamesVector roles;
+
+        if (obj_role != nullptr)
+        {
+            if (false)//obj_role == "rdf:type) // fix - add support for types
+            {
+            }
+
+            roles.push_back(getRole(q_role, "Cannot parse the predicate"));
+        }
+        else
+        {
+            // fix - add support for types
+            getRelatedRoles(q_subj, roles, false, false);
+        }
+
+        for (const TNamedEntry* named_entry : roles)
+        {
+            const TRole* role = static_cast<const TRole*>(named_entry);
+            const TORoleExpr* role_expr = getExpressionManager()->ObjectRole(role->getName());
+
+            for (const TIndividual* obj : getRoleFillers(q_subj, role_expr))
+            {
+                if (obj_ind == nullptr || obj == obj_ind) // fix - add data values
+                    triples.insert(std::tuple<const TIndividual*, const TRole*, const TNamedEntry*>(subj_ind, role, obj));
+            }
+        }
+    }
+    else
+    {
+        const std::vector<TIndividual*>* individuals = getTBox()->getIndividuals();
+
+        if (individuals != nullptr)
+        {
+            for (TIndividual* ind : *individuals)
+            {
+                const TIndividualExpr* ind_expr = getExpressionManager()->Individual(ind->getName());
+                getTriples(ind_expr, q_role, q_obj, triples);
+            }
+        }
+    }
+}
+
 //----------------------------------------------------------------------------------
 // atomic decomposition queries
 //----------------------------------------------------------------------------------
