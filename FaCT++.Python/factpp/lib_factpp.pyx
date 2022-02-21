@@ -23,6 +23,7 @@
 from libcpp cimport bool
 from libcpp.string cimport string
 from cython.operator cimport dereference, postincrement
+from libcpp.set cimport set
 
 cdef extern from "<vector>" namespace "std":
     cdef cppclass vector[T]:
@@ -58,10 +59,14 @@ cdef extern from "<fstream>" namespace "std":
         ifstream(const char*) except +
         ifstream(const char*, open_mode) except +
 
-cdef extern from 'taxNamEntry.h':
-    cdef cppclass ClassifiableEntry:
-        ClassifiableEntry() except +
+cdef extern from 'tNamedEntry.h':
+    cdef cppclass TNamedEntry:
+        TNamedEntry(string) except +
         string getName()
+
+cdef extern from 'taxNamEntry.h':
+    cdef cppclass ClassifiableEntry(TNamedEntry):
+        ClassifiableEntry() except +
         bool isSystem()
         bool isTop()
         bool isBottom()
@@ -92,11 +97,6 @@ cdef extern from 'tRole.h':
 
 cdef extern from 'tIndividual.h' namespace 'TRelatedMap':
     ctypedef vector[TIndividual*] CIVec
-
-# cdef extern from 'tNamedEntry.h':
-#     cdef cppclass TNamedEntry:
-#         TNamedEntry(string) except +
-#         string getName()
 
 cdef extern from 'tDLExpression.h':
     cdef cppclass TNamedEntity:
@@ -246,6 +246,7 @@ cdef extern from 'Kernel.h':
         #CIVec& getRelated(TIndividual*, TRole*)
         #void getRoleFillers(TDLIndividualExpression*, TDLObjectRoleExpression*, IndividualSet&)
         CIVec& getRoleFillers(TDLIndividualExpression*, TDLObjectRoleExpression*)
+        void getTriples(const TDLIndividualExpression*, const TDLRoleExpression*, const TDLExpression*, set[vector[const TNamedEntry*]]&)
         TaxonomyVertex* setUpCache(TDLConceptExpression*)
 
         void realiseKB()
@@ -580,6 +581,33 @@ cdef class Reasoner:
                 yield from self.get_instances(self.concept(obj.getName()))
             postincrement(it)
 
+    def get_triples(self, IndividualExpr s, ObjectRoleExpr p, IndividualExpr o):
+        cdef set[vector[const TNamedEntry*]] c_triples
+        
+        if s is None:
+            ref_s = NULL
+        else:
+            ref_s = s.c_obj()
+        
+        if p is None:
+            ref_p = NULL
+        else:
+            ref_p = p.c_obj()
+        
+        if o is None:
+            ref_o = NULL
+        else:
+            ref_o = o.c_obj()
+        
+        self.c_kernel.getTriples(ref_s, ref_p, ref_o, c_triples)
+        
+        for triple in c_triples:
+            subj = self.individual(triple[0].getName())
+            role = self.object_role(triple[1].getName())
+            obj = self.individual(triple[2].getName())
+             
+            yield (subj, role, obj)
+            
     #
     # data roles
     #

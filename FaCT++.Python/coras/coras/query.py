@@ -42,6 +42,16 @@ class QueryStore(rdflib.store.Store):
 
     def triples(self, pattern, context=None):
         s, p, o = pattern
+        
+        ref_s = None if s is None else self._reasoner.individual(s)
+        ref_p = None if p is None else self._reasoner.object_role(p)
+        ref_o = None if o is None else self._reasoner.individual(o)
+        
+        for subj, role, obj in  self._reasoner.get_triples(ref_s, ref_p, ref_o):
+            yield ((rdflib.URIRef(subj.name), rdflib.URIRef(role.name), rdflib.URIRef(obj.name)), context)
+        
+    def old_triples(self, pattern, context=None):
+        s, p, o = pattern
         if __debug__:
             logger.debug('query pattern: {} {} {}'.format(s, p, o))
 
