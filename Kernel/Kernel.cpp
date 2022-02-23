@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include "OntologyBasedModularizer.h"
 #include "eFPPSaveLoad.h"
 #include "SaveLoadManager.h"
+#include "TypeGatherer.h"
+#include "InstanceGatherer.h"
 
 const char* ReasoningKernel :: Version = "1.7.0-SNAPSHOT";
 const char* ReasoningKernel :: SupportedDL = "SROIQ(D)";
@@ -551,64 +553,128 @@ ReasoningKernel :: isRelated ( const TIndividualExpr* I, const TDRoleExpr* A, co
 	return isInstance(I, &exists);
 }
 
-void ReasoningKernel::getTriples(const TIndividualExpr* q_subj, const TRoleExpr* q_role, const TExpr* q_obj, std::set<std::vector<const TNamedEntry*>>& triples)
+TDLConceptExpression* ReasoningKernel::getConceptExpression(const std::string& name)
 {
-    if (q_subj != nullptr)
+    if (name == OWL_THING)
+        return getExpressionManager()->Top();
+    else if (name == OWL_NOTHING)
+        return getExpressionManager()->Bottom();
+    else
+        return getExpressionManager()->Concept(name);
+}
+
+const TConcept* ReasoningKernel::getConcept(TDLIndividualName* i_exp, TDLConceptExpression* c_exp)
+{
+    if (strlen(i_exp->getName()) == 0)
+        return nullptr;
+    else if (c_exp == getExpressionManager()->Top())
+        return static_cast<const TConcept*>(getTBox()->getTaxonomy()->getTopVertex()->getPrimer());
+    else if (c_exp == getExpressionManager()->Bottom())
+        return static_cast<const TConcept*>(getTBox()->getTaxonomy()->getBottomVertex()->getPrimer());
+    else if (i_exp->getEntry() != nullptr)
+        return static_cast<const TConcept*>(i_exp->getEntry());
+    else
+        return static_cast<const TConcept*>(static_cast<TDLConceptName*>(c_exp)->getEntry());
+}
+
+const TRole* ReasoningKernel::getRole(TDLObjectRoleName* o_exp, TDLDataRoleName* d_exp)
+{
+    if (strlen(o_exp->getName()) == 0 || strcmp(o_exp->getName(), RDF_TYPE) == 0)
+        return nullptr;
+    else if (o_exp->getEntry() != nullptr)
+        return static_cast<TRole*>(o_exp->getEntry());
+    else
+        return static_cast<TRole*>(d_exp->getEntry());
+}
+
+void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::string& q_role_name, const std::string& q_obj_name, std::set<std::vector<std::string>>& triples)
+{
+    auto* em = getExpressionManager();
+
+    TDLIndividualName* q_subj_i_exp = em->Individual(q_subj_name);
+    TDLConceptExpression* q_subj_c_exp = getConceptExpression(q_subj_name);
+
+    TDLObjectRoleName* q_o_role_exp = em->ObjectRole(q_role_name);
+    TDLDataRoleName* q_d_role_exp = em->DataRole(q_role_name);
+
+    TDLIndividualName* q_obj_i_exp = em->Individual(q_obj_name);
+    TDLConceptExpression* q_obj_c_exp = getConceptExpression(q_obj_name);
+
+    const TConcept* q_subj = getConcept(q_subj_i_exp, q_subj_c_exp);
+    const TRole* q_role = getRole(q_o_role_exp, q_d_role_exp);
+    const TConcept* q_obj = getConcept(q_obj_i_exp, q_obj_c_exp);
+
+    if (q_subj_name != "" && q_subj == nullptr || q_role_name != "" && q_role_name != RDF_TYPE && q_role == nullptr || q_obj_name != "" && q_obj == nullptr)
+        return;
+
+    if (q_subj_name == "")
     {
-        TIndividual* subj_ind = getIndividual(q_subj, "Cannot parse the subject");
-
-        TORoleExpr* obj_role = dynamic_cast<TORoleExpr*>(q_role); // fix - add support for data roles
-
-        TIndividual* obj_ind = nullptr; // fix - add data values
-        if (q_obj != nullptr)
-            obj_ind = getIndividual(dynamic_cast<TIndividualExpr*>(q_obj), "Cannot parse the object");
-
-        NamesVector roles;
-
-        if (obj_role != nullptr)
+        if (q_role_name == RDF_TYPE && q_obj != nullptr && !q_obj->isSingleton())
         {
-            if (false)//obj_role == "rdf:type) // fix - add support for types
-            {
-            }
-
-            roles.push_back(getRole(q_role, "Cannot parse the predicate"));
+            InstanceGatherer gatherer(&triples, q_obj_name);
+            getInstances(q_obj_c_exp, gatherer);
         }
         else
         {
-            // fix - add support for types
-            getRelatedRoles(q_subj, roles, false, false);
-        }
+            const std::vector<TIndividual*>* individuals = getTBox()->getIndividuals();
 
-        for (const TNamedEntry* named_entry : roles)
-        {
-            const TRole* role = static_cast<const TRole*>(named_entry);
-            const TORoleExpr* role_expr = getExpressionManager()->ObjectRole(role->getName());
-
-            for (const TIndividual* obj : getRoleFillers(q_subj, role_expr))
+            if (individuals != nullptr)
             {
-                if (obj_ind == nullptr || obj == obj_ind) // fix - add data values
+                for (TIndividual* ind : *individuals)
+                    getTriples(ind->getName(), q_role_name, q_obj_name, triples);
+            }
+        }
+    }
+    else if (q_subj != nullptr && q_subj->isSingleton())
+    {
+        NamesVector roles;
+
+        bool needTypes = (q_role == nullptr);
+
+        if (q_role_name == "")
+            getRelatedRoles(q_subj_i_exp, roles, false, false);
+        else if (q_role_name != RDF_TYPE)
+            roles.push_back(q_role);
+
+        if (needTypes)
+        {
+            if (q_obj == nullptr)
+            {
+                TypeGatherer gatherer(&triples, q_subj_name);
+                getTypes(q_subj_i_exp, false, gatherer);
+            }
+            else if (!q_obj->isSingleton())
+            {
+                if (isInstance(q_subj_i_exp, q_obj_c_exp))
                 {
-                    std::vector<const TNamedEntry*> triple;
-                    
-                    triple.push_back(subj_ind);
-                    triple.push_back(role);
-                    triple.push_back(obj);
+                    std::vector<std::string> triple;
+
+                    triple.push_back(q_subj_name);
+                    triple.push_back(RDF_TYPE);
+                    triple.push_back(q_obj_name);
 
                     triples.insert(triple);
                 }
             }
         }
-    }
-    else
-    {
-        const std::vector<TIndividual*>* individuals = getTBox()->getIndividuals();
 
-        if (individuals != nullptr)
+        for (const TNamedEntry* named_entry : roles)
         {
-            for (TIndividual* ind : *individuals)
+            const TRole* role = static_cast<const TRole*>(named_entry);
+            const TORoleExpr* role_exp = getExpressionManager()->ObjectRole(role->getName());
+
+            for (const TIndividual* obj : getRoleFillers(q_subj_i_exp, role_exp))
             {
-                const TIndividualExpr* ind_expr = getExpressionManager()->Individual(ind->getName());
-                getTriples(ind_expr, q_role, q_obj, triples);
+                if (q_obj == nullptr || obj == q_obj) // fix - add data values
+                {
+                    std::vector<std::string> triple;
+                    
+                    triple.push_back(q_subj->getName());
+                    triple.push_back(role->getName());
+                    triple.push_back(obj->getName());
+
+                    triples.insert(triple);
+                }
             }
         }
     }

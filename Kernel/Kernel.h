@@ -463,6 +463,12 @@ protected:	// methods
 
 	// transformation methods
 
+		/// get concept by the TConceptExpr
+    TConcept* getConcept ( const TConceptExpr* i, const char* reason )
+	{
+		try { return static_cast<TConcept*>(getTBox()->getCI(TreeDeleter(e(i)))); }
+		catch(...) { throw EFaCTPlusPlus(reason); }
+	}
 		/// get individual by the TIndividualExpr
 	TIndividual* getIndividual ( const TIndividualExpr* i, const char* reason )
 	{
@@ -1314,7 +1320,10 @@ public:
 		/// set RESULT into set of individuals such that they do have data roles R and S, and R op S
 	void getDataRelatedIndividuals ( TDRoleExpr* R, TDRoleExpr* S, int op, IndividualSet& Result );
 
-    void getTriples(const TIndividualExpr* q_subj, const TRoleExpr* q_role, const TExpr* q_obj, std::set<std::vector<const TNamedEntry*>>& triples);
+    TDLConceptExpression* getConceptExpression(const std::string& name);
+    const TConcept* getConcept(TDLIndividualName* i_exp, TDLConceptExpression* c_exp);
+    const TRole* getRole(TDLObjectRoleName* o_exp, TDLDataRoleName* d_exp);
+    void getTriples(const std::string& q_subj_name, const std::string& q_role_name, const std::string& q_obj_name, std::set<std::vector<std::string>>& triples);
 
 	//----------------------------------------------------------------------------------
 	// knowledge exploration queries
