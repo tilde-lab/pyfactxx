@@ -246,7 +246,7 @@ cdef extern from 'Kernel.h':
         #CIVec& getRelated(TIndividual*, TRole*)
         #void getRoleFillers(TDLIndividualExpression*, TDLObjectRoleExpression*, IndividualSet&)
         CIVec& getRoleFillers(TDLIndividualExpression*, TDLObjectRoleExpression*)
-        void getTriples(const TDLIndividualExpression*, const TDLRoleExpression*, const TDLExpression*, set[vector[const TNamedEntry*]]&)
+        void getTriples(const string&, const string&, const string&, set[vector[string]]&)
         TaxonomyVertex* setUpCache(TDLConceptExpression*)
 
         void realiseKB()
@@ -581,33 +581,12 @@ cdef class Reasoner:
                 yield from self.get_instances(self.concept(obj.getName()))
             postincrement(it)
 
-    def get_triples(self, IndividualExpr s, ObjectRoleExpr p, IndividualExpr o):
-        cdef set[vector[const TNamedEntry*]] c_triples
+    def get_triples(self, string s, string p, string o):
+        cdef set[vector[string]] c_triples
         
-        if s is None:
-            ref_s = NULL
-        else:
-            ref_s = s.c_obj()
+        self.c_kernel.getTriples(s, p, o, c_triples)
         
-        if p is None:
-            ref_p = NULL
-        else:
-            ref_p = p.c_obj()
-        
-        if o is None:
-            ref_o = NULL
-        else:
-            ref_o = o.c_obj()
-        
-        self.c_kernel.getTriples(ref_s, ref_p, ref_o, c_triples)
-        
-        for triple in c_triples:
-            subj = self.individual(triple[0].getName())
-            role = self.object_role(triple[1].getName())
-            obj = self.individual(triple[2].getName())
-             
-            yield (subj, role, obj)
-            
+        return ((triple[0], triple[1], triple[2]) for triple in c_triples)            
     #
     # data roles
     #

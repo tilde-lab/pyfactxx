@@ -25,6 +25,7 @@ import logging
 import rdflib.store
 from factpp.lib_factpp import ObjectRoleExpr, DataRoleExpr
 from rdflib import RDF, OWL
+import re
 
 from coras.util import dispatch
 
@@ -34,21 +35,32 @@ class QueryStore(rdflib.store.Store):
     def __init__(self, tgraph, reasoner):
         self._triples_graph = tgraph
         self._reasoner = reasoner
+        self._uri_pattern = re.compile('\w+://')
 
         # TODO: research the settings below; set all of them to true to
         # allow loading N3 files at the moment
         self.context_aware = True
         self.formula_aware = True
+        
+    def get_term(self, node_name):
+        if self._uri_pattern.match(node_name):
+            return rdflib.URIRef(node_name)
+        else:
+            return rdflib.BNode(node_name)
 
     def triples(self, pattern, context=None):
         s, p, o = pattern
         
-        ref_s = None if s is None else self._reasoner.individual(s)
-        ref_p = None if p is None else self._reasoner.object_role(p)
-        ref_o = None if o is None else self._reasoner.individual(o)
+        #ref_s = None if s is None else self._reasoner.individual(s)
+        #ref_p = None if p is None else self._reasoner.object_role(p)
+        #ref_o = None if o is None else self._reasoner.individual(o)
+        
+        ref_s = "" if s is None else s
+        ref_p = "" if p is None else p
+        ref_o = "" if o is None else o
         
         for subj, role, obj in  self._reasoner.get_triples(ref_s, ref_p, ref_o):
-            yield ((rdflib.URIRef(subj.name), rdflib.URIRef(role.name), rdflib.URIRef(obj.name)), context)
+            yield ((self.get_term(subj), self.get_term(role), self.get_term(obj)), context)
         
     def old_triples(self, pattern, context=None):
         s, p, o = pattern
