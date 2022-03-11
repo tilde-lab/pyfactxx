@@ -1,6 +1,7 @@
 /* This file is part of the FaCT++ DL reasoner
 Copyright (C) 2003-2015 Dmitry Tsarkov and The University of Manchester
 Copyright (C) 2015-2017 Dmitry Tsarkov
+Copyright (C) 2021-2022 Ivan Rygaev and Tilde MI
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -27,11 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include "TypeGatherer.h"
 #include "InstanceGatherer.h"
 
-const char* ReasoningKernel :: Version = "1.7.0-SNAPSHOT";
+const char* ReasoningKernel :: Version = "1.8.0-SNAPSHOT";
 const char* ReasoningKernel :: SupportedDL = "SROIQ(D)";
 const char* ReasoningKernel :: Copyright =
-	"Copyright (C) Dmitry Tsarkov, 2002-2017";
-const char* ReasoningKernel :: ReleaseDate = "01 January 2017";
+	"Copyright (C) Dmitry Tsarkov, Ivan Rygaev, 2002-2022";
+const char* ReasoningKernel :: ReleaseDate = "31 March 2022";
 
 // print the FaCT++ information only once
 static bool KernelFirstRun = true;
@@ -668,7 +669,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
                 if (q_obj == nullptr || obj == q_obj) // fix - add data values
                 {
                     std::vector<std::string> triple;
-                    
+
                     triple.push_back(q_subj->getName());
                     triple.push_back(role->getName());
                     triple.push_back(obj->getName());
