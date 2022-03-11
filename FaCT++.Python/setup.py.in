@@ -3,6 +3,7 @@
 # factpp - Python interface to FaCT++ reasoner
 #
 # Copyright (C) 2016-2018 by Artur Wroblewski <wrobell@riseup.net>
+# Copyright (C) 2021-2022 by Ivan Rygaev <ir@tilde.pro>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,7 +18,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-
 
 import os
 from setuptools import setup, Extension
@@ -77,13 +77,14 @@ cythonize(pyx_ext, compiler_directives={'language_level' : "3"})
 
 setup(
     name="factpp",
-    version="0.0.1",
-    description="Python bindings to FaCT++ library",
+    version="1.8.0",
+    description="Python bindings to FaCT++ reasoner",
     author="Artur Wroblewski",
     author_email="wrobell@riseup.net",
     url="",
     download_url="",
     packages=["factpp"],
+    install_requires=["rdflib", "pytest"],
     package_dir={"factpp": "${CMAKE_CURRENT_SOURCE_DIR}/factpp"},
     ext_modules=[CMakeExtension("factpp/lib_factpp"),],
     cmdclass={

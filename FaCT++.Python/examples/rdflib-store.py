@@ -22,6 +22,7 @@ from rdflib.namespace import FOAF, RDF, RDFS
 
 import factpp.rdflib_interface
 
+
 g = Graph(store=factpp.rdflib_interface.Store())
 reasoner = g.store._reasoner
 
