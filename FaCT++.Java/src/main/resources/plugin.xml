@@ -4,8 +4,8 @@
 
     <extension point="org.protege.editor.owl.inference_reasonerfactory"
                id="factplusplus-factory">
-        <name value="FaCT++ 1.7.0-SNAPSHOT"/>
-        <label value="FaCT++ 1.7.0-SNAPSHOT"/>
+        <name value="FaCT++ 1.8.0-SNAPSHOT"/>
+        <label value="FaCT++ 1.8.0-SNAPSHOT"/>
         <class value="uk.ac.manchester.cs.factplusplus.protege.FaCTPlusPlusFactory"/>
     </extension>
 
