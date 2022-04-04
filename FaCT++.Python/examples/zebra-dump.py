@@ -1,5 +1,7 @@
+
 from factpp import Reasoner
 from datetime import datetime
+
 
 def is_related_to(reasoner, name, property_name, property):
     i = reasoner.individual(name)

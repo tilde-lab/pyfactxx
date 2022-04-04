@@ -39,6 +39,21 @@ make && make install
 **(Sorry, no pip support currently!)**
 
 
+## Usage
+
+Run an example:
+
+`python examples/imply-class.py`
+
+Try to load FOAF ontology:
+
+`./bin/factpp-load ontologies/foaf.rdf`
+
+and print ontology report:
+
+`./bin/factpp-load ontologies/foaf.rdf 2>&1 | bin/factpp-load-report`
+
+
 ## Authors of Python part
 
 - Artur Wroblewski

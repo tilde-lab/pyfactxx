@@ -1,8 +1,11 @@
-from factpp import Reasoner
+
+import sys
 from datetime import datetime
 import random
 from statistics import mean, pstdev
-import sys
+
+from factpp import Reasoner
+
 
 if len(sys.argv) < 2:
 	print('Usage: shuffle_lisp.py <lisp ontology filename> [<number of iterations>]')
@@ -14,13 +17,13 @@ else:
 		iterations = int(sys.argv[2])
 
 	times = []
-	    
+
 	for i in range(iterations):
 		with open(filename) as file:
 			lines = file.readlines()
-		
+
 		random.shuffle(lines)
-		
+
 		with open('test.txt', 'w') as file:
 			file.writelines(lines)
 
@@ -29,13 +32,12 @@ else:
 		reasoner.parse_lisp('test.txt')
 
 		reasoner.realise()
-		
+
 		time = (datetime.now() - start).total_seconds()
-		
+
 		print(time)
-		
+
 		times.append(time)
-		
+
 	print(f"min: {min(times)}, max: {max(times)}")
 	print(f"average: {mean(times)}, std dev: {pstdev(times)}")
-

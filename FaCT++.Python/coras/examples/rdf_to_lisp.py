@@ -1,6 +1,9 @@
+
+import sys
+
 import coras
 from coras.cli import load_and_parse
-import sys
+
 
 if len(sys.argv) < 3:
 	print("Usage: rdf_to_lisp.py <rdf ontology filename> <lisp ontology filename>")
@@ -13,5 +16,3 @@ else:
 	#crs.realise()
 
 	crs.reasoner.dump(lisp_filename)
-
-

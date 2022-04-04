@@ -25,6 +25,7 @@ import pytest
 import coras
 from coras.cli import load_and_parse
 
+
 TESTS = [
     ('foaf', '01-foaf.sq', ['foaf.rdf', 'tbl-foaf-card.n3'], '01-result.csv'),
     ('foaf', '02-foaf.sq', ['foaf.rdf', 'tbl-foaf-card.n3'], '02-result.csv'),
