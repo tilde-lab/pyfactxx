@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <string>
 
 #define RDF_TYPE "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+#define OWL_SAME_AS "http://www.w3.org/2002/07/owl#sameAs"
 #define OWL_THING "http://www.w3.org/2002/07/owl#Thing"
 #define OWL_NOTHING "http://www.w3.org/2002/07/owl#Nothing"
 
