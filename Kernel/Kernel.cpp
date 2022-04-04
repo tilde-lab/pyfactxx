@@ -604,18 +604,25 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
     const TRole* q_role = getRole(q_o_role_exp, q_d_role_exp);
     const TConcept* q_obj = getConcept(q_obj_i_exp, q_obj_c_exp);
 
-    if (q_subj_name != "" && q_subj == nullptr || q_role_name != "" && q_role_name != RDF_TYPE && q_role == nullptr || q_obj_name != "" && q_obj == nullptr)
+    // If any of the three arguments is not found in the ontology, return an empty set
+    if (q_subj_name != "" && q_subj == nullptr || q_role_name != "" && q_role_name != RDF_TYPE && q_role_name != OWL_SAME_AS && q_role == nullptr || q_obj_name != "" && q_obj == nullptr)
         return;
 
     if (q_subj_name == "")
     {
+        // Subject is not specified in the query
+
         if (q_role_name == RDF_TYPE && q_obj != nullptr && !q_obj->isSingleton())
         {
+            // All instances of a specific class queries
+
             InstanceGatherer gatherer(&triples, q_obj_name);
             getInstances(q_obj_c_exp, gatherer);
         }
         else
         {
+            // Otherwise take the list of all individuals and run the same query for each individual separately
+
             const std::vector<TIndividual*>* individuals = getTBox()->getIndividuals();
 
             if (individuals != nullptr)
@@ -627,16 +634,17 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
     }
     else if (q_subj != nullptr && q_subj->isSingleton())
     {
-        NamesVector roles;
+        // Subject is specified in the query
 
-        bool needTypes = (q_role == nullptr);
+        NamesVector roles;
 
         if (q_role_name == "")
             getRelatedRoles(q_subj_i_exp, roles, false, false);
-        else if (q_role_name != RDF_TYPE)
+        else if (q_role_name != RDF_TYPE && q_role_name != OWL_SAME_AS)
             roles.push_back(q_role);
 
-        if (needTypes)
+        // If types are needed
+        if (q_role_name == "" || q_role_name == RDF_TYPE)
         {
             if (q_obj == nullptr)
             {
@@ -658,6 +666,46 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
             }
         }
 
+        // If synonyms are needed
+        if (q_role_name == "" || q_role_name == OWL_SAME_AS)
+        {
+            std::set<const ClassifiableEntry*> synonyms;
+
+            for (const auto* synonym : q_subj->getTaxVertex()->synonyms())
+            {
+                if (synonym != q_subj && (q_obj == nullptr || synonym == q_obj))
+                    synonyms.insert(synonym);
+            }
+            
+            const std::vector<TIndividual*>* individuals = getTBox()->getIndividuals();
+
+            if (individuals != nullptr)
+            {
+                for (TIndividual* ind : *individuals)
+                {
+                    if (ind != q_subj)
+                    {
+                        for (const auto* synonym : ind->getTaxVertex()->synonyms())
+                        {
+                            if (synonyms.count(synonym) > 0)
+                                synonyms.insert(ind);
+                        }
+                    }
+                }
+            }
+
+            for (const auto* synonym : synonyms)
+            {
+                std::vector<std::string> triple;
+
+                triple.push_back(q_subj_name);
+                triple.push_back(OWL_SAME_AS);
+                triple.push_back(synonym->getName());
+
+                triples.insert(triple);
+            }
+        }
+
         for (const TNamedEntry* named_entry : roles)
         {
             const TRole* role = static_cast<const TRole*>(named_entry);
@@ -668,7 +716,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
                 if (q_obj == nullptr || obj == q_obj) // fix - add data values
                 {
                     std::vector<std::string> triple;
-                    
+
                     triple.push_back(q_subj->getName());
                     triple.push_back(role->getName());
                     triple.push_back(obj->getName());
