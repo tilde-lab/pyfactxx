@@ -1,0 +1,187 @@
+@prefix : <http://folk.uio.no/martige/what/2012/04/22/zebra#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+<http://folk.uio.no/martige/what/2012/04/22/zebra> rdf:type owl:Ontology .
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Color :Drink :House :Person :Pet :Smoke ) ] .
+:Color rdf:type owl:Class ;
+       owl:equivalentClass [ 
+           rdf:type owl:Class ;
+           owl:oneOf ( :Blue :Yellow :Ivory :Green :Red ) ] .
+:Drink rdf:type owl:Class ;
+       owl:equivalentClass [ 
+           rdf:type owl:Class ;
+           owl:oneOf ( :OrangeJuice :Water :Tea :Milk :Coffee ) ] .
+:Pet rdf:type owl:Class ;
+     owl:equivalentClass [ 
+         rdf:type owl:Class ;
+         owl:oneOf ( :Horse :Zebra :Fox :Dog :Snails ) ] .
+:Smoke rdf:type owl:Class ;
+       owl:equivalentClass [ 
+           rdf:type owl:Class ;
+           owl:oneOf ( :Kools :Chesterfield :LuckyStrike :OldGold :Parliament ) ] .
+:House rdf:type owl:Class ;
+       owl:equivalentClass [ 
+           rdf:type owl:Class ;
+           owl:oneOf ( :House5 :House4 :House2 :House3 :House1 ) ] .
+:Person rdf:type owl:Class ;
+        owl:equivalentClass [
+	    rdf:type owl:Class ;
+            owl:oneOf ( :Norwegian :Spaniard :Ukrainian :Japanese :Englishman ) ] .
+:drinks rdf:type owl:FunctionalProperty ,
+                 owl:InverseFunctionalProperty ,
+                 owl:ObjectProperty ;
+        rdfs:range :Drink ;
+        rdfs:domain :Person .
+
+:hasColor rdf:type owl:FunctionalProperty ,
+                   owl:InverseFunctionalProperty ,
+                   owl:ObjectProperty ;
+          rdfs:range :Color ;
+          rdfs:domain :House .
+
+:hasPet rdf:type owl:FunctionalProperty ,
+                 owl:InverseFunctionalProperty ,
+                 owl:ObjectProperty ;
+        rdfs:domain :Person ;
+        rdfs:range :Pet .
+
+:livesIn rdf:type owl:FunctionalProperty ,
+                  owl:InverseFunctionalProperty ,
+                  owl:ObjectProperty ;
+         rdfs:range :House ;
+         rdfs:domain :Person .
+
+:smokes rdf:type owl:FunctionalProperty ,
+                 owl:InverseFunctionalProperty ,
+                 owl:ObjectProperty ;
+        rdfs:domain :Person ;
+        rdfs:range :Smoke .
+:Person rdf:type owl:Class ;
+        rdfs:subClassOf 
+           [ rdf:type owl:Class ;
+             owl:intersectionOf ( 
+                 [ rdf:type owl:Restriction ;
+                   owl:onProperty :drinks ;
+                   owl:someValuesFrom owl:Thing ]
+                 [ rdf:type owl:Restriction ;
+                   owl:onProperty :hasPet ;
+                   owl:someValuesFrom owl:Thing ]
+                 [ rdf:type owl:Restriction ;
+                   owl:onProperty :livesIn ;
+                   owl:someValuesFrom owl:Thing ]
+                 [ rdf:type owl:Restriction ;
+                   owl:onProperty :smokes ;
+                   owl:someValuesFrom owl:Thing ]
+             )
+        ] .
+
+:House rdf:type owl:Class ;
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasColor ;
+                         owl:someValuesFrom owl:Thing ] .
+:House1 :isLeftTo :House2 .
+:House2 :isLeftTo :House3 .
+:House3 :isLeftTo :House4 .
+:House4 :isLeftTo :House5 .
+
+[ rdf:type owl:NegativePropertyAssertion ;
+  owl:assertionProperty :isNextTo ;
+  owl:targetIndividual :House1 ;
+  owl:sourceIndividual :House5  ] .
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :House2 :House1 :House4 :House3 :House5 ) ] .
+:isNextTo rdf:type owl:IrreflexiveProperty ,
+                   owl:ObjectProperty ,
+                   owl:SymmetricProperty ;
+          rdfs:domain :House ;
+          rdfs:range :House .
+
+:isRightTo rdf:type owl:FunctionalProperty ,
+	   	    owl:InverseFunctionalProperty ,
+	   	    owl:ObjectProperty ;
+           owl:inverseOf :isLeftTo ;
+           rdfs:subPropertyOf :isNextTo .
+
+:isLeftTo rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :isNextTo .
+:House rdf:type owl:Class ;
+       rdfs:subClassOf 
+           [ rdf:type owl:Restriction ;
+             owl:onProperty :isNextTo ;
+             owl:onClass :House ;
+             owl:maxQualifiedCardinality "2"^^xsd:nonNegativeInteger ] ,
+           [ rdf:type owl:Restriction ;
+             owl:onProperty :hasColor ;
+             owl:someValuesFrom owl:Thing ] .
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Green :Ivory :Red :Yellow :Blue ) ] .
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Spaniard :Norwegian :Englishman :Ukrainian :Japanese ) ] .
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Tea :OrangeJuice :Water :Coffee :Milk ) ] .
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Dog :Zebra :Fox :Snails :Horse ) ] .
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Kools :Chesterfield :LuckyStrike :OldGold :Parliament ) ] .
+  
+### statement 2
+:Englishman :livesIn [ :hasColor :Red ] .
+
+### statement 3
+:Spaniard :hasPet :Dog .
+
+### statement 4
+[] :drinks :Coffee ;
+   :livesIn [ :hasColor :Green ] .
+
+### statement 5
+:Ukrainian :drinks :Tea .
+
+### statement 6
+[] :hasColor :Green ; 
+   :isRightTo [ :hasColor :Ivory ] .
+
+### statement 7
+[] :smokes :OldGold ;
+   :hasPet :Snails .
+
+### statement 8
+[] :smokes :Kools ;
+   :livesIn [ :hasColor :Yellow ] .
+
+### statement 9
+[] :drinks :Milk ;
+   :livesIn :House3 .
+
+### statement 10
+:Norwegian :livesIn :House1 .
+
+### statement 11
+[] :smokes :Chesterfield ;
+   :livesIn [ :isNextTo _:x11 ] .
+[] :livesIn _:x11 ;
+   :hasPet :Fox .
+
+### statement 12
+[] :smokes :Kools;
+   :livesIn [ :isNextTo _:x12 ] .
+[] :livesIn _:x12 ;
+   :hasPet :Horse .
+
+### statement 13
+[] :smokes :LuckyStrike ;
+   :drinks :OrangeJuice .
+
+### statement 14
+:Japanese :smokes :Parliament .
+
+### statement 15
+:Norwegian :livesIn [ :isNextTo [ :hasColor :Blue ] ] .
