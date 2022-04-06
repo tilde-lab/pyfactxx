@@ -717,7 +717,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
 
             for (const TIndividual* obj : getRoleFillers(q_subj_i_exp, role_exp))
             {
-                if (q_obj == nullptr || obj == q_obj) // fix - add data values
+                if (q_obj_name == "" || obj == q_obj)
                 {
                     std::vector<std::string> triple;
 
@@ -755,7 +755,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
                 }
             }
         }
-        else
+        else if (q_subj_ind->hasDataValueCache(q_role))
         {
             for (const TDataEntry* value : q_subj_ind->getDataValueCache(q_role))
             {
