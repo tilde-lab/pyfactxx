@@ -320,6 +320,21 @@ void NominalReasoner::precacheRelated()
                 std::vector<std::pair<const DlCompletionTree*, const DlCompletionTree*>> empty_blocker_stack;
                 followTransition(role_map, node, *p, node, automaton, automaton.initial(), empty_visited, empty_blocker_stack);
             }
+
+            for (auto p_neighbor = node->begin(); p_neighbor != node->end(); p_neighbor++)
+            {
+                const DlCompletionTreeArc* neighbor = *p_neighbor;
+                const TRole* role = neighbor->getRole();
+
+                if (role != nullptr && role->isDataRole())
+                {
+                    for (TIndividual* a : getIndividuals(node))
+                    {
+                        DLVertex& vertex = DLHeap[neighbor->getArcEnd()->getInit()];
+                        a->addDataValueCache(role, static_cast<TDataEntry*>(vertex.getConcept()));
+                    }
+                }
+            }
         }
     }
 

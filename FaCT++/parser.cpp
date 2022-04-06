@@ -203,7 +203,21 @@ void DLLispParser :: parseCommand ( void )
 		}
 		break;
 
-	case PROLE:
+    case VALUEOF:			// command is (valueOf id1 R data);
+        try
+        {
+            TIndividualExpr* id1 = getSingleton();
+            TDRoleExpr* R = getDRoleExpression();
+            TDataValueExpr* data = dynamic_cast<TDataValueExpr*>(getDataExpression());
+            Kernel->valueOf(id1, R, data);
+        }
+        catch (const EFaCTPlusPlus& ex)
+        {
+            parseError(ex.what());
+        }
+        break;
+
+    case PROLE:
 	case PATTR:
 	{
 		TORoleExpr* Name = getObjectRole();

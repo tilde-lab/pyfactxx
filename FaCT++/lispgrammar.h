@@ -105,6 +105,7 @@ enum LispToken {
 	ONEOF,
 	SAME,
 	DIFFERENT,
+    VALUEOF,
 
 	// fairness constraints
 	FAIRNESS,

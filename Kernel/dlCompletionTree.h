@@ -357,6 +357,7 @@ public:		// methods
 	void addConcept ( const ConceptWDep& p, bool isComplex ) { Label.getLabel(isComplex).add(p); }
 		/// set the Init concept
 	void setInit ( BipolarPointer p ) { Init = p; }
+    BipolarPointer getInit() { return Init; }
 
 	//----------------------------------------------
 	// children/parent access interface

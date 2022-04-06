@@ -606,7 +606,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
     const TConcept* q_obj = getConcept(q_obj_i_exp, q_obj_c_exp);
 
     // If any of the three arguments is not found in the ontology, return an empty set
-    if (q_subj_name != "" && q_subj == nullptr || q_role_name != "" && q_role_name != RDF_TYPE && q_role_name != OWL_SAME_AS && q_role == nullptr || q_obj_name != "" && q_obj == nullptr)
+    if (q_subj_name != "" && q_subj == nullptr || q_role_name != "" && q_role_name != RDF_TYPE && q_role_name != OWL_SAME_AS && q_role == nullptr)
         return;
 
     if (q_subj_name == "")
@@ -637,22 +637,24 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
     {
         // Subject is specified in the query
 
+        const TIndividual* q_subj_ind = static_cast<const TIndividual*>(q_subj);
+
         NamesVector roles;
 
         if (q_role_name == "")
             getRelatedRoles(q_subj_i_exp, roles, false, false);
-        else if (q_role_name != RDF_TYPE && q_role_name != OWL_SAME_AS)
+        else if (q_role_name != RDF_TYPE && q_role_name != OWL_SAME_AS && !q_role->isDataRole())
             roles.push_back(q_role);
 
         // If types are needed
         if (q_role_name == "" || q_role_name == RDF_TYPE)
         {
-            if (q_obj == nullptr)
+            if (q_obj_name == "")
             {
                 TypeGatherer gatherer(&triples, q_subj_name);
                 getTypes(q_subj_i_exp, false, gatherer);
             }
-            else if (!q_obj->isSingleton())
+            else if (q_obj != nullptr && !q_obj->isSingleton())
             {
                 if (isInstance(q_subj_i_exp, q_obj_c_exp))
                 {
@@ -674,7 +676,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
 
             for (const auto* synonym : q_subj->getTaxVertex()->synonyms())
             {
-                if (synonym != q_subj && (q_obj == nullptr || synonym == q_obj))
+                if (synonym != q_subj && (q_obj_name == "" || synonym == q_obj))
                     synonyms.insert(synonym);
             }
             
@@ -710,6 +712,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
         for (const TNamedEntry* named_entry : roles)
         {
             const TRole* role = static_cast<const TRole*>(named_entry);
+
             const TORoleExpr* role_exp = getExpressionManager()->ObjectRole(role->getName());
 
             for (const TIndividual* obj : getRoleFillers(q_subj_i_exp, role_exp))
@@ -721,6 +724,48 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
                     triple.push_back(q_subj->getName());
                     triple.push_back(role->getName());
                     triple.push_back(obj->getName());
+
+                    triples.insert(triple);
+                }
+            }
+        }
+
+        // data roles
+        if (q_role_name == "")
+        {
+            const TDataValueMap* dataValueMap = q_subj_ind->getDataValueMap();
+
+            for (const auto& pair : dataValueMap->getAllDataValues())
+            {
+                const TRole* role = pair.first;
+                const TDataValueMap::DEVec& values = pair.second;
+
+                for (const TDataEntry* value : values)
+                {
+                    if (q_obj_name == "" || value->getName() == q_obj_name)
+                    {
+                        std::vector<std::string> triple;
+
+                        triple.push_back(q_subj->getName());
+                        triple.push_back(role->getName());
+                        triple.push_back(value->getName());
+
+                        triples.insert(triple);
+                    }
+                }
+            }
+        }
+        else
+        {
+            for (const TDataEntry* value : q_subj_ind->getDataValueCache(q_role))
+            {
+                if (q_obj_name == "" || value->getName() == q_obj_name)
+                {
+                    std::vector<std::string> triple;
+
+                    triple.push_back(q_subj->getName());
+                    triple.push_back(q_role->getName());
+                    triple.push_back(value->getName());
 
                     triples.insert(triple);
                 }

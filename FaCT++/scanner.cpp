@@ -308,7 +308,10 @@ LispToken TsScanner :: getCommandKeyword ( void ) const
 	if ( isKeyword ("related") )
 		return RELATED;
 
-	if ( isKeyword ("same") )
+    if (isKeyword("valueOf"))
+        return VALUEOF;
+
+    if ( isKeyword ("same") )
 		return SAME;
 
 	if ( isKeyword ("different") )
