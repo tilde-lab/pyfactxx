@@ -50,8 +50,16 @@ class Coras:
         self._graph.load(f, format=format)
         
     def query(self, *args, **kw):
-        items = self._query_graph.query(*args, **kw)
-        yield from as_labels(self._graph, items)
+        processed = set()
+        
+        for item in self._graph.query(*args, **kw):
+            processed.add(item)
+            yield item
+            
+        for item in self._query_graph.query(*args, **kw):
+            if item not in processed:
+                processed.add(item)
+                yield item
 
     def parse(self):
         logger.debug('parse graph')
