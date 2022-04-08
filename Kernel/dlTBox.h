@@ -941,8 +941,6 @@ public:
 		/// get RO access to DAG (needed for KE)
 	const DLDag& getDag ( void ) const { return DLHeap; }
 
-    const SingletonVector* getIndividuals();
-
 		/// set the value of a test timeout in milliseconds to VALUE
 	void setTestTimeout ( unsigned long value ) { testTimeout = value; }
 		/// (dis-)allow reasoner to use the undefined names in queries

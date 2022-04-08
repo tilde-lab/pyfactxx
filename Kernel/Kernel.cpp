@@ -25,8 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include "OntologyBasedModularizer.h"
 #include "eFPPSaveLoad.h"
 #include "SaveLoadManager.h"
-#include "TypeGatherer.h"
-#include "InstanceGatherer.h"
+#include "TripleGatherer.h"
 
 const char* ReasoningKernel :: Version = "1.8.0-SNAPSHOT";
 const char* ReasoningKernel :: SupportedDL = "SROIQ(D)";
@@ -590,23 +589,24 @@ const TRole* ReasoningKernel::getRole(TDLObjectRoleName* o_exp, TDLDataRoleName*
 
 void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::string& q_role_name, const std::string& q_obj_name, std::set<std::vector<std::string>>& triples)
 {
+    TBox* tBox = getTBox();
     auto* em = getExpressionManager();
 
-    TDLIndividualName* q_subj_i_exp = em->Individual(q_subj_name);
-    TDLConceptExpression* q_subj_c_exp = getConceptExpression(q_subj_name);
+    TDLIndividualName* q_subj_i_exp = em->Individual(toFactPP(q_subj_name));
+    TDLConceptExpression* q_subj_c_exp = getConceptExpression(toFactPP(q_subj_name));
 
-    TDLObjectRoleName* q_o_role_exp = em->ObjectRole(q_role_name);
-    TDLDataRoleName* q_d_role_exp = em->DataRole(q_role_name);
+    TDLObjectRoleName* q_o_role_exp = em->ObjectRole(toFactPP(q_role_name));
+    TDLDataRoleName* q_d_role_exp = em->DataRole(toFactPP(q_role_name));
 
-    TDLIndividualName* q_obj_i_exp = em->Individual(q_obj_name);
-    TDLConceptExpression* q_obj_c_exp = getConceptExpression(q_obj_name);
+    TDLIndividualName* q_obj_i_exp = em->Individual(toFactPP(q_obj_name));
+    TDLConceptExpression* q_obj_c_exp = getConceptExpression(toFactPP(q_obj_name));
 
     const TConcept* q_subj = getConcept(q_subj_i_exp, q_subj_c_exp);
     const TRole* q_role = getRole(q_o_role_exp, q_d_role_exp);
     const TConcept* q_obj = getConcept(q_obj_i_exp, q_obj_c_exp);
 
     // If any of the three arguments is not found in the ontology, return an empty set
-    if (q_subj_name != "" && q_subj == nullptr || q_role_name != "" && q_role_name != RDF_TYPE && q_role_name != OWL_SAME_AS && q_role == nullptr)
+    if (q_subj_name != "" && q_subj == nullptr || q_role_name != "" && !isSpecialRole(q_role_name) && q_role == nullptr)
         return;
 
     if (q_subj_name == "")
@@ -615,161 +615,183 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
 
         if (q_role_name == RDF_TYPE && q_obj != nullptr && !q_obj->isSingleton())
         {
-            // All instances of a specific class queries
+            // All instances of a specific class
 
-            InstanceGatherer gatherer(&triples, q_obj_name);
+            TripleGatherer gatherer(&triples, false, RDF_TYPE, q_obj_name.c_str(), [](const ClassifiableEntry* entry)
+            {
+                return static_cast<const TConcept*>(entry)->isSingleton();
+            });
+
+            getInstances(q_obj_c_exp, gatherer);
+        }
+        else if (q_role_name == RDFS_SUBCLASS_OF && q_obj != nullptr && !q_obj->isSingleton())
+        {
+            // All subclasses of a specific class
+
+            TripleGatherer gatherer(&triples, false, RDFS_SUBCLASS_OF, q_obj_name.c_str(), [q_obj](const ClassifiableEntry* entry)
+            {
+                return entry != q_obj && !static_cast<const TConcept*>(entry)->isSingleton();
+            });
+
             getInstances(q_obj_c_exp, gatherer);
         }
         else
         {
-            // Otherwise take the list of all individuals and run the same query for each individual separately
+            // Otherwise take the list of all individuals and classes and run the same query for each individual or class separately
 
-            const std::vector<TIndividual*>* individuals = getTBox()->getIndividuals();
-
-            if (individuals != nullptr)
+            for (auto p_concept = tBox->c_begin(); p_concept < tBox->c_end(); p_concept++)
             {
-                for (TIndividual* ind : *individuals)
-                    getTriples(ind->getName(), q_role_name, q_obj_name, triples);
+                const TConcept* concept = *p_concept;
+
+                if (!concept->isTop() && !concept->isBottom())
+                    getTriples(concept->getName(), q_role_name, q_obj_name, triples);
+            }
+
+            for (auto p_ind = tBox->i_begin(); p_ind < tBox->i_end(); p_ind++)
+            {
+                const TIndividual* ind = *p_ind;
+                getTriples(ind->getName(), q_role_name, q_obj_name, triples);
             }
         }
     }
-    else if (q_subj != nullptr && q_subj->isSingleton())
+    else if (q_subj != nullptr)
     {
         // Subject is specified in the query
 
-        const TIndividual* q_subj_ind = static_cast<const TIndividual*>(q_subj);
-
-        NamesVector roles;
-
-        if (q_role_name == "")
-            getRelatedRoles(q_subj_i_exp, roles, false, false);
-        else if (q_role_name != RDF_TYPE && q_role_name != OWL_SAME_AS && !q_role->isDataRole())
-            roles.push_back(q_role);
-
-        // If types are needed
-        if (q_role_name == "" || q_role_name == RDF_TYPE)
+        if (q_subj->isSingleton())
         {
-            if (q_obj_name == "")
+            // Query subject is an individual
+
+            const TIndividual* q_subj_ind = static_cast<const TIndividual*>(q_subj);
+
+            NamesVector roles;
+
+            if (q_role_name == "")
+                getRelatedRoles(q_subj_i_exp, roles, false, false);
+            else if (!isSpecialRole(q_role_name) && !q_role->isDataRole())
+                roles.push_back(q_role);
+
+            // If types are needed
+            if (q_role_name == "" || q_role_name == RDF_TYPE)
             {
-                TypeGatherer gatherer(&triples, q_subj_name);
-                getTypes(q_subj_i_exp, false, gatherer);
-            }
-            else if (q_obj != nullptr && !q_obj->isSingleton())
-            {
-                if (isInstance(q_subj_i_exp, q_obj_c_exp))
+                if (q_obj_name == "")
                 {
-                    std::vector<std::string> triple;
+                    TripleGatherer gatherer(&triples, true, RDF_TYPE, q_subj_name.c_str(), [](const ClassifiableEntry* entry)
+                    {
+                        return !static_cast<const TConcept*>(entry)->isSingleton();
+                    });
 
-                    triple.push_back(q_subj_name);
-                    triple.push_back(RDF_TYPE);
-                    triple.push_back(q_obj_name);
-
-                    triples.insert(triple);
+                    getTypes(q_subj_i_exp, false, gatherer);
+                }
+                else if (q_obj != nullptr && !q_obj->isSingleton())
+                {
+                    if (isInstance(q_subj_i_exp, q_obj_c_exp))
+                        pushTriple(triples, q_subj_name.c_str(), RDF_TYPE, q_obj_name.c_str());
                 }
             }
-        }
 
-        // If synonyms are needed
-        if (q_role_name == "" || q_role_name == OWL_SAME_AS)
-        {
-            std::set<const ClassifiableEntry*> synonyms;
-
-            for (const auto* synonym : q_subj->getTaxVertex()->synonyms())
+            // If synonyms are needed
+            if (q_subj != nullptr && q_role_name == "" || q_role_name == OWL_SAME_AS)
             {
-                if (synonym != q_subj && (q_obj_name == "" || synonym == q_obj))
-                    synonyms.insert(synonym);
-            }
-            
-            const std::vector<TIndividual*>* individuals = getTBox()->getIndividuals();
-
-            if (individuals != nullptr)
-            {
-                for (TIndividual* ind : *individuals)
+                if (q_obj_name == "")
                 {
-                    if (ind != q_subj)
+                    TripleGatherer gatherer(&triples, true, OWL_SAME_AS, q_subj_name.c_str(), [q_subj](const ClassifiableEntry* entry)
                     {
-                        for (const auto* synonym : ind->getTaxVertex()->synonyms())
-                        {
-                            if (synonyms.count(synonym) > 0)
-                                synonyms.insert(ind);
-                        }
+                        return entry != q_subj && static_cast<const TConcept*>(entry)->isSingleton();
+                    });
+
+                    getSameAs(q_subj_i_exp, gatherer);
+                }
+                else if (q_obj != nullptr && q_obj->isSingleton() && q_obj != q_subj)
+                {
+                    if (isSameIndividuals(q_subj_i_exp, q_obj_i_exp))
+                        pushTriple(triples, q_subj_name.c_str(), OWL_SAME_AS, q_obj_name.c_str());
+                }
+            }
+
+            // object roles
+            for (const TNamedEntry* named_entry : roles)
+            {
+                const TRole* role = static_cast<const TRole*>(named_entry);
+
+                const TORoleExpr* role_exp = getExpressionManager()->ObjectRole(role->getName());
+
+                for (const TIndividual* obj : getRoleFillers(q_subj_i_exp, role_exp))
+                {
+                    if (q_obj_name == "" || obj == q_obj)
+                        pushTriple(triples, q_subj->getName(), role->getName(), obj->getName());
+                }
+            }
+
+            // data roles
+            if (q_role_name == "")
+            {
+                const TDataValueMap* dataValueMap = q_subj_ind->getDataValueMap();
+
+                for (const auto& pair : dataValueMap->getAllDataValues())
+                {
+                    const TRole* role = pair.first;
+                    const TDataValueMap::DEVec& values = pair.second;
+
+                    for (const TDataEntry* value : values)
+                    {
+                        if (q_obj_name == "" || value->getName() == q_obj_name)
+                            pushTriple(triples, q_subj->getName(), role->getName(), value->getName());
                     }
                 }
             }
-
-            for (const auto* synonym : synonyms)
+            else if (q_subj_ind->hasDataValueCache(q_role))
             {
-                std::vector<std::string> triple;
-
-                triple.push_back(q_subj_name);
-                triple.push_back(OWL_SAME_AS);
-                triple.push_back(synonym->getName());
-
-                triples.insert(triple);
-            }
-        }
-
-        for (const TNamedEntry* named_entry : roles)
-        {
-            const TRole* role = static_cast<const TRole*>(named_entry);
-
-            const TORoleExpr* role_exp = getExpressionManager()->ObjectRole(role->getName());
-
-            for (const TIndividual* obj : getRoleFillers(q_subj_i_exp, role_exp))
-            {
-                if (q_obj_name == "" || obj == q_obj)
-                {
-                    std::vector<std::string> triple;
-
-                    triple.push_back(q_subj->getName());
-                    triple.push_back(role->getName());
-                    triple.push_back(obj->getName());
-
-                    triples.insert(triple);
-                }
-            }
-        }
-
-        // data roles
-        if (q_role_name == "")
-        {
-            const TDataValueMap* dataValueMap = q_subj_ind->getDataValueMap();
-
-            for (const auto& pair : dataValueMap->getAllDataValues())
-            {
-                const TRole* role = pair.first;
-                const TDataValueMap::DEVec& values = pair.second;
-
-                for (const TDataEntry* value : values)
+                for (const TDataEntry* value : q_subj_ind->getDataValueCache(q_role))
                 {
                     if (q_obj_name == "" || value->getName() == q_obj_name)
-                    {
-                        std::vector<std::string> triple;
-
-                        triple.push_back(q_subj->getName());
-                        triple.push_back(role->getName());
-                        triple.push_back(value->getName());
-
-                        triples.insert(triple);
-                    }
+                        pushTriple(triples, q_subj->getName(), q_role->getName(), value->getName());
                 }
             }
         }
-        else if (q_subj_ind->hasDataValueCache(q_role))
+        else
         {
-            for (const TDataEntry* value : q_subj_ind->getDataValueCache(q_role))
+            // Query subject is a class
+
+
+            // If superclasses are needed
+            if (q_role_name == "" || q_role_name == RDFS_SUBCLASS_OF)
             {
-                if (q_obj_name == "" || value->getName() == q_obj_name)
+                if (q_obj_name == "")
                 {
-                    std::vector<std::string> triple;
+                    TripleGatherer gatherer(&triples, true, RDFS_SUBCLASS_OF, q_subj_name.c_str(), [q_subj](const ClassifiableEntry* entry)
+                    {
+                        return entry != q_subj && !static_cast<const TConcept*>(entry)->isSingleton();
+                    });
 
-                    triple.push_back(q_subj->getName());
-                    triple.push_back(q_role->getName());
-                    triple.push_back(value->getName());
-
-                    triples.insert(triple);
+                    getSupConcepts(q_subj_c_exp, false, gatherer);
+                }
+                else if (q_obj != nullptr && !q_obj->isSingleton())
+                {
+                    if (isSubsumedBy(q_subj_c_exp, q_obj_c_exp))
+                        pushTriple(triples, q_subj_name.c_str(), RDFS_SUBCLASS_OF, q_obj_name.c_str());
                 }
             }
+
+            // If synonyms are needed
+            if (q_subj != nullptr && q_role_name == "" || q_role_name == OWL_EQUIVALENT_CLASS)
+            {
+                if (q_obj_name == "")
+                {
+                    TripleGatherer gatherer(&triples, true, OWL_EQUIVALENT_CLASS, q_subj_name.c_str(), [q_subj](const ClassifiableEntry* entry)
+                    {
+                        return entry != q_subj && !static_cast<const TConcept*>(entry)->isSingleton();
+                    });
+
+                    getEquivalentConcepts(q_subj_c_exp, gatherer);
+                }
+                else if (q_obj != nullptr && !q_obj->isSingleton() && q_obj != q_subj)
+                {
+                    if (isEquivalent(q_subj_c_exp, q_obj_c_exp))
+                        pushTriple(triples, q_subj_name.c_str(), OWL_EQUIVALENT_CLASS, q_obj_name.c_str());
+                }
+            }
+
         }
     }
 }

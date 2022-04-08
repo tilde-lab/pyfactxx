@@ -965,9 +965,6 @@ public:
 
 		/// print SAT/SUB timings to O; @return total time spend during reasoning
 	float printReasoningTime ( std::ostream& o ) const;
-
-    virtual const std::vector<TIndividual*>* getNominals() { return nullptr; }
-
 }; // DlSatTester
 
 // implementation

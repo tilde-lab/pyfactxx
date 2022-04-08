@@ -96,11 +96,6 @@ public:
 
 		/// check whether ontology with nominals is consistent
 	bool consistentNominalCloud ( void );
-
-    virtual const SingletonVector* getNominals() override
-    {
-        return &Nominals;
-    }
 }; // NominalReasoner
 
 //-----------------------------------------------------------------------------
