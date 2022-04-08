@@ -592,14 +592,14 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
     TBox* tBox = getTBox();
     auto* em = getExpressionManager();
 
-    TDLIndividualName* q_subj_i_exp = em->Individual(toFactPP(q_subj_name));
-    TDLConceptExpression* q_subj_c_exp = getConceptExpression(toFactPP(q_subj_name));
+    TDLIndividualName* q_subj_i_exp = em->Individual(q_subj_name);
+    TDLConceptExpression* q_subj_c_exp = ((q_subj_name == OWL_THING) ? em->Top() : ((q_subj_name == OWL_NOTHING) ? em->Bottom() : getConceptExpression(q_subj_name)));
 
-    TDLObjectRoleName* q_o_role_exp = em->ObjectRole(toFactPP(q_role_name));
-    TDLDataRoleName* q_d_role_exp = em->DataRole(toFactPP(q_role_name));
+    TDLObjectRoleName* q_o_role_exp = em->ObjectRole(q_role_name);
+    TDLDataRoleName* q_d_role_exp = em->DataRole(q_role_name);
 
-    TDLIndividualName* q_obj_i_exp = em->Individual(toFactPP(q_obj_name));
-    TDLConceptExpression* q_obj_c_exp = getConceptExpression(toFactPP(q_obj_name));
+    TDLIndividualName* q_obj_i_exp = em->Individual(q_obj_name);
+    TDLConceptExpression* q_obj_c_exp = ((q_obj_name == OWL_THING) ? em->Top() : ((q_obj_name == OWL_NOTHING) ? em->Bottom() : getConceptExpression(q_obj_name)));
 
     const TConcept* q_subj = getConcept(q_subj_i_exp, q_subj_c_exp);
     const TRole* q_role = getRole(q_o_role_exp, q_d_role_exp);
@@ -613,28 +613,99 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
     {
         // Subject is not specified in the query
 
-        if (q_role_name == RDF_TYPE && q_obj != nullptr && !q_obj->isSingleton())
+        // If role and object are specified in the query process special roles separately
+        if (q_role_name == RDF_TYPE && q_obj != nullptr)
         {
             // All instances of a specific class
 
-            TripleGatherer gatherer(&triples, false, RDF_TYPE, q_obj_name.c_str(), [](const ClassifiableEntry* entry)
+            if (!q_obj->isSingleton())
             {
-                return static_cast<const TConcept*>(entry)->isSingleton();
-            });
+                TripleGatherer gatherer(&triples, false, RDF_TYPE, q_obj_name.c_str(), [](const ClassifiableEntry* entry)
+                {
+                    return static_cast<const TConcept*>(entry)->isSingleton();
+                });
 
-            getInstances(q_obj_c_exp, gatherer);
+                getInstances(q_obj_c_exp, gatherer);
+            }
+            else
+            {
+                return;
+            }
         }
-        else if (q_role_name == RDFS_SUBCLASS_OF && q_obj != nullptr && !q_obj->isSingleton())
+        else if (q_role_name == RDFS_SUBCLASS_OF && q_obj != nullptr)
         {
             // All subclasses of a specific class
 
-            TripleGatherer gatherer(&triples, false, RDFS_SUBCLASS_OF, q_obj_name.c_str(), [q_obj](const ClassifiableEntry* entry)
+            if (!q_obj->isSingleton())
             {
-                return entry != q_obj && !static_cast<const TConcept*>(entry)->isSingleton();
-            });
+                TripleGatherer gatherer(&triples, false, RDFS_SUBCLASS_OF, q_obj_name.c_str(), [q_obj](const ClassifiableEntry* entry)
+                {
+                    const TConcept* concept = static_cast<const TConcept*>(entry);
+                    return entry != q_obj && !concept->isSingleton() && !concept->isBottom();
+                });
 
-            getInstances(q_obj_c_exp, gatherer);
+                getSubConcepts(q_obj_c_exp, false, gatherer, true);
+            }
+            else
+            {
+                return;
+            }
         }
+        else if (q_role_name == OWL_SAME_AS && q_obj != nullptr)
+        {
+            // All equivalent individuals to a specific individual
+
+            if (q_obj->isSingleton())
+            {
+                TripleGatherer gatherer(&triples, false, OWL_SAME_AS, q_obj_name.c_str(), [q_obj](const ClassifiableEntry* entry)
+                {
+                    return entry != q_obj && static_cast<const TConcept*>(entry)->isSingleton();
+                });
+
+                getSameAs(q_obj_i_exp, gatherer);
+            }
+            else
+            {
+                return;
+            }
+        }
+        else if (q_role_name == OWL_EQUIVALENT_CLASS && q_obj != nullptr)
+        {
+            // All equivalent classes to a specific class
+
+            if (!q_obj->isSingleton())
+            {
+                TripleGatherer gatherer(&triples, false, OWL_EQUIVALENT_CLASS, q_obj_name.c_str(), [q_obj](const ClassifiableEntry* entry)
+                {
+                    return entry != q_obj && !static_cast<const TConcept*>(entry)->isSingleton();
+                });
+
+                getEquivalentConcepts(q_obj_c_exp, gatherer);
+            }
+            else
+            {
+                return;
+            }
+        }
+        /*else if (q_role_name == OWL_DISJOINT_WITH)
+        {
+            // All disjoint classes with a specific class
+
+            if (!q_obj->isSingleton())
+            {
+                TripleGatherer gatherer(&triples, false, OWL_DISJOINT_WITH, q_obj_name.c_str(), [](const ClassifiableEntry* entry)
+                {
+                    const TConcept* concept = static_cast<const TConcept*>(entry);
+                    return !concept->isSingleton() && !concept->isSystem() && !concept->isBottom();
+                });
+
+                getDisjointConcepts(q_obj_c_exp, gatherer);
+            }
+            else
+            {
+                return;
+            }
+        }*/
         else
         {
             // Otherwise take the list of all individuals and classes and run the same query for each individual or class separately
@@ -666,6 +737,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
 
             NamesVector roles;
 
+            // Fill required role list (either with all roles or with a single role from the query)
             if (q_role_name == "")
                 getRelatedRoles(q_subj_i_exp, roles, false, false);
             else if (!isSpecialRole(q_role_name) && !q_role->isDataRole())
@@ -676,6 +748,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
             {
                 if (q_obj_name == "")
                 {
+                    // All types
                     TripleGatherer gatherer(&triples, true, RDF_TYPE, q_subj_name.c_str(), [](const ClassifiableEntry* entry)
                     {
                         return !static_cast<const TConcept*>(entry)->isSingleton();
@@ -685,6 +758,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
                 }
                 else if (q_obj != nullptr && !q_obj->isSingleton())
                 {
+                    // One specific type from the query
                     if (isInstance(q_subj_i_exp, q_obj_c_exp))
                         pushTriple(triples, q_subj_name.c_str(), RDF_TYPE, q_obj_name.c_str());
                 }
@@ -695,6 +769,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
             {
                 if (q_obj_name == "")
                 {
+                    // All synonyms
                     TripleGatherer gatherer(&triples, true, OWL_SAME_AS, q_subj_name.c_str(), [q_subj](const ClassifiableEntry* entry)
                     {
                         return entry != q_subj && static_cast<const TConcept*>(entry)->isSingleton();
@@ -704,28 +779,37 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
                 }
                 else if (q_obj != nullptr && q_obj->isSingleton() && q_obj != q_subj)
                 {
+                    // A single synonym to a specific individual from the query
                     if (isSameIndividuals(q_subj_i_exp, q_obj_i_exp))
                         pushTriple(triples, q_subj_name.c_str(), OWL_SAME_AS, q_obj_name.c_str());
                 }
             }
 
-            // object roles
+            // Gather object role values
             for (const TNamedEntry* named_entry : roles)
             {
                 const TRole* role = static_cast<const TRole*>(named_entry);
 
                 const TORoleExpr* role_exp = getExpressionManager()->ObjectRole(role->getName());
 
-                for (const TIndividual* obj : getRoleFillers(q_subj_i_exp, role_exp))
+                if (q_obj_name == "")
                 {
-                    if (q_obj_name == "" || obj == q_obj)
+                    // All values
+                    for (const TIndividual* obj : getRoleFillers(q_subj_i_exp, role_exp))
                         pushTriple(triples, q_subj->getName(), role->getName(), obj->getName());
+                }
+                else if (q_obj != nullptr && q_obj->isSingleton())
+                {
+                    // A specific value from the query
+                    if (isRelated(q_subj_i_exp, role_exp, q_obj_i_exp))
+                        pushTriple(triples, q_subj->getName(), role->getName(), q_obj->getName());
                 }
             }
 
-            // data roles
+            // Gather data role values
             if (q_role_name == "")
             {
+                // All data roles
                 const TDataValueMap* dataValueMap = q_subj_ind->getDataValueMap();
 
                 for (const auto& pair : dataValueMap->getAllDataValues())
@@ -742,6 +826,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
             }
             else if (q_subj_ind->hasDataValueCache(q_role))
             {
+                // A specific data role from the query
                 for (const TDataEntry* value : q_subj_ind->getDataValueCache(q_role))
                 {
                     if (q_obj_name == "" || value->getName() == q_obj_name)
@@ -755,20 +840,22 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
 
 
             // If superclasses are needed
-            if (q_role_name == "" || q_role_name == RDFS_SUBCLASS_OF)
+            if (!q_subj->isBottom() && (q_role_name == "" || q_role_name == RDFS_SUBCLASS_OF))
             {
                 if (q_obj_name == "")
                 {
+                    // All superclasses
                     TripleGatherer gatherer(&triples, true, RDFS_SUBCLASS_OF, q_subj_name.c_str(), [q_subj](const ClassifiableEntry* entry)
                     {
                         return entry != q_subj && !static_cast<const TConcept*>(entry)->isSingleton();
                     });
 
-                    getSupConcepts(q_subj_c_exp, false, gatherer);
+                    getSupConcepts(q_subj_c_exp, false, gatherer, true);
                 }
                 else if (q_obj != nullptr && !q_obj->isSingleton())
                 {
-                    if (isSubsumedBy(q_subj_c_exp, q_obj_c_exp))
+                    // A specific superclass from the query
+                    if (q_obj != q_subj && isSubsumedBy(q_subj_c_exp, q_obj_c_exp))
                         pushTriple(triples, q_subj_name.c_str(), RDFS_SUBCLASS_OF, q_obj_name.c_str());
                 }
             }
@@ -778,6 +865,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
             {
                 if (q_obj_name == "")
                 {
+                    // All synonyms
                     TripleGatherer gatherer(&triples, true, OWL_EQUIVALENT_CLASS, q_subj_name.c_str(), [q_subj](const ClassifiableEntry* entry)
                     {
                         return entry != q_subj && !static_cast<const TConcept*>(entry)->isSingleton();
@@ -787,11 +875,33 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
                 }
                 else if (q_obj != nullptr && !q_obj->isSingleton() && q_obj != q_subj)
                 {
+                    // A synonyms to a specific class from the query
                     if (isEquivalent(q_subj_c_exp, q_obj_c_exp))
                         pushTriple(triples, q_subj_name.c_str(), OWL_EQUIVALENT_CLASS, q_obj_name.c_str());
                 }
             }
 
+            // If disjoints are needed
+            /*if (q_subj != nullptr && q_role_name == "" || q_role_name == OWL_DISJOINT_WITH)
+            {
+                if (q_obj_name == "")
+                {
+                    // All disjoint classes
+                    TripleGatherer gatherer(&triples, true, OWL_DISJOINT_WITH, q_subj_name.c_str(), [](const ClassifiableEntry* entry)
+                    {
+                        const TConcept* concept = static_cast<const TConcept*>(entry);
+                        return !concept->isSingleton() && !concept->isSystem() && !concept->isBottom();
+                    });
+
+                    getDisjointConcepts(q_subj_c_exp, gatherer);
+                }
+                else if (q_obj != nullptr && !q_obj->isSingleton())
+                {
+                    // A specific disjoint class from the query
+                    if (isDisjoint(q_subj_c_exp, q_obj_c_exp))
+                        pushTriple(triples, q_subj_name.c_str(), OWL_DISJOINT_WITH, q_obj_name.c_str());
+                }
+            }*/
         }
     }
 }

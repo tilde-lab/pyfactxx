@@ -1121,29 +1121,41 @@ public:
 
 		/// apply actor::apply() to all DIRECT super-concepts of [complex] C
 	template <typename Actor>
-	void getSupConcepts ( const TConceptExpr* C, bool direct, Actor& actor )
+	void getSupConcepts ( const TConceptExpr* C, bool direct, Actor& actor, bool needCurrent = false )
 	{
 		classifyKB();	// ensure KB is ready to answer the query
 		setUpCache ( C, csClassified );
 		actor.clear();
 		Taxonomy* tax = getCTaxonomy();
-		if ( direct )
-			tax->getRelativesInfo</*needCurrent=*/false, /*onlyDirect=*/true, /*upDirection=*/true> ( cachedVertex, actor );
-		else
-			tax->getRelativesInfo</*needCurrent=*/false, /*onlyDirect=*/false, /*upDirection=*/true> ( cachedVertex, actor );
+        if (direct)
+            if (needCurrent)
+                tax->getRelativesInfo</*needCurrent=*/true, /*onlyDirect=*/true, /*upDirection=*/true>(cachedVertex, actor);
+            else
+                tax->getRelativesInfo</*needCurrent=*/false, /*onlyDirect=*/true, /*upDirection=*/true>(cachedVertex, actor);
+        else
+            if (needCurrent)
+                tax->getRelativesInfo</*needCurrent=*/true, /*onlyDirect=*/false, /*upDirection=*/true>(cachedVertex, actor);
+            else
+                tax->getRelativesInfo</*needCurrent=*/false, /*onlyDirect=*/false, /*upDirection=*/true>(cachedVertex, actor);
 	}
 		/// apply actor::apply() to all DIRECT sub-concepts of [complex] C
 	template <typename Actor>
-	void getSubConcepts ( const TConceptExpr* C, bool direct, Actor& actor )
+	void getSubConcepts ( const TConceptExpr* C, bool direct, Actor& actor, bool needCurrent = false)
 	{
 		classifyKB();	// ensure KB is ready to answer the query
 		setUpCache ( C, csClassified );
 		actor.clear();
 		Taxonomy* tax = getCTaxonomy();
-		if ( direct )
-			tax->getRelativesInfo</*needCurrent=*/false, /*onlyDirect=*/true, /*upDirection=*/false> ( cachedVertex, actor );
-		else
-			tax->getRelativesInfo</*needCurrent=*/false, /*onlyDirect=*/false, /*upDirection=*/false> ( cachedVertex, actor );
+        if (direct)
+            if (needCurrent)
+                tax->getRelativesInfo</*needCurrent=*/true, /*onlyDirect=*/true, /*upDirection=*/false>(cachedVertex, actor);
+            else
+                tax->getRelativesInfo</*needCurrent=*/false, /*onlyDirect=*/true, /*upDirection=*/false>(cachedVertex, actor);
+        else
+            if (needCurrent)
+                tax->getRelativesInfo</*needCurrent=*/true, /*onlyDirect=*/false, /*upDirection=*/false>(cachedVertex, actor);
+            else
+                tax->getRelativesInfo</*needCurrent=*/false, /*onlyDirect=*/false, /*upDirection=*/false>(cachedVertex, actor);
 	}
 		/// apply actor::apply() to all synonyms of [complex] C
 	template <typename Actor>

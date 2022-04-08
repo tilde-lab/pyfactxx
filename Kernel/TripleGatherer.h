@@ -72,7 +72,7 @@ public:
             if (isDirect)
                 pushTriple(*triples, nodeName, roleName, entityName);
             else
-                pushTriple(*triples, nodeName, roleName, entityName);
+                pushTriple(*triples, entityName, roleName, nodeName);
         }
     }
 

@@ -26,15 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #define RDFS_SUBCLASS_OF "http://www.w3.org/2000/01/rdf-schema#subClassOf"
 #define OWL_SAME_AS "http://www.w3.org/2002/07/owl#sameAs"
 #define OWL_EQUIVALENT_CLASS "http://www.w3.org/2002/07/owl#equivalentClass"
+#define OWL_DISJOINT_WITH "http://www.w3.org/2002/07/owl#disjointWith"
 #define OWL_THING "http://www.w3.org/2002/07/owl#Thing"
 #define OWL_NOTHING "http://www.w3.org/2002/07/owl#Nothing"
 
-const std::string TOP_CONCEPT = "TOP";
-const std::string BOTTOM_CONCEPT = "BOTTOM";
-
 bool isSpecialRole(const std::string& role_name)
 {
-    return (role_name == RDF_TYPE || role_name == OWL_SAME_AS || role_name == OWL_EQUIVALENT_CLASS || role_name == RDFS_SUBCLASS_OF);        
+    return (role_name == RDF_TYPE || role_name == OWL_SAME_AS || role_name == OWL_EQUIVALENT_CLASS || role_name == RDFS_SUBCLASS_OF || role_name == OWL_DISJOINT_WITH);        
 }
 
 const char* toRdf(const char* name)
@@ -43,16 +41,6 @@ const char* toRdf(const char* name)
         return OWL_THING;
     else if (strcmp(name, "BOTTOM") == 0)
         return OWL_NOTHING;
-    else
-        return name;
-}
-
-const std::string& toFactPP(const std::string& name)
-{
-    if (name == OWL_THING)
-        return TOP_CONCEPT;
-    else if (name == OWL_NOTHING)
-        return BOTTOM_CONCEPT;
     else
         return name;
 }
