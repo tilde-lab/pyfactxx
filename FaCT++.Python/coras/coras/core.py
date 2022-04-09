@@ -52,14 +52,21 @@ class Coras:
     def query(self, *args, **kw):
         processed = set()
         
+        need_asserted = 'scope' not in kw or kw['scope'] in ('asserted', 'both')
+        need_inferred = 'scope' not in kw or kw['scope'] in ('inferred', 'both')
+        
+        if 'scope' in kw:
+            del kw['scope']
+        
         for item in self._graph.query(*args, **kw):
             processed.add(item)
-            yield item
-            
-        for item in self._query_graph.query(*args, **kw):
-            if item not in processed:
-                processed.add(item)
+            if need_asserted:
                 yield item
+                
+        if need_inferred:        
+            for item in self._query_graph.query(*args, **kw):
+                if item not in processed:
+                    yield item
 
     def parse(self):
         logger.debug('parse graph')
