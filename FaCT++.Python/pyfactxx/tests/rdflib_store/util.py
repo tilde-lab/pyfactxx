@@ -1,5 +1,5 @@
 #
-# factpp - Python interface to FaCT++ reasoner
+# pyfactxx - Python interface to FaCT++ reasoner
 #
 # Copyright (C) 2016-2017 by Artur Wroblewski <wrobell@riseup.net>
 #
@@ -24,7 +24,7 @@ RDFLib store unit tests utility functions.
 from rdflib import Graph
 from rdflib.namespace import Namespace
 
-import factpp.rdflib_interface
+import pyfactxx.rdflib_interface
 
 from unittest import mock
 
@@ -43,7 +43,7 @@ class MockProxy:
             return getattr(self.reasoner, attr)
 
 def graph(mock=None):
-    store = factpp.rdflib_interface.Store()
+    store = pyfactxx.rdflib_interface.Store()
     if mock:
         store._reasoner = MockProxy(store._reasoner, mock)
         # reset parsers after mock is created

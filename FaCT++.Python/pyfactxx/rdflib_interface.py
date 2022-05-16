@@ -1,5 +1,5 @@
 #
-# factpp - Python interface to FaCT++ reasoner
+# pyfactxx - Python interface to FaCT++ reasoner
 #
 # Copyright (C) 2016-2017 by Artur Wroblewski <wrobell@riseup.net>
 #
@@ -28,7 +28,7 @@ from functools import partial
 import rdflib.store
 from rdflib.namespace import DC, RDF, RDFS, OWL, Namespace
 
-import factpp
+import pyfactxx
 
 logger = logging.getLogger(__name__)
 
@@ -46,7 +46,7 @@ PROPERTY_METHODS = [
 
 class Store(rdflib.store.Store):
     def __init__(self, reasoner=None):
-        self._reasoner = reasoner if reasoner else factpp.Reasoner()
+        self._reasoner = reasoner if reasoner else pyfactxx.Reasoner()
         self._list_cache = ListState.CACHE
         self._properties = defaultdict(partial(PropertyParser, self))
         self._parsers = {}

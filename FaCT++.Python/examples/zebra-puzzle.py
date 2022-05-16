@@ -1,5 +1,5 @@
 #
-# factpp - Python interface to FaCT++ reasoner
+# pyfactxx - Python interface to FaCT++ reasoner
 #
 # Copyright (C) 2016-2018 by Artur Wroblewski <wrobell@riseup.net>
 #
@@ -29,7 +29,7 @@ The example is based on the ontology described at
 """
 
 import time
-import factpp
+import pyfactxx
 
 CLASSES = ['Color', 'Drink', 'House', 'Person', 'Pet', 'Smoke']
 
@@ -69,7 +69,7 @@ def is_related_to(name, property_name, property):
     values = reasoner.get_role_fillers(i, property)
     print(name, property_name, [v.name for v in values])
 
-reasoner = factpp.Reasoner()
+reasoner = pyfactxx.Reasoner()
 
 get_i = reasoner.individual
 

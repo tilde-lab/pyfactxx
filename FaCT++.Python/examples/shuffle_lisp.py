@@ -4,7 +4,7 @@ from datetime import datetime
 import random
 from statistics import mean, pstdev
 
-from factpp import Reasoner
+from pyfactxx import Reasoner
 
 
 if len(sys.argv) < 2:

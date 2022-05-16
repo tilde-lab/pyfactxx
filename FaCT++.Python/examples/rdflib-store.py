@@ -1,5 +1,5 @@
 #
-# factpp - Python interface to FaCT++ reasoner
+# pyfactxx - Python interface to FaCT++ reasoner
 #
 # Copyright (C) 2016-2018 by Artur Wroblewski <wrobell@riseup.net>
 #
@@ -20,10 +20,10 @@
 from rdflib import Graph, Literal, BNode
 from rdflib.namespace import FOAF, RDF, RDFS
 
-import factpp.rdflib_interface
+import pyfactxx.rdflib_interface
 
 
-g = Graph(store=factpp.rdflib_interface.Store())
+g = Graph(store=pyfactxx.rdflib_interface.Store())
 reasoner = g.store._reasoner
 
 p1 = BNode()
