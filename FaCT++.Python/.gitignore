@@ -7,5 +7,3 @@ dist/
 
 pyfactxx/*.cpp
 pyfactxx/*.so
-setup.py
-

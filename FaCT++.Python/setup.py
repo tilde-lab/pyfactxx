@@ -20,11 +20,14 @@
 #
 
 import os
+import pathlib
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext as build_extension
 from platform import python_version
 from Cython.Build import cythonize
-import pathlib
+
+
+root = pathlib.Path(__file__).parent.resolve()
 
 class CMakeExtension(Extension, object):
 
@@ -36,12 +39,12 @@ class CMakeExtension(Extension, object):
 class build_ext(build_extension, object):
 
     def run(self):
+        # check for cmake
         for ext in self.extensions:
             self.build_cmake(ext)
         super(build_ext, self).run()
 
     def build_cmake(self, ext):
-        root = "${CMAKE_CURRENT_SOURCE_DIR}"
         build_temp = pathlib.Path(self.build_temp)
         build_temp.mkdir(parents=True, exist_ok=True)
         ext_path = self.get_ext_fullpath(ext.name)
@@ -50,10 +53,10 @@ class build_ext(build_extension, object):
         # example of cmake args
         config = 'Debug' if self.debug else 'Release'
         cmake_args = [
-            '-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=' + str(extdir.parent.absolute()),
-            '-DCMAKE_BUILD_TYPE=' + config,
-            '-DPYTHON_VERSION=' + python_version(),
-            '-DPYFACTXX_ROOT=' + root
+            f'-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={extdir.parent.absolute()}',
+            f'-DCMAKE_BUILD_TYPE={config}',
+            f'-DPYTHON_VERSION={python_version()}',
+            f'-DPYFACTXX_ROOT={root}'
         ]
         # example of build args
         build_args = [
@@ -61,7 +64,7 @@ class build_ext(build_extension, object):
             '--', '-j4'
         ]
         os.chdir(str(build_temp))
-        self.spawn(['cmake', os.path.join(root, 'pyfactxx')] + cmake_args)
+        self.spawn(['cmake', str(root/'pyfactxx')] + cmake_args)
         if not self.dry_run:
             self.spawn(['cmake', '--build', '.'] + build_args)
         # Troubleshooting: if fail on line above then delete all possible
@@ -70,7 +73,7 @@ class build_ext(build_extension, object):
 
 # cythonize pyx file if right version of Cython is found
 pyx_ext = Extension("lib_factxx",
-            sources=["${CMAKE_CURRENT_SOURCE_DIR}/pyfactxx/lib_factxx.pyx"],
+            sources=["pyfactxx/lib_factxx.pyx"],
             language="c++",
             )
 cythonize(pyx_ext, compiler_directives={'language_level' : "3"})
@@ -85,7 +88,7 @@ setup(
     license="GNU GPL 3.0",
     packages=["pyfactxx"],
     install_requires=["rdflib", "pytest"],
-    package_dir={"pyfactxx": "${CMAKE_CURRENT_SOURCE_DIR}/pyfactxx"},
+    package_dir={"pyfactxx": "pyfactxx"},
     ext_modules=[CMakeExtension("pyfactxx/lib_factxx"),],
     cmdclass={
         'build_ext': build_ext,
