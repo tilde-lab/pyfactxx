@@ -15,5 +15,4 @@ CMakeFiles/
 # Targets
 fact_test
 libfact.so
-FaCT++
 libKernel.*
