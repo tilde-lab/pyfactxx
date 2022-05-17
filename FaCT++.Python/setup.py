@@ -21,6 +21,7 @@
 
 import os
 import pathlib
+from shutil import which
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext as build_extension
 from platform import python_version
@@ -40,6 +41,8 @@ class build_ext(build_extension, object):
 
     def run(self):
         # check for cmake
+        if which('cmake') is None:
+            raise SystemError('CMake is needed to install pyfactxx from source!')
         for ext in self.extensions:
             self.build_cmake(ext)
         super(build_ext, self).run()
