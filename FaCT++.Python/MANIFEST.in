@@ -1,0 +1,5 @@
+global-include CMakeLists.txt
+graft lib
+recursive-include pyfactxx *.py*
+prune pyfactxx/tests 
+include README.md setup.py
