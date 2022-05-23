@@ -1,5 +1,5 @@
 #
-# factpp - Python interface to FaCT++ reasoner
+# pyfactxx - Python interface to FaCT++ reasoner
 #
 # Copyright (C) 2016-2017 by Artur Wroblewski <wrobell@riseup.net>
 #
@@ -24,7 +24,7 @@ RDFLib store unit tests.
 from rdflib import BNode
 from rdflib.namespace import FOAF, RDF, RDFS, OWL
 
-import factpp.rdflib_interface
+import pyfactxx.rdflib_interface
 
 from .util import graph, NS
 
@@ -129,7 +129,7 @@ def test_list_cache():
     """
     Test creating RDF list state.
     """
-    cache = factpp.rdflib_interface.ListState.CACHE
+    cache = pyfactxx.rdflib_interface.ListState.CACHE
     store = mock.Mock()
 
     cache['O1'].store = store

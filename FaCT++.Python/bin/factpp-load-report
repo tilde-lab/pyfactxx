@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sed 's/DEBUG:factpp.rdflib://' \
+sed 's/DEBUG:pyfactxx.rdflib://' \
     | grep -B 1 '^skipped' \
     | grep -v '^--' \
     | sed 's/^skipped: //' \

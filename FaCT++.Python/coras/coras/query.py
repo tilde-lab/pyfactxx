@@ -23,7 +23,7 @@ Query engine.
 
 import logging
 import rdflib.store
-from factpp.lib_factpp import ObjectRoleExpr, DataRoleExpr
+from pyfactxx.lib_factxx import ObjectRoleExpr, DataRoleExpr
 from rdflib import RDF, OWL
 import re
 

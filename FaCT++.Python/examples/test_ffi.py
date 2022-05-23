@@ -1,5 +1,5 @@
 #
-# factpp - Python interface to FaCT++ reasoner
+# pyfactxx - Python interface to FaCT++ reasoner
 #
 # Copyright (C) 2016 by Artur Wroblewski <wrobell@riseup.net>
 #
@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from factpp.lib_factpp import ffi, lib
+from pyfactxx.lib_factxx import ffi, lib
 
 def print_array(data):
     i = 0

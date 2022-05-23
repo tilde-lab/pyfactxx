@@ -1,5 +1,5 @@
 
-from factpp import Reasoner
+from pyfactxx import Reasoner
 from datetime import datetime
 
 

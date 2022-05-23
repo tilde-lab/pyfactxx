@@ -1,5 +1,5 @@
 #
-# factpp - Python interface to FaCT++ reasoner
+# pyfactxx - Python interface to FaCT++ reasoner
 #
 # Copyright (C) 2016-2018 by Artur Wroblewski <wrobell@riseup.net>
 #
@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import factpp
+import pyfactxx
 import time
 
-reasoner = factpp.Reasoner()
+reasoner = pyfactxx.Reasoner()
 
 start = time.time()
 individuals = [

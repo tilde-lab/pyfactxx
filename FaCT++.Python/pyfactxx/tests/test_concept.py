@@ -1,5 +1,5 @@
 #
-# factpp - Python interface to FaCT++ reasoner
+# pyfactxx - Python interface to FaCT++ reasoner
 #
 # Copyright (C) 2016-2018 by Artur Wroblewski <wrobell@riseup.net>
 #
@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import factpp
+import pyfactxx
 
 import pytest
 
@@ -26,7 +26,7 @@ def reasoner():
     """
     Get instance of a reasoner.
     """
-    return factpp.Reasoner()
+    return pyfactxx.Reasoner()
 
 def test_subclass(reasoner):
     """

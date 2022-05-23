@@ -5,7 +5,7 @@ __pycache__/
 *.so
 dist/
 
-factpp/*.cpp
-factpp/*.so
+pyfactxx/*.cpp
+pyfactxx/*.so
 setup.py
 

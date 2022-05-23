@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import factpp
+import pyfactxx
 import logging
 import rdflib
 
@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 class Coras:
     def __init__(self):
-        self._reasoner = factpp.Reasoner()
+        self._reasoner = pyfactxx.Reasoner()
         self._graph = rdflib.ConjunctiveGraph()
 
         store = QueryStore(self._graph, self._reasoner)
