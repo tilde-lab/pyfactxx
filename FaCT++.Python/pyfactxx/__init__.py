@@ -19,4 +19,7 @@
 
 from .lib_factxx import Reasoner
 
+
+__version__ = "1.8.0"
+
 # vim: sw=4:et:ai

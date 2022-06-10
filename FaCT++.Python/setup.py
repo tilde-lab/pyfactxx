@@ -82,33 +82,8 @@ pyx_ext = Extension("lib_factxx",
 cythonize(pyx_ext, compiler_directives={'language_level' : "3"})
 
 setup(
-    name="pyfactxx",
-    version="1.8.0",
-    description="Python bindings to FaCT++ reasoner",
-    author="Artur Wroblewski",
-    author_email="wrobell@riseup.net",
-    url="https://github.com/tilde-lab/pyfactxx",
-    license="GNU GPL 3.0",
-    packages=["pyfactxx"],
-    install_requires=["rdflib", "pytest"],
-    package_dir={"pyfactxx": "pyfactxx"},
     ext_modules=[CMakeExtension("pyfactxx/lib_factxx"),],
     cmdclass={
         'build_ext': build_ext,
-    },
-    python_requires='>=3.6',
-    classifiers=[
-        'Development Status :: 4 - Beta',
-        'Intended Audience :: Science/Research',
-        'Topic :: Scientific/Engineering :: Artificial Intelligence',
-        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
-        'Programming Language :: C++',
-        'Programming Language :: Cython',
-        'Programming Language :: Lisp',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9'
-    ]
+    }
 )
