@@ -56,10 +56,10 @@ class build_ext(build_extension, object):
         # example of cmake args
         config = 'Debug' if self.debug else 'Release'
         cmake_args = [
-            f'-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={extdir.parent.absolute()}',
+            f'-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={extdir.parent.absolute().as_posix()}',
             f'-DCMAKE_BUILD_TYPE={config}',
             f'-DPYTHON_VERSION={python_version()}',
-            f'-DPYFACTXX_ROOT={root}'
+            f'-DPYFACTXX_ROOT={root.as_posix()}'
         ]
         # example of build args
         build_args = [
