@@ -1,5 +1,5 @@
 global-include CMakeLists.txt
 graft lib
-recursive-include pyfactxx *.py*
-prune pyfactxx/tests 
-include README.md setup.py
+recursive-include pyfactxx *.[py|pyx]
+prune _skbuild pyfactxx/tests
+include COPYING pyproject.toml README.md setup.py
