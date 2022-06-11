@@ -4,7 +4,7 @@ __pycache__/
 *.egg-info/
 *.so
 dist/
-./MANIFEST
+MANIFEST
 
 # cythonized files  
 pyfactxx/*.cpp
