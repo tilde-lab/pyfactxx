@@ -1,9 +1,10 @@
 set(CMAKE_VERBOSE_MAKEFILE ON)
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.13.0)
 set(CMAKE_CXX_STANDARD 11)
 find_program(PYTHON "python")
 
 if (PYTHON)
+
     file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
 
     set(SETUP_PY    "${CMAKE_CURRENT_BINARY_DIR}/setup.py")

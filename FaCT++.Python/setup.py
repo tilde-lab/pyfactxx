@@ -22,13 +22,15 @@
 import os
 import pathlib
 from shutil import which
-from setuptools import setup, Extension
+from skbuild import setup
+from setuptools import find_namespace_packages, Extension
 from setuptools.command.build_ext import build_ext as build_extension
 from platform import python_version
-from Cython.Build import cythonize
 
 
 root = pathlib.Path(__file__).parent.resolve()
+debug = False
+
 
 class CMakeExtension(Extension, object):
 
@@ -75,15 +77,32 @@ class build_ext(build_extension, object):
         os.chdir(root)
 
 # cythonize pyx file if right version of Cython is found
-pyx_ext = Extension("lib_factxx",
-            sources=["pyfactxx/lib_factxx.pyx"],
-            language="c++",
-            )
-cythonize(pyx_ext, compiler_directives={'language_level' : "3"})
+# pyx_ext = Extension("lib_factxx",
+#             sources=["pyfactxx/lib_factxx.pyx"],
+#             language="c++",
+#             )
+# cythonize(pyx_ext, compiler_directives={'language_level' : "3"})
+
+config = 'Debug' if debug else 'Release'
+cmake_args = [
+    # f'-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={extdir.parent.absolute().as_posix()}',
+    f'-DCMAKE_BUILD_TYPE={config}',
+    # f'-DPYTHON_VERSION={python_version()}',
+    f'-DPYFACTXX_ROOT={root.as_posix()}'
+]
+
 
 setup(
-    ext_modules=[CMakeExtension("pyfactxx/lib_factxx"),],
-    cmdclass={
-        'build_ext': build_ext,
-    }
+    packages=[
+        "pyfactxx", 
+        "pyfactxx.coras"],
+    package_dir={
+        "pyfactxx": "pyfactxx", 
+        "pyfactxx.coras": "pyfactxx/coras"},
+    cmake_source_dir=str(root/'pyfactxx'),
+    cmake_args=cmake_args
+    # ext_modules=[CMakeExtension("pyfactxx/lib_factxx"),],
+    # cmdclass={
+    #     'build_ext': build_ext,
+    # }
 )

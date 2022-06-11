@@ -4,6 +4,11 @@ __pycache__/
 *.egg-info/
 *.so
 dist/
+./MANIFEST
 
+# cythonized files  
 pyfactxx/*.cpp
 pyfactxx/*.so
+
+# scikit-build files
+_skbuild/

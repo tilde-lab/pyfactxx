@@ -1,4 +1,10 @@
 [build-system]
-requires = ["setuptools>=42",
-            "Cython>=0.25"]
+requires = [  
+  "setuptools>=42",
+  "cython>0.25",
+  "wheel",
+  "scikit-build",
+  "cmake",
+  "ninja; platform_system!='Windows'"
+]
 build-backend = "setuptools.build_meta"
