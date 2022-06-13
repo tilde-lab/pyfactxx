@@ -172,6 +172,7 @@ cdef extern from 'tExpressionManager.h':
         TDLConceptExpression* And()
         TDLConceptExpression* OneOf()
 
+        TDLConceptExpression* Cardinality(unsigned int, const TDLObjectRoleExpression*, const TDLConceptExpression*)
         TDLConceptExpression* Cardinality(unsigned int, const TDLDataRoleExpression*, const TDLDataExpression*)
         TDLConceptExpression* MinCardinality(unsigned int, const TDLObjectRoleExpression*, const TDLConceptExpression*)
         TDLConceptExpression* MinCardinality(unsigned int, const TDLDataRoleExpression*, const TDLDataExpression*)
@@ -506,6 +507,9 @@ cdef class Reasoner:
 
     def o_exists(self, ObjectRoleExpr r, ConceptExpr c):
         return self._get(ConceptExpr, self.c_mgr.Exists(r.c_obj(), c.c_obj()))
+
+    def o_cardinality(self, unsigned int n, ObjectRoleExpr r, ConceptExpr c):
+        return self._get(ConceptExpr, self.c_mgr.Cardinality(n, r.c_obj(), c.c_obj()))
 
     def min_o_cardinality(self, unsigned int n, ObjectRoleExpr r, ConceptExpr c):
         return self._get(ConceptExpr, self.c_mgr.MinCardinality(n, r.c_obj(), c.c_obj()))

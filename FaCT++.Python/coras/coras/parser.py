@@ -264,6 +264,11 @@ def parse_restriction(graph, reasoner, cls):
     b = BNode(cls.name)
     prop = fetch_object(graph, b, OWL.onProperty, reasoner.object_role)
     assert prop is not None
+    
+    inv_prop = fetch_object(graph, BNode(prop.name), OWL.inverseOf, reasoner.object_role)
+    
+    if inv_prop is not None:
+        reasoner.set_inverse_roles(prop, inv_prop);
 
     parse_q_cardinality(graph, reasoner, cls, b, prop)
     parse_some_values_from(graph, reasoner, cls, b, prop)
@@ -279,6 +284,16 @@ def parse_negative_assert_obj_property(graph, reasoner, axiom):
 
 def parse_q_cardinality(graph, reasoner, cls, b, prop):
     on_cls = fetch_object(graph, b, OWL.onClass, reasoner.concept)
+
+    card = fetch_object(graph, b, OWL.qualifiedCardinality, int)
+    if card and on_cls:
+        if __debug__:
+            logger.debug(
+                'exact qual cardinality: {} {}: {} {}'
+                .format(cls.name, prop, card, on_cls.name)
+            )
+        c = reasoner.o_cardinality(card, prop, on_cls)
+        reasoner.equal_concepts(cls, c)
 
     card = fetch_object(graph, b, OWL.minQualifiedCardinality, int)
     if card and on_cls:
