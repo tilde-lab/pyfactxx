@@ -17,60 +17,58 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from pyfactxx import Reasoner
 
-def test_diff_concepts():
-    reasoner = Reasoner()
-
+def test_diff_concepts(reasoner):
+    """Test different concepts"""
     c1 = reasoner.concept('C1')
     c2 = reasoner.concept('C2')
     assert c1 is not c2
 
-def test_same_concepts():
-    reasoner = Reasoner()
 
+def test_same_concepts(reasoner):
+    """Test same concepts"""
     c1 = reasoner.concept('C')
     c2 = reasoner.concept('C')
     assert c1 is c2
 
-def test_diff_individuals():
-    reasoner = Reasoner()
 
+def test_diff_individuals(reasoner):
+    """Test different individuals"""
     i1 = reasoner.individual('i1')
     i2 = reasoner.individual('i2')
     assert i1 is not i2
 
-def test_same_individuals():
-    reasoner = Reasoner()
 
+def test_same_individuals(reasoner):
+    """Test same individuals"""
     i1 = reasoner.individual('i')
     i2 = reasoner.individual('i')
     assert i1 is i2
 
-def test_diff_object_roles():
-    reasoner = Reasoner()
 
+def test_diff_object_roles(reasoner):
+    """Test different object roles"""
     r1 = reasoner.object_role('r1')
     r2 = reasoner.object_role('r2')
     assert r1 is not r2
 
-def test_same_object_roles():
-    reasoner = Reasoner()
 
+def test_same_object_roles(reasoner):
+    """Test same object roles"""
     r1 = reasoner.object_role('r')
     r2 = reasoner.object_role('r')
     assert r1 is r2
 
-def test_diff_data_roles():
-    reasoner = Reasoner()
 
+def test_diff_data_roles(reasoner):
+    """Test different data roles"""
     r1 = reasoner.data_role('r1')
     r2 = reasoner.data_role('r2')
     assert r1 is not r2
 
-def test_same_data_roles():
-    reasoner = Reasoner()
 
+def test_same_data_roles(reasoner):
+    """Test same data roles"""
     r1 = reasoner.data_role('r')
     r2 = reasoner.data_role('r')
     assert r1 is r2

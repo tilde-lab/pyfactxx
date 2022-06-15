@@ -17,9 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from pyfactxx import Reasoner
 
-def test_intersection_subclass():
+def test_intersection_subclass(reasoner):
     """
     Test intersection of classes.
 
@@ -30,8 +29,6 @@ def test_intersection_subclass():
           ObjectIntersectionOf(:Man :Parent)
         )
     """
-    reasoner = Reasoner()
-
     cls_p = reasoner.concept('Parent')
     cls_m = reasoner.concept('Man')
     cls_g = reasoner.concept('Grandfather')
@@ -47,7 +44,7 @@ def test_intersection_subclass():
     assert reasoner.is_instance(i, cls_p)
 
 
-def test_intersection_eq():
+def test_intersection_eq(reasoner):
     """
     Test intersection of classes.
 
@@ -58,8 +55,6 @@ def test_intersection_eq():
           ObjectIntersectionOf(:Woman :Parent)
         )
     """
-    reasoner = Reasoner()
-
     cls_p = reasoner.concept('Parent')
     cls_w = reasoner.concept('Woman')
     cls_m = reasoner.concept('Mother')

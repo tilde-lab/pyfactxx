@@ -17,23 +17,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from pyfactxx import Reasoner
 
-def test_create_data_role():
-    """
-    Test creating data role.
-    """
-    reasoner = Reasoner()
-
+def test_create_data_role(reasoner):
+    """ Test creating data role. """
     r = reasoner.data_role('R')
     assert 'R' == r.name
 
-def test_equivalent_roles():
-    """
-    Test creating equivalent data roles.
-    """
-    reasoner = Reasoner()
 
+def test_equivalent_roles(reasoner):
+    """ Test creating equivalent data roles. """
     r1 = reasoner.data_role('R1')
     cls = reasoner.concept('CLS')
     reasoner.set_d_domain(r1, cls)
@@ -49,23 +41,17 @@ def test_equivalent_roles():
     assert 'CLS' == next(values).name
     assert next(values, None) is None
 
-def test_sub_property():
-    """
-    Test creating sub-property of a data property.
-    """
-    reasoner = Reasoner()
 
+def test_sub_property(reasoner):
+    """ Test creating sub-property of a data property. """
     r = reasoner.data_role('R')
     sub_r = reasoner.data_role('SR')
     reasoner.implies_d_roles(sub_r, r)
     assert reasoner.is_sub_d_role(sub_r, r)
 
-def test_get_d_domain():
-    """
-    Test getting data role domain.
-    """
-    reasoner = Reasoner()
 
+def test_get_d_domain(reasoner):
+    """ Test getting data role domain. """
     cls = reasoner.concept('CLS')
     r = reasoner.data_role('R')
     reasoner.set_d_domain(r, cls)
@@ -74,11 +60,9 @@ def test_get_d_domain():
     assert 'CLS' == next(values).name
     assert next(values, None) is None
 
-def test_get_d_domain_top():
-    """
-    Test getting data role domain when no domain set.
-    """
-    reasoner = Reasoner()
+
+def test_get_d_domain_top(reasoner):
+    """ Test getting data role domain when no domain set. """
     top = reasoner.concept_top()
     r = reasoner.data_role('R')
     i = reasoner.individual('i')

@@ -17,18 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from pyfactxx import Reasoner
-
-import pytest
-
-@pytest.fixture
-def reasoner():
-    """
-    Get instance of a reasoner.
-    """
-    return Reasoner()
 
 def test_instances_query(reasoner):
+    """Test getting instances"""
     cls = reasoner.concept('CLS')
     for v in 'abc':
         i = reasoner.individual(v)
@@ -39,9 +30,9 @@ def test_instances_query(reasoner):
     names = [i.name for i in reasoner.get_instances(cls)]
     assert ['a', 'b', 'c'] == names
 
+
 def test_instances_query_from_object_role_domain(reasoner):
-    """
-    Test getting instances of a class, which is a domain of an object role.
+    """Test getting instances of a class, which is a domain of an object role.
     """
     cls = reasoner.concept('CLS')
     r = reasoner.object_role('R')
@@ -60,9 +51,9 @@ def test_instances_query_from_object_role_domain(reasoner):
     names = [i.name for i in reasoner.get_instances(value)]
     assert ['a', 'b', 'c'] == names
 
+
 def test_instances_query_of_superclass(reasoner):
-    """
-    Test getting instances of a superclass.
+    """Test getting instances of a superclass.
     """
     person = reasoner.concept('Person')
     child = reasoner.concept('Child')
@@ -76,9 +67,9 @@ def test_instances_query_of_superclass(reasoner):
 
     assert ['a'] == [i.name for i in items]
 
+
 def test_instances_query_of_class_hierarchy(reasoner):
-    """
-    Test getting instances of a class hierarchy.
+    """Test getting instances of a class hierarchy.
     """
     person = reasoner.concept('Person')
     child = reasoner.concept('Child')
@@ -99,9 +90,9 @@ def test_instances_query_of_class_hierarchy(reasoner):
 
     assert ['c1', 'c2', 'p1', 'p2'] == [i.name for i in items]
 
+
 def test_instances_query_of_class_hierarchy_last_empty(reasoner):
-    """
-    Test getting instances of a class hierarchy with last class having no
+    """Test getting instances of a class hierarchy with last class having no
     instances.
     """
     person = reasoner.concept('Person')

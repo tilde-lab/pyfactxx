@@ -17,21 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from pyfactxx import Reasoner
-
-import pytest
-
-@pytest.fixture
-def reasoner():
-    """
-    Get instance of a reasoner.
-    """
-    return Reasoner()
 
 def test_one_of(reasoner):
-    """
-    Test `one of` axiom.
-    """
+    """Test `one of` axiom."""
     colors = [reasoner.individual(c) for c in ['blue', 'yellow']]
 
     color = reasoner.concept('Color')
