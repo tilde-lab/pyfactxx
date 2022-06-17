@@ -17,8 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import pytest
-
 
 def test_equivalent_roles(reasoner):
     """ Test creating equivalent roles. """
@@ -128,7 +126,6 @@ def test_get_o_domain_range(reasoner):
     assert next(values, None) is None
 
 
-@pytest.mark.skip()
 def test_inverse_role(reasoner):
     """ Test getting inverse of an object role.
     """
@@ -146,7 +143,6 @@ def test_inverse_role(reasoner):
     assert ['A1', 'A2'] == [i.name for i in values]
 
 
-@pytest.mark.skip()
 def test_set_inverse_role(reasoner):
     """ Test setting two object roles as inverse.
     """

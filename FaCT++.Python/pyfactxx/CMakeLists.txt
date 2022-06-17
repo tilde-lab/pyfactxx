@@ -5,7 +5,7 @@ include(CMakePrintHelpers)
 
 find_package(PythonExtensions REQUIRED)
 find_package(Cython REQUIRED)
-# find_package (Python COMPONENTS Interpreter Development REQUIRED)     
+
 add_subdirectory(${PYFACTXX_ROOT}/lib/Kernel ./Kernel)
 set(FACT_DIR ${PYFACTXX_ROOT}/lib/FaCT++)
 file(GLOB FACT_FILES  "${FACT_DIR}/*.cpp")

@@ -86,7 +86,8 @@ disable=raw-checker-failed,
         useless-suppression,
         deprecated-pragma,
         use-symbolic-message-instead,
-        unspecified-encoding
+        unspecified-encoding,
+        missing-module-docstring
 
 
 # Enable the message, report, category or checker with the given id(s). You can
