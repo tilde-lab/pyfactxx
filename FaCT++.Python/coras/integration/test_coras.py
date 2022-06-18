@@ -36,6 +36,8 @@ TESTS = [
     ('tsars', '02-tsars.sq', ['tsars.rdf'], '02-result.csv'),
 ]
 
+
+@pytest.mark.skip()
 @pytest.mark.parametrize(
     'prefix,query,ontologies,expected',
     TESTS,
