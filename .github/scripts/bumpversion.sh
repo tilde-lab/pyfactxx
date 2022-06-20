@@ -10,6 +10,7 @@ while [ $# -gt 0 ] ; do
   shift
 done
 if [[ -z "$dryrun" ]]; then
+  today=`date +"%d %B %Y"`
   sed -i "s/ReleaseDate = \"\(.*\)\"/ReleaseDate = \"${today}\"/" Kernel/Kernel.cpp 
   echo "Release date set"
 fi
