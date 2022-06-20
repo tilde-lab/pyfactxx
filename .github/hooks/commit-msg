@@ -1,0 +1,15 @@
+#!/bin/bash
+
+declare -r msg=$(< $1);
+if grep "Bump version" <<< "$msg" > /dev/null 2>&1; then
+    today=`date +"%d %B %Y"`
+    if ! grep "${today}" Kernel/Kernel.cpp > /dev/null 2>&1; then
+        sed -i "s/ReleaseDate = \"\(.*\)\"/ReleaseDate = \"${today}\"/" Kernel/Kernel.cpp 
+        echo "Release date set; please try committing once again"
+        exit 1;
+    else
+        exit 0;
+    fi
+else
+    exit 0;
+fi
