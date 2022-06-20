@@ -11,7 +11,7 @@
 	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>factplusplus</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.8.0-SNAPSHOT</version>
+	<version>1.8.1-SNAPSHOT</version>
 	<name>FaCT++</name>
 	<description>FaCT++ is an OWL 2 DL reasoner</description>
 	<url>https://bitbucket.org/dtsarkov/factplusplus</url>

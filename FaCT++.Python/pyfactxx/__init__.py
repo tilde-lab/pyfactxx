@@ -21,6 +21,6 @@ from .lib_factxx import Reasoner  # pylint: disable=no-name-in-module
 from .coras import Coras
 
 
-__version__ = "1.8.0"
+__version__ = "1.8.1"
 
 # vim: sw=4:et:ai
