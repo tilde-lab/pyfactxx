@@ -1,5 +1,7 @@
 # Python bindings for FaCT++ reasoner
 
+![PyPI](https://img.shields.io/pypi/v/pyfactxx.svg?style=flat)
+
 FaCT++ is a well-optimized [open-source](https://bitbucket.org/dtsarkov/factplusplus) reasoner for **_SROIQ(D)_** description logic with simple datatypes (OWL 2), written in C++. FaCT++ was created in 2003-2015 by [Dmitry Tsarkov](https://scholar.google.com/citations?user=jDcQ7vQAAAAJ) and [Ian Horrocks](https://scholar.google.com/citations?user=0ypdmcYAAAAJ) in the University of Manchester, UK.
 
 This repository is the **work in progress** for linking the FaCT++ with the Python's [RDFLib](https://rdflib.dev) package. This repository is based on the works of Artur Wroblewski [factpp](https://bitbucket.org/wrobell/factplusplus/src/factpp/factpp) and [coras](https://bitbucket.org/wrobell/coras). The goals are to create the RDFLib store with inference capabilities and to demonstrate the use of the FaCT++ API.
@@ -30,13 +32,14 @@ The FaCT++ supports [Java OWL-API](https://github.com/owlcs/owlapi), Lisp API, a
 
 ## Installation
 
+As easy as `pip install pyfactxx`, or if you cloned the repository:
 ```
 pip install cython
 cd FaCT++.Python
 cmake .
 make && make install
 ```
-**(Sorry, no pip support currently!)**
+NB the PyPI releases plus wheels are done via GitHub action.
 
 
 ## Usage
