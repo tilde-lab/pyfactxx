@@ -667,7 +667,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
     const TRole* q_obj_role = getRole(q_obj_o_role_exp, q_obj_d_role_exp);
 
     // If subject or role is not found in the ontology, return an empty set
-    if (!q_subj_name.empty() && q_subj == nullptr && q_subj_role == nullptr || !q_role_name.empty() && !isSpecialRole(q_role_name) && q_role == nullptr)
+    if ((!q_subj_name.empty() && q_subj == nullptr && q_subj_role == nullptr) || (!q_role_name.empty() && !isSpecialRole(q_role_name) && q_role == nullptr))
         return;
 
     if (q_subj_name.empty())
@@ -882,7 +882,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
             }
 
             // If synonyms are needed
-            if (q_subj != nullptr && q_role_name.empty() || q_role_name == OWL_SAME_AS)
+            if (q_role_name.empty() || q_role_name == OWL_SAME_AS)
             {
                 if (q_obj_name.empty())
                 {
@@ -980,7 +980,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
             }
 
             // If synonyms are needed
-            if (q_subj != nullptr && q_role_name.empty() || q_role_name == OWL_EQUIVALENT_CLASS)
+            if (q_role_name.empty() || q_role_name == OWL_EQUIVALENT_CLASS)
             {
                 if (q_obj_name.empty())
                 {
