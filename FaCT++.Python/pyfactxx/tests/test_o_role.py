@@ -17,13 +17,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from pyfactxx import Reasoner
 
-def test_equivalent_roles():
-    """
-    Test creating equivalent roles.
-    """
-    reasoner = Reasoner()
+import pytest
+
+
+def test_equivalent_roles(reasoner):
+    """ Test creating equivalent roles. """
 
     r1 = reasoner.object_role('R1')
     cls = reasoner.concept('CLS')
@@ -40,23 +39,19 @@ def test_equivalent_roles():
     assert 'CLS' == next(values).name
     assert next(values, None) is None
 
-def test_sub_property():
-    """
-    Test creating sub-property of an object property.
-    """
-    reasoner = Reasoner()
 
+def test_sub_property(reasoner):
+    """ Test creating sub-property of an object property.
+    """
     r = reasoner.object_role('R')
     sub_r = reasoner.object_role('SR')
     reasoner.implies_o_roles(sub_r, r)
     assert reasoner.is_sub_o_role(sub_r, r)
 
-def test_get_o_domain():
-    """
-    Test getting object role domain.
-    """
-    reasoner = Reasoner()
 
+def test_get_o_domain(reasoner):
+    """ Test getting object role domain.
+    """
     cls = reasoner.concept('CLS')
     r = reasoner.object_role('R')
     reasoner.set_o_domain(r, cls)
@@ -65,13 +60,11 @@ def test_get_o_domain():
     assert 'CLS' == next(values).name
     assert next(values, None) is None
 
-def test_get_o_domain_top():
-    """
-    Test getting object role domain when no domain set.
-    """
-    reasoner = Reasoner()
-    top = reasoner.concept_top()
 
+def test_get_o_domain_top(reasoner):
+    """ Test getting object role domain when no domain set.
+    """
+    top = reasoner.concept_top()
     r = reasoner.object_role('R')
     i1 = reasoner.individual('i1')
     i2 = reasoner.individual('i2')
@@ -80,14 +73,12 @@ def test_get_o_domain_top():
     values = reasoner.get_o_domain(r)
     assert [top] == list(values)
 
-def test_get_o_domain_complex():
-    """
-    Test getting object role domain.
+
+def test_get_o_domain_complex(reasoner):
+    """ Test getting object role domain.
 
     Example from Tsars ontology.
     """
-    reasoner = Reasoner()
-
     cls = reasoner.concept('Person')
     man = reasoner.concept('Man')
     sex = reasoner.concept('Sex')
@@ -107,12 +98,9 @@ def test_get_o_domain_complex():
     assert 'Person' == next(values).name
     assert [de] == list(values)
 
-def test_get_o_range():
-    """
-    Test getting object role range.
-    """
-    reasoner = Reasoner()
 
+def test_get_o_range(reasoner):
+    """ Test getting object role range. """
     cls = reasoner.concept('CLS')
     r = reasoner.object_role('R')
     reasoner.set_o_range(r, cls)
@@ -121,12 +109,10 @@ def test_get_o_range():
     assert 'CLS' == next(values).name
     assert next(values, None) is None
 
-def test_get_o_domain_range():
-    """
-    Test getting object role domain and range.
-    """
-    reasoner = Reasoner()
 
+def test_get_o_domain_range(reasoner):
+    """ Test getting object role domain and range.
+    """
     r = reasoner.object_role('R')
 
     c1 = reasoner.concept('C1')
@@ -142,12 +128,11 @@ def test_get_o_domain_range():
     assert 'C2' == next(values).name
     assert next(values, None) is None
 
-def test_inverse_role():
-    """
-    Test getting inverse of an object role.
-    """
-    reasoner = Reasoner()
 
+@pytest.mark.skip()
+def test_inverse_role(reasoner):
+    """ Test getting inverse of an object role.
+    """
     r = reasoner.object_role('R')
 
     i1 = reasoner.individual('A1')
@@ -161,12 +146,11 @@ def test_inverse_role():
     values = reasoner.get_role_fillers(i3, r_inv)
     assert ['A1', 'A2'] == [i.name for i in values]
 
-def test_set_inverse_role():
-    """
-    Test setting two object roles as inverse.
-    """
-    reasoner = Reasoner()
 
+@pytest.mark.skip()
+def test_set_inverse_role(reasoner):
+    """ Test setting two object roles as inverse.
+    """
     r = reasoner.object_role('R1')
     r_inv = reasoner.object_role('R2')
 
@@ -182,12 +166,10 @@ def test_set_inverse_role():
     values = reasoner.get_role_fillers(i3, r_inv)
     assert ['A1', 'A2'] == [i.name for i in values]
 
-def test_relation():
-    """
-    Test setting relation between two instances.
-    """
-    reasoner = Reasoner()
 
+def test_relation(reasoner):
+    """ Test setting relation between two instances.
+    """
     cls = reasoner.concept('CLS')
     r = reasoner.object_role('R')
     reasoner.set_o_functional(r)
@@ -208,12 +190,9 @@ def test_relation():
     reasoner.same_individuals([c1, c3])
     assert reasoner.is_same_individuals(c2, c4)
 
-def test_negative_relation():
-    """
-    Test negative relation.
-    """
-    reasoner = Reasoner()
 
+def test_negative_relation(reasoner):
+    """ Test negative relation. """
     h1 = reasoner.individual('house1')
     h2 = reasoner.individual('house2')
     h3 = reasoner.individual('house3')
@@ -244,12 +223,9 @@ def test_negative_relation():
 
     assert reasoner.is_same_individuals(some_house, h2)
 
-def test_role_chain():
-    """
-    Test role chain.
-    """
-    reasoner = Reasoner()
 
+def test_role_chain(reasoner):
+    """ Test role chain. """
     father = reasoner.object_role('father')
     grand_father = reasoner.object_role('grand_father')
 

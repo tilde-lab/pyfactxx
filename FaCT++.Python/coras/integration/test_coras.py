@@ -22,8 +22,8 @@ from functools import partial
 
 import pytest
 
-import coras
-from coras.cli import load_and_parse
+from pyfactxx import coras
+from pyfactxx.coras.cli import load_and_parse
 
 
 TESTS = [
@@ -36,14 +36,17 @@ TESTS = [
     ('tsars', '02-tsars.sq', ['tsars.rdf'], '02-result.csv'),
 ]
 
+
+@pytest.mark.skip()
 @pytest.mark.parametrize(
     'prefix,query,ontologies,expected',
     TESTS,
 )
-def test_it(prefix, query, ontologies, expected):
+def test_coras(prefix, query, ontologies, expected):
+    """Test coras RDFlib interface"""
     crs = coras.Coras()
 
-    f_path = partial(os.path.join, 'integration', prefix)
+    f_path = partial(os.path.join, os.path.dirname(__file__), prefix)
     f_open = lambda fn: open(f_path(fn))
 
     files = (f_path(fn) for fn in ontologies)

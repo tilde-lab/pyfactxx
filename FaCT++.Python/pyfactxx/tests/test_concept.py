@@ -17,16 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import pyfactxx
-
-import pytest
-
-@pytest.fixture
-def reasoner():
-    """
-    Get instance of a reasoner.
-    """
-    return pyfactxx.Reasoner()
 
 def test_subclass(reasoner):
     """
@@ -37,6 +27,7 @@ def test_subclass(reasoner):
 
     reasoner.implies_concepts(cls_a, cls_b)
     assert reasoner.is_subsumed_by(cls_a, cls_b)
+
 
 def test_subclass_instances(reasoner):
     """
@@ -54,6 +45,7 @@ def test_subclass_instances(reasoner):
     reasoner.implies_concepts(child, person)
     assert reasoner.is_instance(a, person)
 
+
 def test_equal_concepts(reasoner):
     """
     Test equal concepts.
@@ -67,6 +59,7 @@ def test_equal_concepts(reasoner):
     reasoner.equal_concepts(cls_a, cls_b)
 
     assert reasoner.is_instance(a, cls_b)
+
 
 def test_union_of(reasoner):
     """

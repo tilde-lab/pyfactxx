@@ -5,6 +5,7 @@
 /bin/
 build/**
 .vscode
+.coverage
 
 # cmake files
 CMakeCache.txt
@@ -15,5 +16,4 @@ CMakeFiles/
 # Targets
 fact_test
 libfact.so
-FaCT++
 libKernel.*

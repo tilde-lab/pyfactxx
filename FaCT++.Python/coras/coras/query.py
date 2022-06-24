@@ -27,7 +27,7 @@ from pyfactxx.lib_factxx import ObjectRoleExpr, DataRoleExpr
 from rdflib import RDF, OWL
 import re
 
-from coras.util import dispatch
+from .util import dispatch
 
 logger = logging.getLogger(__name__)
 

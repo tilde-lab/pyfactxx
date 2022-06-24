@@ -27,11 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include "SaveLoadManager.h"
 #include "TripleGatherer.h"
 
-const char* ReasoningKernel :: Version = "1.8.0-SNAPSHOT";
+const char* ReasoningKernel :: Version = "1.8.1-SNAPSHOT";
 const char* ReasoningKernel :: SupportedDL = "SROIQ(D)";
 const char* ReasoningKernel :: Copyright =
 	"Copyright (C) Dmitry Tsarkov, Ivan Rygaev, 2002-2022";
-const char* ReasoningKernel :: ReleaseDate = "31 March 2022";
+const char* ReasoningKernel :: ReleaseDate = "21 June 2022";
 
 // print the FaCT++ information only once
 static bool KernelFirstRun = true;

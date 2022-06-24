@@ -1,17 +1,15 @@
 set(CMAKE_VERBOSE_MAKEFILE ON)
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.13.0)
 set(CMAKE_CXX_STANDARD 11)
 find_program(PYTHON "python")
 
 if (PYTHON)
+
     file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
 
-    set(SETUP_PY_IN "${CMAKE_CURRENT_SOURCE_DIR}/setup.py.in")
     set(SETUP_PY    "${CMAKE_CURRENT_BINARY_DIR}/setup.py")
     set(DEPS        "${CMAKE_CURRENT_SOURCE_DIR}/pyfactxx/__init__.py")
     set(OUTPUT      "${CMAKE_CURRENT_BINARY_DIR}/build/timestamp")
-
-    configure_file(${SETUP_PY_IN} ${SETUP_PY})
 
     add_custom_command(OUTPUT ${OUTPUT}
                        COMMAND ${PYTHON} ${SETUP_PY} build
