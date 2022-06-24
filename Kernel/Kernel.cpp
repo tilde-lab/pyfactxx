@@ -553,23 +553,27 @@ ReasoningKernel :: isRelated ( const TIndividualExpr* I, const TDRoleExpr* A, co
 	return isInstance(I, &exists);
 }
 
-TDLConceptExpression* ReasoningKernel::getConceptExpression(const std::string& name)
+TDLConceptExpression* ReasoningKernel::parseConcept(const std::string& name)
 {
+    auto* em = getExpressionManager();
+
     if (name == OWL_THING)
-        return getExpressionManager()->Top();
+        return em->Top();
     else if (name == OWL_NOTHING)
-        return getExpressionManager()->Bottom();
+        return em->Bottom();
     else
-        return getExpressionManager()->Concept(name);
+        return em->Concept(name);
 }
 
 const TConcept* ReasoningKernel::getConcept(TDLIndividualName* i_exp, TDLConceptExpression* c_exp)
 {
+    auto* em = getExpressionManager();
+
     if (strlen(i_exp->getName()) == 0)
         return nullptr;
-    else if (c_exp == getExpressionManager()->Top())
+    else if (c_exp == em->Top())
         return static_cast<const TConcept*>(getTBox()->getTaxonomy()->getTopVertex()->getPrimer());
-    else if (c_exp == getExpressionManager()->Bottom())
+    else if (c_exp == em->Bottom())
         return static_cast<const TConcept*>(getTBox()->getTaxonomy()->getBottomVertex()->getPrimer());
     else if (i_exp->getEntry() != nullptr)
         return static_cast<const TConcept*>(i_exp->getEntry());
@@ -577,14 +581,65 @@ const TConcept* ReasoningKernel::getConcept(TDLIndividualName* i_exp, TDLConcept
         return static_cast<const TConcept*>(static_cast<TDLConceptName*>(c_exp)->getEntry());
 }
 
-const TRole* ReasoningKernel::getRole(TDLObjectRoleName* o_exp, TDLDataRoleName* d_exp)
+const TRole* ReasoningKernel::getRole(TDLObjectRoleExpression* o_exp, TDLDataRoleExpression* d_exp)
 {
-    if (strlen(o_exp->getName()) == 0 || strcmp(o_exp->getName(), RDF_TYPE) == 0)
-        return nullptr;
-    else if (o_exp->getEntry() != nullptr)
-        return static_cast<TRole*>(o_exp->getEntry());
+    auto* em = getExpressionManager();
+    auto& orm = getORM();
+    auto& drm = getDRM();
+
+
+    if (o_exp == em->ObjectRoleTop())
+    {
+        return orm.getTopRole();
+    }
+    else if (o_exp == em->ObjectRoleBottom())
+    {
+        return orm.getBotRole();
+    }
+    else if (d_exp == em->DataRoleTop())
+    {
+        return drm.getTopRole();
+    }
+    else if (d_exp == em->DataRoleBottom())
+    {
+        return drm.getBotRole();
+    }
     else
-        return static_cast<TRole*>(d_exp->getEntry());
+    {
+        auto* o_name = static_cast<TDLObjectRoleName*>(o_exp);
+        auto* d_name = static_cast<TDLDataRoleName*>(d_exp);
+
+        if (strlen(o_name->getName()) == 0 || isSpecialRole(o_name->getName()))
+            return nullptr;
+        else if (o_name->getEntry() != nullptr)
+            return static_cast<TRole*>(o_name->getEntry());
+        else
+            return static_cast<TRole*>(d_name->getEntry());
+    }
+}
+
+TDLObjectRoleExpression* ReasoningKernel::parseObjectRole(const std::string& name)
+{
+    auto* em = getExpressionManager();
+
+    if (name == OWL_TOP_OBJECT_PROPERTY)
+        return em->ObjectRoleTop();
+    else if (name == OWL_BOTTOM_OBJECT_PROPERTY)
+        return em->ObjectRoleBottom();
+    else
+        return em->ObjectRole(name);
+}
+
+TDLDataRoleExpression* ReasoningKernel::parseDataRole(const std::string& name)
+{
+    auto* em = getExpressionManager();
+
+    if (name == OWL_TOP_DATA_PROPERTY)
+        return em->DataRoleTop();
+    else if (name == OWL_BOTTOM_DATA_PROPERTY)
+        return em->DataRoleBottom();
+    else
+        return em->DataRole(name);
 }
 
 void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::string& q_role_name, const std::string& q_obj_name, std::set<std::vector<std::string>>& triples)
@@ -593,23 +648,29 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
     auto* em = getExpressionManager();
 
     TDLIndividualName* q_subj_i_exp = em->Individual(q_subj_name);
-    TDLConceptExpression* q_subj_c_exp = ((q_subj_name == OWL_THING) ? em->Top() : ((q_subj_name == OWL_NOTHING) ? em->Bottom() : getConceptExpression(q_subj_name)));
+    TDLConceptExpression* q_subj_c_exp = parseConcept(q_subj_name);
+    TDLObjectRoleExpression* q_subj_o_role_exp = parseObjectRole(q_subj_name);
+    TDLDataRoleExpression* q_subj_d_role_exp = parseDataRole(q_subj_name);
 
     TDLObjectRoleName* q_o_role_exp = em->ObjectRole(q_role_name);
     TDLDataRoleName* q_d_role_exp = em->DataRole(q_role_name);
 
     TDLIndividualName* q_obj_i_exp = em->Individual(q_obj_name);
-    TDLConceptExpression* q_obj_c_exp = ((q_obj_name == OWL_THING) ? em->Top() : ((q_obj_name == OWL_NOTHING) ? em->Bottom() : getConceptExpression(q_obj_name)));
+    TDLConceptExpression* q_obj_c_exp = parseConcept(q_obj_name);
+    TDLObjectRoleExpression* q_obj_o_role_exp = parseObjectRole(q_obj_name);
+    TDLDataRoleExpression* q_obj_d_role_exp = parseDataRole(q_obj_name);
 
     const TConcept* q_subj = getConcept(q_subj_i_exp, q_subj_c_exp);
+    const TRole* q_subj_role = getRole(q_subj_o_role_exp, q_subj_d_role_exp);
     const TRole* q_role = getRole(q_o_role_exp, q_d_role_exp);
     const TConcept* q_obj = getConcept(q_obj_i_exp, q_obj_c_exp);
+    const TRole* q_obj_role = getRole(q_obj_o_role_exp, q_obj_d_role_exp);
 
-    // If any of the three arguments is not found in the ontology, return an empty set
-    if (q_subj_name != "" && q_subj == nullptr || q_role_name != "" && !isSpecialRole(q_role_name) && q_role == nullptr)
+    // If subject or role is not found in the ontology, return an empty set
+    if (!q_subj_name.empty() && q_subj == nullptr && q_subj_role == nullptr || !q_role_name.empty() && !isSpecialRole(q_role_name) && q_role == nullptr)
         return;
 
-    if (q_subj_name == "")
+    if (q_subj_name.empty())
     {
         // Subject is not specified in the query
 
@@ -706,9 +767,49 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
                 return;
             }
         }*/
+        else if (q_role_name == RDFS_SUBPROPERTY_OF && q_obj_role != nullptr)
+        {
+            // All subproperties of a specific property
+
+            TripleGatherer gatherer(&triples, false, RDFS_SUBPROPERTY_OF, q_obj_name.c_str(), [q_obj_role](const ClassifiableEntry* entry)
+            {
+                return entry != q_obj_role && static_cast<const TNamedEntry*>(entry)->getId() >= 0;
+            });
+
+            if (q_obj_role->isDataRole())
+                getSubRoles(q_obj_d_role_exp, false, gatherer);
+            else
+                getSubRoles(q_obj_o_role_exp, false, gatherer);
+        }
+        else if (q_role_name == OWL_EQUIVALENT_PROPERTY && q_obj_role != nullptr)
+        {
+            // All equivalent properties to a specific property
+
+            TripleGatherer gatherer(&triples, false, OWL_EQUIVALENT_PROPERTY, q_obj_name.c_str(), [q_obj_role](const ClassifiableEntry* entry)
+            {
+                return entry != q_obj_role && static_cast<const TNamedEntry*>(entry)->getId() >= 0;
+            });
+
+            if (q_obj_role->isDataRole())
+                getEquivalentRoles(q_obj_d_role_exp, gatherer);
+            else
+                getEquivalentRoles(q_obj_o_role_exp, gatherer);
+        }
+        else if (q_role_name == OWL_INVERSE_OF && q_obj_role != nullptr)
+        {
+            // Inverse property
+
+            if (!q_obj_role->isDataRole())
+            {
+                const auto* inverse_role = q_obj_role->inverse();
+
+                if (inverse_role != nullptr && inverse_role->getId() >= 0)
+                    pushTriple(triples, toRdf(inverse_role->getName()), OWL_INVERSE_OF, q_obj_name.c_str());
+            }
+        }
         else
         {
-            // Otherwise take the list of all individuals and classes and run the same query for each individual or class separately
+            // Otherwise take the list of all individuals, classes and roles and run the same query for each individual, class or role separately
 
             for (auto p_concept = tBox->c_begin(); p_concept < tBox->c_end(); p_concept++)
             {
@@ -723,11 +824,27 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
                 const TIndividual* ind = *p_ind;
                 getTriples(ind->getName(), q_role_name, q_obj_name, triples);
             }
+
+            const auto& orm = tBox->getORM();
+
+            for (auto p_role = orm.begin(); p_role < orm.end(); p_role++)
+            {
+                const TRole* role = *p_role;
+                getTriples(role->getName(), q_role_name, q_obj_name, triples);
+            }
+
+            const auto& drm = tBox->getDRM();
+
+            for (auto p_role = drm.begin(); p_role < drm.end(); p_role++)
+            {
+                const TRole* role = *p_role;
+                getTriples(role->getName(), q_role_name, q_obj_name, triples);
+            }
         }
     }
     else if (q_subj != nullptr)
     {
-        // Subject is specified in the query
+        // Subject is specified in the query and it is not a role
 
         if (q_subj->isSingleton())
         {
@@ -738,15 +855,15 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
             NamesVector roles;
 
             // Fill required role list (either with all roles or with a single role from the query)
-            if (q_role_name == "")
+            if (q_role_name.empty())
                 getRelatedRoles(q_subj_i_exp, roles, false, false);
             else if (!isSpecialRole(q_role_name) && !q_role->isDataRole())
                 roles.push_back(q_role);
 
             // If types are needed
-            if (q_role_name == "" || q_role_name == RDF_TYPE)
+            if (q_role_name.empty() || q_role_name == RDF_TYPE)
             {
-                if (q_obj_name == "")
+                if (q_obj_name.empty())
                 {
                     // All types
                     TripleGatherer gatherer(&triples, true, RDF_TYPE, q_subj_name.c_str(), [](const ClassifiableEntry* entry)
@@ -765,9 +882,9 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
             }
 
             // If synonyms are needed
-            if (q_subj != nullptr && q_role_name == "" || q_role_name == OWL_SAME_AS)
+            if (q_subj != nullptr && q_role_name.empty() || q_role_name == OWL_SAME_AS)
             {
-                if (q_obj_name == "")
+                if (q_obj_name.empty())
                 {
                     // All synonyms
                     TripleGatherer gatherer(&triples, true, OWL_SAME_AS, q_subj_name.c_str(), [q_subj](const ClassifiableEntry* entry)
@@ -792,7 +909,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
 
                 const TORoleExpr* role_exp = getExpressionManager()->ObjectRole(role->getName());
 
-                if (q_obj_name == "")
+                if (q_obj_name.empty())
                 {
                     // All values
                     for (const TIndividual* obj : getRoleFillers(q_subj_i_exp, role_exp))
@@ -807,7 +924,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
             }
 
             // Gather data role values
-            if (q_role_name == "")
+            if (q_role_name.empty())
             {
                 // All data roles
                 const TDataValueMap* dataValueMap = q_subj_ind->getDataValueMap();
@@ -819,7 +936,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
 
                     for (const TDataEntry* value : values)
                     {
-                        if (q_obj_name == "" || value->getName() == q_obj_name)
+                        if (q_obj_name.empty() || value->getName() == q_obj_name)
                             pushTriple(triples, q_subj->getName(), role->getName(), value->getName());
                     }
                 }
@@ -829,7 +946,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
                 // A specific data role from the query
                 for (const TDataEntry* value : q_subj_ind->getDataValueCache(q_role))
                 {
-                    if (q_obj_name == "" || value->getName() == q_obj_name)
+                    if (q_obj_name.empty() || value->getName() == q_obj_name)
                         pushTriple(triples, q_subj->getName(), q_role->getName(), value->getName());
                 }
             }
@@ -838,11 +955,13 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
         {
             // Query subject is a class
 
+            if ((q_role_name.empty() || q_role_name == RDF_TYPE) && (q_obj_name.empty() || q_obj_name == OWL_CLASS))
+                pushTriple(triples, q_subj_name.c_str(), RDF_TYPE, OWL_CLASS);
 
             // If superclasses are needed
-            if (!q_subj->isBottom() && (q_role_name == "" || q_role_name == RDFS_SUBCLASS_OF))
+            if (!q_subj->isBottom() && (q_role_name.empty() || q_role_name == RDFS_SUBCLASS_OF))
             {
-                if (q_obj_name == "")
+                if (q_obj_name.empty())
                 {
                     // All superclasses
                     TripleGatherer gatherer(&triples, true, RDFS_SUBCLASS_OF, q_subj_name.c_str(), [q_subj](const ClassifiableEntry* entry)
@@ -861,9 +980,9 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
             }
 
             // If synonyms are needed
-            if (q_subj != nullptr && q_role_name == "" || q_role_name == OWL_EQUIVALENT_CLASS)
+            if (q_subj != nullptr && q_role_name.empty() || q_role_name == OWL_EQUIVALENT_CLASS)
             {
-                if (q_obj_name == "")
+                if (q_obj_name.empty())
                 {
                     // All synonyms
                     TripleGatherer gatherer(&triples, true, OWL_EQUIVALENT_CLASS, q_subj_name.c_str(), [q_subj](const ClassifiableEntry* entry)
@@ -882,9 +1001,9 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
             }
 
             // If disjoints are needed
-            /*if (q_subj != nullptr && q_role_name == "" || q_role_name == OWL_DISJOINT_WITH)
+            /*if (q_subj != nullptr && q_role_name.empty() || q_role_name == OWL_DISJOINT_WITH)
             {
-                if (q_obj_name == "")
+                if (q_obj_name.empty())
                 {
                     // All disjoint classes
                     TripleGatherer gatherer(&triples, true, OWL_DISJOINT_WITH, q_subj_name.c_str(), [](const ClassifiableEntry* entry)
@@ -902,6 +1021,150 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
                         pushTriple(triples, q_subj_name.c_str(), OWL_DISJOINT_WITH, q_obj_name.c_str());
                 }
             }*/
+        }
+    }
+    else if (q_subj_role != nullptr)
+    {
+        // Subject is specified in the query and it is a role
+
+        if (q_subj_role->isDataRole())
+        {
+            // Data role properties
+
+            if (q_role_name.empty() || q_role_name == RDF_TYPE)
+            {
+                if (q_obj_name.empty() || q_obj_name == OWL_DATATYPE_PROPERTY)
+                    pushTriple(triples, q_subj_name.c_str(), RDF_TYPE, OWL_DATATYPE_PROPERTY);
+
+                if (isFunctional(q_subj_d_role_exp) && (q_obj_name.empty() || q_obj_name == OWL_FUNCTIONAL_PROPERTY))
+                    pushTriple(triples, q_subj_name.c_str(), RDF_TYPE, OWL_FUNCTIONAL_PROPERTY);
+            }
+
+            if (q_role_name.empty() || q_role_name == RDFS_DOMAIN)
+            {
+                TripleGatherer gatherer(&triples, true, RDFS_DOMAIN, q_subj_name.c_str(), [q_obj_name, q_obj](const ClassifiableEntry* entry)
+                {
+                    return !entry->isSystem() && (q_obj_name.empty() || entry == q_obj);
+                });
+
+                getDRoleDomain(q_subj_d_role_exp, true, gatherer);
+            }
+
+            if (q_role_name.empty() || q_role_name == RDFS_SUBPROPERTY_OF)
+            {
+                if (q_obj_role != nullptr)
+                {
+                    if (q_obj_role->isDataRole() && isSubRoles(q_subj_d_role_exp, q_obj_d_role_exp))
+                        pushTriple(triples, q_subj_name.c_str(), RDFS_SUBPROPERTY_OF, q_obj_name.c_str());
+                }
+                else if (q_obj_name.empty())
+                {
+                    TripleGatherer gatherer(&triples, true, RDFS_SUBPROPERTY_OF, q_subj_name.c_str(), [q_subj_role](const ClassifiableEntry* entry)
+                    {
+                        return entry != q_subj_role;
+                    });
+
+                    getSupRoles(q_subj_d_role_exp, false, gatherer);
+                }
+            }
+
+            if (q_role_name.empty() || q_role_name == OWL_EQUIVALENT_PROPERTY)
+            {
+                TripleGatherer gatherer(&triples, true, OWL_EQUIVALENT_PROPERTY, q_subj_name.c_str(), [q_subj_role, q_obj_name, q_obj_role](const ClassifiableEntry* entry)
+                {
+                    return entry != q_subj_role && (q_obj_name.empty() || entry == q_obj_role);
+                });
+
+                getEquivalentRoles(q_subj_d_role_exp, gatherer);
+            }
+        }
+        else
+        {
+            // Object role properties
+
+            if (q_role_name.empty() || q_role_name == RDF_TYPE)
+            {
+                if (q_obj_name.empty() || q_obj_name == OWL_OBJECT_PROPERTY)
+                    pushTriple(triples, q_subj_name.c_str(), RDF_TYPE, OWL_OBJECT_PROPERTY);
+
+                if (isFunctional(q_subj_o_role_exp) && (q_obj_name.empty() || q_obj_name == OWL_FUNCTIONAL_PROPERTY))
+                    pushTriple(triples, q_subj_name.c_str(), RDF_TYPE, OWL_FUNCTIONAL_PROPERTY);
+
+                if (isInverseFunctional(q_subj_o_role_exp) && (q_obj_name.empty() || q_obj_name == OWL_INVERSE_FUNCTIONAL_PROPERTY))
+                    pushTriple(triples, q_subj_name.c_str(), RDF_TYPE, OWL_INVERSE_FUNCTIONAL_PROPERTY);
+
+                if (isSymmetric(q_subj_o_role_exp) && (q_obj_name.empty() || q_obj_name == OWL_SYMMETRIC_PROPERTY))
+                    pushTriple(triples, q_subj_name.c_str(), RDF_TYPE, OWL_SYMMETRIC_PROPERTY);
+
+                if (isAsymmetric(q_subj_o_role_exp) && (q_obj_name.empty() || q_obj_name == OWL_ASYMMETRIC_PROPERTY))
+                    pushTriple(triples, q_subj_name.c_str(), RDF_TYPE, OWL_ASYMMETRIC_PROPERTY);
+
+                if (isTransitive(q_subj_o_role_exp) && (q_obj_name.empty() || q_obj_name == OWL_TRANSITIVE_PROPERTY))
+                    pushTriple(triples, q_subj_name.c_str(), RDF_TYPE, OWL_TRANSITIVE_PROPERTY);
+
+                if (isReflexive(q_subj_o_role_exp) && (q_obj_name.empty() || q_obj_name == OWL_REFLEXIVE_PROPERTY))
+                    pushTriple(triples, q_subj_name.c_str(), RDF_TYPE, OWL_REFLEXIVE_PROPERTY);
+
+                if (isIrreflexive(q_subj_o_role_exp) && (q_obj_name.empty() || q_obj_name == OWL_IRREFLEXIVE_PROPERTY))
+                    pushTriple(triples, q_subj_name.c_str(), RDF_TYPE, OWL_IRREFLEXIVE_PROPERTY);
+            }
+
+            if (q_role_name.empty() || q_role_name == RDFS_DOMAIN)
+            {
+                TripleGatherer gatherer(&triples, true, RDFS_DOMAIN, q_subj_name.c_str(), [q_subj, q_obj_name, q_obj](const ClassifiableEntry* entry)
+                {
+                    return !entry->isSystem() && (q_obj_name.empty() || entry == q_obj);
+                });
+
+                getORoleDomain(q_subj_o_role_exp, true, gatherer);
+            }
+            
+            if (q_role_name.empty() || q_role_name == RDFS_RANGE)
+            {
+                TripleGatherer gatherer(&triples, true, RDFS_RANGE, q_subj_name.c_str(), [q_subj, q_obj_name, q_obj](const ClassifiableEntry* entry)
+                {
+                    return !entry->isSystem() && (q_obj_name.empty() || entry == q_obj);
+                });
+
+                getRoleRange(q_subj_o_role_exp, true, gatherer);
+            }
+
+            if (q_role_name.empty() || q_role_name == RDFS_SUBPROPERTY_OF)
+            {
+                if (q_obj_role != nullptr)
+                {
+                    if (!q_obj_role->isDataRole() && isSubRoles(q_subj_o_role_exp, q_obj_o_role_exp))
+                        pushTriple(triples, q_subj_name.c_str(), RDFS_SUBPROPERTY_OF, q_obj_name.c_str());
+                }
+                else if (q_obj_name.empty())
+                {
+                    TripleGatherer gatherer(&triples, true, RDFS_SUBPROPERTY_OF, q_subj_name.c_str(), [q_subj_role](const ClassifiableEntry* entry)
+                    {
+                        return entry != q_subj_role && static_cast<const TNamedEntry*>(entry)->getId() >= 0;
+                    });
+
+                    getSupRoles(q_subj_o_role_exp, false, gatherer);
+                }
+            }
+
+            if (q_role_name.empty() || q_role_name == OWL_EQUIVALENT_PROPERTY)
+            {
+                TripleGatherer gatherer(&triples, true, OWL_EQUIVALENT_PROPERTY, q_subj_name.c_str(), [q_subj_role, q_obj_name, q_obj_role](const ClassifiableEntry* entry)
+                {
+                    return entry != q_subj_role && static_cast<const TNamedEntry*>(entry)->getId() >= 0 && (q_obj_name.empty() || entry == q_obj_role);
+                });
+
+                getEquivalentRoles(q_subj_o_role_exp, gatherer);
+            }
+
+            if (q_role_name.empty() || q_role_name == OWL_INVERSE_OF)
+            {
+                const auto* inverse_role = q_subj_role->inverse();
+
+                if (inverse_role != nullptr && inverse_role->getId() >= 0 && (q_obj_name.empty() || q_obj_role == inverse_role))
+                    pushTriple(triples, q_subj_name.c_str(), OWL_INVERSE_OF, toRdf(inverse_role->getName()));
+            }
+
         }
     }
 }

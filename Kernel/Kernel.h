@@ -1332,9 +1332,11 @@ public:
 		/// set RESULT into set of individuals such that they do have data roles R and S, and R op S
 	void getDataRelatedIndividuals ( TDRoleExpr* R, TDRoleExpr* S, int op, IndividualSet& Result );
 
-    TDLConceptExpression* getConceptExpression(const std::string& name);
+    TDLConceptExpression* parseConcept(const std::string& name);
+    TDLObjectRoleExpression* parseObjectRole(const std::string& name);
+    TDLDataRoleExpression* parseDataRole(const std::string& name);
     const TConcept* getConcept(TDLIndividualName* i_exp, TDLConceptExpression* c_exp);
-    const TRole* getRole(TDLObjectRoleName* o_exp, TDLDataRoleName* d_exp);
+    const TRole* getRole(TDLObjectRoleExpression* o_exp, TDLDataRoleExpression* d_exp);
     void getTriples(const std::string& q_subj_name, const std::string& q_role_name, const std::string& q_obj_name, std::set<std::vector<std::string>>& triples);
 
 	//----------------------------------------------------------------------------------
