@@ -1,6 +1,6 @@
 # Python bindings for FaCT++ reasoner
 
-![PyPI](https://img.shields.io/pypi/v/pyfactxx.svg?style=flat)
+[![PyPI](https://img.shields.io/pypi/v/pyfactxx.svg?style=flat)](https://pypi.org/project/pyfactxx)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftilde-lab%2Fpyfactxx.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftilde-lab%2Fpyfactxx?ref=badge_shield)
 
 FaCT++ is a well-optimized [open-source](https://bitbucket.org/dtsarkov/factplusplus) reasoner for **_SROIQ(D)_** description logic with simple datatypes (OWL 2), written in C++. FaCT++ was created in 2003-2015 by [Dmitry Tsarkov](https://scholar.google.com/citations?user=jDcQ7vQAAAAJ) and [Ian Horrocks](https://scholar.google.com/citations?user=0ypdmcYAAAAJ) in the University of Manchester, UK.
@@ -28,7 +28,7 @@ To tackle the OWL 2 computational complexity (double exponential in time for the
 
 The mentioned above allows to achieve a very good performance on such known ontologies as **FHKB**, **SNOMED CT**, and **Thesaurus**.
 
-The FaCT++ supports [Java OWL-API](https://github.com/owlcs/owlapi), Lisp API, and [DIG interface](http://dl.kr.org/dig/interface.html). It can also be [used in C](https://bitbucket.org/dtsarkov/factplusplus/src/master/FaCT++.C/test.c). There is also a [work of Levin and Cowell](https://doi.org/10.1186/s13326-015-0035-z) on C++ usage (unmaintained).
+Apart of our present work, the FaCT++ supports [Java OWL-API](https://github.com/owlcs/owlapi), Lisp API, and [DIG interface](http://dl.kr.org/dig/interface.html). It can also be [used in C](https://bitbucket.org/dtsarkov/factplusplus/src/master/FaCT++.C/test.c). There is also a [work of Levin and Cowell](https://doi.org/10.1186/s13326-015-0035-z) on C++ usage (unmaintained).
 
 
 ## Installation
@@ -63,6 +63,13 @@ and print ontology report:
 - Artur Wroblewski
 - Evgeny Blokhin
 - Andrey Sobolev
+- Ivan Rygaev
+
+
+## Authors of C++ part
+
+- Dmitry Tsarkov
+- Ian Horrocks
 - Ivan Rygaev
 
 
