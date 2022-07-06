@@ -1,14 +1,17 @@
-import coras
-from coras.cli import load_and_parse
+
+import sys
 from datetime import datetime
 from statistics import mean, pstdev
-import sys
+
+from pyfactxx import coras
+from pyfactxx.coras.cli import load_and_parse
+
 
 if len(sys.argv) < 2:
 	print('Usage: run_rdf.py <rdf ontology filename> [<number of iterations>]')
 else:
 	filename = sys.argv[1]
-	iterations = 20
+	iterations = 5
 
 	if len(sys.argv) > 2:
 		iterations = int(sys.argv[2])
@@ -22,13 +25,13 @@ else:
 		crs = coras.Coras()
 		load_and_parse(crs, filename)
 		crs.realise()
-		
+
 		time = (datetime.now() - start).total_seconds()
-		
+
 		print(time)
-		
+
 		times.append(time)
-		
+
 	print(f"min: {min(times)}, max: {max(times)}")
 	print(f"average: {mean(times)}, std dev: {pstdev(times)}")
 

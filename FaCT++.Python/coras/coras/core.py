@@ -17,8 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import pyfactxx
 import logging
+
+import pyfactxx
 import rdflib
 
 from .parser import parse
@@ -37,7 +38,7 @@ class Coras:
     @property
     def reasoner(self):
         return self._reasoner
-        
+
     def load(self, f, format='xml'):
         """
         Load an ontology from a file.
@@ -48,22 +49,22 @@ class Coras:
         :param format: Format of the data.
         """
         self._graph.load(f, format=format)
-        
+
     def query(self, *args, **kw):
         processed = set()
-        
+
         need_asserted = 'scope' not in kw or kw['scope'] in ('asserted', 'both')
         need_inferred = 'scope' not in kw or kw['scope'] in ('inferred', 'both')
-        
+
         if 'scope' in kw:
             del kw['scope']
-        
+
         for item in self._graph.query(*args, **kw):
             processed.add(item)
             if need_asserted:
                 yield item
-                
-        if need_inferred:        
+
+        if need_inferred:
             for item in self._query_graph.query(*args, **kw):
                 if item not in processed:
                     yield item

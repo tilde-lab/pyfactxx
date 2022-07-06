@@ -23,8 +23,8 @@ import logging
 import os.path
 import sys
 
-import coras
-from coras.cli import load_and_parse
+import pyfactxx.coras
+from pyfactxx.coras.cli import load_and_parse
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -48,18 +48,18 @@ logging.basicConfig(
     level=log_level
 )
 
-# silence very noisy parser debug statements; use `coras-debug` script
-# instead
-for n in ('coras.debug', 'coras.parser'):
-    logger = logging.getLogger(n)
+# silence very noisy parser debug statements; use `coras-debug` script instead
+for item in ('coras.debug', 'coras.parser'):
+    logger = logging.getLogger(item)
     logger.setLevel(logging.INFO)
-            
-crs = coras.Coras()
+
+crs = pyfactxx.coras.Coras()
 load_and_parse(crs, *args.input)
 crs.realise()
 
 with open(args.query) as f:
     sq = f.read()
+
 for row in crs.query(sq):
     print(' '.join(str(s) for s in row))
 

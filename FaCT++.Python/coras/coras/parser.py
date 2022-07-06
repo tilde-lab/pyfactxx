@@ -26,6 +26,7 @@ import itertools
 import logging
 from collections import namedtuple
 from functools import partial, singledispatch
+
 from rdflib.namespace import RDF, RDFS, OWL
 
 from . import debug
@@ -264,9 +265,9 @@ def parse_restriction(graph, reasoner, cls):
     b = BNode(cls.name)
     prop = fetch_object(graph, b, OWL.onProperty, reasoner.object_role)
     assert prop is not None
-    
+
     inv_prop = fetch_object(graph, BNode(prop.name), OWL.inverseOf, reasoner.object_role)
-    
+
     if inv_prop is not None:
         reasoner.set_inverse_roles(prop, inv_prop);
 

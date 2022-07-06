@@ -22,6 +22,7 @@ import functools
 import itertools
 import logging
 from copy import deepcopy
+
 from rdflib.namespace import DC, RDF, RDFS, OWL, Namespace
 
 logger = logging.getLogger(__name__)

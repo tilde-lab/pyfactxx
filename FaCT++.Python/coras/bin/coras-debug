@@ -24,8 +24,8 @@ import os.path
 import pprint
 import sys
 
-import coras
-from coras.cli import load_and_parse
+import pyfactxx.coras
+from pyfactxx.coras.cli import load_and_parse
 
 logger = logging.getLogger('coras')
 
@@ -38,8 +38,8 @@ logging.basicConfig(
     format='%(levelname)s:%(asctime)s:%(name)s:%(message)s',
     level=logging.DEBUG
 )
-            
-crs = coras.Coras()
+
+crs = pyfactxx.coras.Coras()
 load_and_parse(crs, *args.input)
 # crs.realise() # TODO: check for consistency as well
 
