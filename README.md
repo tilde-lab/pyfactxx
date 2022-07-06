@@ -45,17 +45,23 @@ NB the PyPI releases plus wheels are done via GitHub action.
 
 ## Usage
 
-Run an example:
+Try some Python examples:
 
-`python examples/imply-class.py`
+```
+python examples/imply-class.py
+python examples/zebra-puzzle.py
+python coras/examples/run_rdf.py examples/tsars_corr.rdf
+```
 
-Try to load FOAF ontology:
+Try some ontologies shipped in the `coras/integration` folder:
 
-`./bin/factpp-load ontologies/foaf.rdf`
-
-and print ontology report:
-
-`./bin/factpp-load ontologies/foaf.rdf 2>&1 | bin/factpp-load-report`
+```
+./coras/bin/coras-query coras/integration/foaf/01-foaf.sq coras/integration/foaf/foaf.rdf coras/integration/foaf/tbl-foaf-card.n3
+./coras/bin/coras-query coras/integration/foaf/02-foaf.sq coras/integration/foaf/foaf.rdf coras/integration/foaf/tbl-foaf-card.n3
+./coras/bin/coras-query coras/integration/foaf/03-foaf.sq coras/integration/foaf/foaf.rdf coras/integration/foaf/03-foaf-ex.n3
+./coras/bin/coras-query coras/integration/tsars/01-tsars.sq coras/integration/tsars/tsars.rdf
+./coras/bin/coras-query coras/integration/tsars/01-tsars.sq coras/examples/tsars_corr.rdf
+```
 
 
 ## Authors of Python part
