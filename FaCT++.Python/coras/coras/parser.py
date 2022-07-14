@@ -27,6 +27,7 @@ import logging
 from collections import namedtuple
 from functools import partial, singledispatch
 
+import rdflib
 from rdflib.namespace import RDF, RDFS, OWL
 
 from . import debug
@@ -73,7 +74,27 @@ def parse(graph, reasoner):
     for q, ctor, meta in parsers:
         items = [s for s, p, o in find_triples(q, graph)]
         parse_items(graph, items, ctor, meta)
+        
+    data_properties = set()
+    for s, p, o in find_triples((None, None, None), graph):
+        if isinstance(o, rdflib.Literal):
+            data_properties.add(p)
+            
+    parse_items(graph, data_properties, parsers[3][1], parsers[3][2])
 
+def data_value(reasoner, individual, role, literal):
+    if literal.datatype == rdflib.URIRef("http://www.w3.org/2001/XMLSchema#integer"):
+        return reasoner.value_of_int(individual, role, int(literal.value))
+    elif literal.datatype == rdflib.URIRef("http://www.w3.org/2001/XMLSchema#float"):
+        return reasoner.value_of_float(individual, role, float(literal.value))
+    elif literal.datatype == rdflib.URIRef("http://www.w3.org/2001/XMLSchema#bool"):
+        return reasoner.value_of_bool(individual, role, literal.value == 'true')
+    else:
+        return reasoner.value_of_str(individual, role, str(literal))
+
+def set_data_range(reasoner, role, datatype):
+    if datatype != "http://www.w3.org/2000/01/rdf-schema#Literal": # ignore top generic datatype to avoid (pseudo-)inconsistency
+        reasoner.set_d_range(role, reasoner.data_type(datatype))
 
 def create_parsers(graph, reasoner):
     sq = lambda pred: MetaAttrQuery(pred, None)
@@ -151,12 +172,12 @@ def create_parsers(graph, reasoner):
         (
             (tq(OWL.FunctionalProperty), reasoner.set_d_functional, None),
             (sq(RDFS.domain), reasoner.set_d_domain, reasoner.concept),
-            (sq(RDFS.range), reasoner.set_d_range, lambda _: reasoner.type_str),
+            (sq(RDFS.range), lambda role, range: set_data_range(reasoner, role, range), lambda datatype: str(datatype)),
             (sq(RDFS.subPropertyOf), reasoner.implies_d_roles, reasoner.data_role),
             (sq(OWL.equivalentProperty), reasoner.equal_d_roles, reasoner.data_role),
         ),
         [],
-        (reasoner.value_of_str, reasoner.individual, lambda obj: str(obj)),
+        (lambda individual, role, value: data_value(reasoner, individual, role, value), reasoner.individual, lambda obj: obj),
     )
 
     axiom_meta = Meta(

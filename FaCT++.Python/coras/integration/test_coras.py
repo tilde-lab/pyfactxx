@@ -25,6 +25,8 @@ import pytest
 from pyfactxx import coras
 from pyfactxx.coras.cli import load_and_parse
 
+import rdflib
+
 
 TESTS = [
     ('foaf', '01-foaf.sq', ['foaf.rdf', 'tbl-foaf-card.n3'], '01-result.csv'),
@@ -37,7 +39,6 @@ TESTS = [
 ]
 
 
-@pytest.mark.skip()
 @pytest.mark.parametrize(
     'prefix,query,ontologies,expected',
     TESTS,
@@ -60,7 +61,7 @@ def test_coras(prefix, query, ontologies, expected):
         sq = f.read()
 
     result = crs.query(sq)
-    result = [[str(s) for s in row] for row in result]
+    result = [[str(s) for s in row] for row in result if all(not isinstance(s, rdflib.BNode) for s in row)]
 
     assert sorted(expected) == sorted(result)
 

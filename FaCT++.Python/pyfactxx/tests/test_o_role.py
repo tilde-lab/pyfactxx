@@ -129,7 +129,6 @@ def test_get_o_domain_range(reasoner):
     assert next(values, None) is None
 
 
-@pytest.mark.skip()
 def test_inverse_role(reasoner):
     """ Test getting inverse of an object role.
     """
@@ -144,10 +143,9 @@ def test_inverse_role(reasoner):
 
     r_inv = reasoner.inverse(r)
     values = reasoner.get_role_fillers(i3, r_inv)
-    assert ['A1', 'A2'] == [i.name for i in values]
+    assert ['A1', 'A2'] == sorted(i.name for i in values)
 
 
-@pytest.mark.skip()
 def test_set_inverse_role(reasoner):
     """ Test setting two object roles as inverse.
     """
@@ -164,7 +162,7 @@ def test_set_inverse_role(reasoner):
     reasoner.set_inverse_roles(r, r_inv)
 
     values = reasoner.get_role_fillers(i3, r_inv)
-    assert ['A1', 'A2'] == [i.name for i in values]
+    assert ['A1', 'A2'] == sorted(i.name for i in values)
 
 
 def test_relation(reasoner):

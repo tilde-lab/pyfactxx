@@ -27,13 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include "RDF_URIs.h"
 #include "tIndividual.h"
 
-void pushTriple(std::set<std::vector<std::string>>& triples, const char* subj, const char* role, const char* obj)
+void pushTriple(std::set<std::vector<std::string>>& triples, const char* subj, const char* role, const char* obj, const char* literal_type = "")
 {
     std::vector<std::string> triple;
 
     triple.push_back(toRdf(subj));
     triple.push_back(toRdf(role));
     triple.push_back(toRdf(obj));
+    triple.push_back(literal_type);
 
     triples.insert(triple);
 }

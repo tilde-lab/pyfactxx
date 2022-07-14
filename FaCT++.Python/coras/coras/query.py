@@ -43,8 +43,12 @@ class QueryStore(rdflib.store.Store):
         self.context_aware = True
         self.formula_aware = True
 
-    def get_term(self, node_name):
-        if self._uri_pattern.match(node_name):
+    def get_term(self, node_name, datatype=''):
+        if datatype == 'default':
+            return rdflib.Literal(node_name)
+        elif datatype != '':
+            return rdflib.Literal(node_name, datatype=datatype)
+        elif self._uri_pattern.match(node_name):
             return rdflib.URIRef(node_name)
         else:
             return rdflib.BNode(node_name)
@@ -60,40 +64,8 @@ class QueryStore(rdflib.store.Store):
         ref_p = "" if p is None else p
         ref_o = "" if o is None else o
 
-        for subj, role, obj in  self._reasoner.get_triples(ref_s, ref_p, ref_o):
-            yield ((self.get_term(subj), self.get_term(role), self.get_term(obj)), context)
-
-    def old_triples(self, pattern, context=None):
-        s, p, o = pattern
-        if __debug__:
-            logger.debug('query pattern: {} {} {}'.format(s, p, o))
-
-        ref_p = self._detect_property(p)
-        if __debug__:
-            logger.debug('property type: {}'.format(type(ref_p)))
-
-        assert p is not None
-
-        if s is None and o is None:
-            classes = self._get_domains(ref_p)
-            instances = self._get_instances(classes)
-            for s in instances:
-                if __debug__:
-                    logger.debug('got instance: {}'.format(s))
-                ref_s = self._reasoner.individual(s)
-                objects = self._fetch_objects(ref_p, ref_s)
-                yield from (((s, p, o), context) for o in objects)
-        elif s is None and o is not None:
-            ref_o = self._reasoner.individual(o)
-            ref_p_inv = self._reasoner.inverse(ref_p)
-            objects = self._fetch_objects(ref_p_inv, ref_o)
-            yield from (((o, p, s), context) for o in objects)
-        elif s is not None and o is None:
-            ref_s = self._reasoner.individual(s)
-            objects = self._fetch_objects(ref_p, ref_s)
-            yield from (((s, p, o), context) for o in objects)
-        else:
-            assert False
+        for subj, role, obj, datatype in  self._reasoner.get_triples(ref_s, ref_p, ref_o):
+            yield ((self.get_term(subj), self.get_term(role), self.get_term(obj, datatype)), context)
 
     def role_triples_(self, s, ref_p, context):
         ref_s = self._reasoner.individual(s)

@@ -1,2 +1,2 @@
-SELECT ?s ?o
-WHERE { ?s <http://www.example.com/genealogy.owl#hasFather> ?o . }
+SELECT ?s_name ?o_name
+WHERE { ?s <http://www.example.com/genealogy.owl#hasFather> ?o . ?s <http://www.w3.org/2000/01/rdf-schema#label> ?s_name . ?o <http://www.w3.org/2000/01/rdf-schema#label> ?o_name . }

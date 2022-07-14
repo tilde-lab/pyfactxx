@@ -1337,6 +1337,7 @@ public:
     TDLDataRoleExpression* parseDataRole(const std::string& name);
     const TConcept* getConcept(TDLIndividualName* i_exp, TDLConceptExpression* c_exp);
     const TRole* getRole(TDLObjectRoleExpression* o_exp, TDLDataRoleExpression* d_exp);
+    const char* getXsdType(const TDataEntry* dataValue) const;
     void getTriples(const std::string& q_subj_name, const std::string& q_role_name, const std::string& q_obj_name, std::set<std::vector<std::string>>& triples);
 
 	//----------------------------------------------------------------------------------

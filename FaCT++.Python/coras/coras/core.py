@@ -48,7 +48,7 @@ class Coras:
         :param f: File object with an ontology data.
         :param format: Format of the data.
         """
-        self._graph.load(f, format=format)
+        self._graph.parse(f, format=format)
 
     def query(self, *args, **kw):
         processed = set()
@@ -64,7 +64,7 @@ class Coras:
             if need_asserted:
                 yield item
 
-        if need_inferred:
+        if need_inferred and self._reasoner.is_realised():
             for item in self._query_graph.query(*args, **kw):
                 if item not in processed:
                     yield item

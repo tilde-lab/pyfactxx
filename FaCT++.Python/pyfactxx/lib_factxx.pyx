@@ -250,10 +250,11 @@ cdef extern from 'Kernel.h':
         void getTriples(const string&, const string&, const string&, set[vector[string]]&)
         TaxonomyVertex* setUpCache(TDLConceptExpression*)
 
-        void realiseKB()
-        void classifyKB()
+        void realiseKB() except +
+        void classifyKB() except +
         bool isKBConsistent()
         bool isKBPreprocessed()
+        bool isKBRealised()
 
         void dumpLISP(ostream)
 
@@ -590,7 +591,7 @@ cdef class Reasoner:
         
         self.c_kernel.getTriples(s, p, o, c_triples)
         
-        return ((triple[0], triple[1], triple[2]) for triple in c_triples)            
+        return ((triple[0], triple[1], triple[2], triple[3]) for triple in c_triples)            
     #
     # data roles
     #
@@ -670,6 +671,9 @@ cdef class Reasoner:
 
     def is_preprocessed(self):
         return self.c_kernel.isKBPreprocessed()
+
+    def is_realised(self):
+        return self.c_kernel.isKBRealised()
 
     def dump(self, str fn):
         cdef ofstream *out = new ofstream(fn.encode(), binary)

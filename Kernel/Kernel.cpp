@@ -642,6 +642,20 @@ TDLDataRoleExpression* ReasoningKernel::parseDataRole(const std::string& name)
         return em->DataRole(name);
 }
 
+const char* ReasoningKernel::getXsdType(const TDataEntry* dataValue) const
+{
+    const char* typeName = dataValue->getType()->getName();
+
+    if (strcmp(typeName, "number") == 0)
+        return TDataTypeManager::getIntTypeName();
+    else if (strcmp(typeName, "real") == 0)
+        return TDataTypeManager::getRealTypeName();
+    else if (strcmp(typeName, "bool") == 0)
+        return TDataTypeManager::getBoolTypeName();
+    else
+        return "default";
+}
+
 void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::string& q_role_name, const std::string& q_obj_name, std::set<std::vector<std::string>>& triples)
 {
     TBox* tBox = getTBox();
@@ -937,7 +951,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
                     for (const TDataEntry* value : values)
                     {
                         if (q_obj_name.empty() || value->getName() == q_obj_name)
-                            pushTriple(triples, q_subj->getName(), role->getName(), value->getName());
+                            pushTriple(triples, q_subj->getName(), role->getName(), value->getName(), getXsdType(value));
                     }
                 }
             }
@@ -947,7 +961,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
                 for (const TDataEntry* value : q_subj_ind->getDataValueCache(q_role))
                 {
                     if (q_obj_name.empty() || value->getName() == q_obj_name)
-                        pushTriple(triples, q_subj->getName(), q_role->getName(), value->getName());
+                        pushTriple(triples, q_subj->getName(), q_role->getName(), value->getName(), getXsdType(value));
                 }
             }
         }
