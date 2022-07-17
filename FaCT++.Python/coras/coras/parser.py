@@ -82,15 +82,21 @@ def parse(graph, reasoner):
             
     parse_items(graph, data_properties, parsers[3][1], parsers[3][2])
 
-def data_value(reasoner, individual, role, literal):
+def data_value(graph, reasoner, individual, role, literal):
+    for cls in {OWL.Class, RDFS.Class, OWL.ObjectProperty, OWL.DatatypeProperty}:
+        if list(find_triples((individual, RDF.type, cls), graph)) != []:
+            return
+            
+    individual = reasoner.individual(individual)
+    
     if literal.datatype == rdflib.URIRef("http://www.w3.org/2001/XMLSchema#integer"):
-        return reasoner.value_of_int(individual, role, int(literal.value))
+        reasoner.value_of_int(individual, role, int(literal.value))
     elif literal.datatype == rdflib.URIRef("http://www.w3.org/2001/XMLSchema#float"):
-        return reasoner.value_of_float(individual, role, float(literal.value))
+        reasoner.value_of_float(individual, role, float(literal.value))
     elif literal.datatype == rdflib.URIRef("http://www.w3.org/2001/XMLSchema#bool"):
-        return reasoner.value_of_bool(individual, role, literal.value == 'true')
+        reasoner.value_of_bool(individual, role, literal.value == 'true')
     else:
-        return reasoner.value_of_str(individual, role, str(literal))
+        reasoner.value_of_str(individual, role, literal.n3())
 
 def set_data_range(reasoner, role, datatype):
     if datatype != "http://www.w3.org/2000/01/rdf-schema#Literal": # ignore top generic datatype to avoid (pseudo-)inconsistency
@@ -117,6 +123,7 @@ def create_parsers(graph, reasoner):
     p_one_of = partial(parse_one_of, reasoner)
     p_intersection = partial(parse_intersection, reasoner)
     p_distinct_members = partial(parse_distinct_members, reasoner)
+    p_complement_of = partial(parse_complement_of, reasoner)
     p_all_different = partial(p_diff_individuals, graph, reasoner)
     p_disjoint_cls = partial(p_diff_classes, graph, reasoner)
     p_restriction = partial(parse_restriction, graph, reasoner)
@@ -134,6 +141,7 @@ def create_parsers(graph, reasoner):
             (sq(OWL.oneOf), p_one_of, p_list_obj),
             (sq(OWL.intersectionOf), p_intersection, p_list_cls),
             (sq(OWL.distinctMembers), p_distinct_members, p_list_obj),
+            (sq(OWL.complementOf), p_complement_of, reasoner.concept),
             (tq(OWL.AllDifferent), p_all_different, None),
             (tq(OWL.Restriction), p_restriction, None),
         ),
@@ -177,7 +185,7 @@ def create_parsers(graph, reasoner):
             (sq(OWL.equivalentProperty), reasoner.equal_d_roles, reasoner.data_role),
         ),
         [],
-        (lambda individual, role, value: data_value(reasoner, individual, role, value), reasoner.individual, lambda obj: obj),
+        (lambda individual, role, value: data_value(graph, reasoner, individual, role, value), lambda ind: ind, lambda obj: obj),
     )
 
     axiom_meta = Meta(
@@ -251,7 +259,8 @@ def parse_list(graph, f, start):
     return (f(v) for v in graph.items(start))
 
 def parse_union_of(reasoner, cls, items):
-    reasoner.union_of(cls, *items)
+    c = reasoner.union(*items)
+    reasoner.equal_concepts(cls, c)
 
 def parse_one_of(reasoner, cls, items):
     c = reasoner.one_of(*items)
@@ -263,6 +272,10 @@ def parse_intersection(reasoner, cls, items):
 
 def parse_distinct_members(reasoner, cls, items):
     reasoner.different_individuals(*items)
+
+def parse_complement_of(reasoner, cls, other_cls):
+    c = reasoner.complement_of(other_cls)
+    reasoner.equal_concepts(cls, c)
 
 def parse_members(f_axiom, f_ctor, graph, reasoner, cls):
     from rdflib import BNode
@@ -292,8 +305,11 @@ def parse_restriction(graph, reasoner, cls):
     if inv_prop is not None:
         reasoner.set_inverse_roles(prop, inv_prop);
 
+    parse_cardinality(graph, reasoner, cls, b, prop)
     parse_q_cardinality(graph, reasoner, cls, b, prop)
+    parse_has_value(graph, reasoner, cls, b, prop)
     parse_some_values_from(graph, reasoner, cls, b, prop)
+    parse_all_values_from(graph, reasoner, cls, b, prop)
 
 def parse_negative_assert_obj_property(graph, reasoner, axiom):
     prop = fetch_object(graph, axiom, OWL.assertionProperty, reasoner.object_role)
@@ -303,6 +319,38 @@ def parse_negative_assert_obj_property(graph, reasoner, axiom):
     assert i1 is not None
     assert i2 is not None
     reasoner.related_to_not(i1, prop, i2)
+
+def parse_cardinality(graph, reasoner, cls, b, prop):
+
+    card = fetch_object(graph, b, OWL.cardinality, int)
+    if card:
+        if __debug__:
+            logger.debug(
+                'exact cardinality: {} {}: {}'
+                .format(cls.name, prop, card)
+            )
+        c = reasoner.o_cardinality(card, prop, reasoner.concept_top())
+        reasoner.equal_concepts(cls, c)
+
+    card = fetch_object(graph, b, OWL.minCardinality, int)
+    if card:
+        if __debug__:
+            logger.debug(
+                'min cardinality: {} {}: {}'
+                .format(cls.name, prop, card)
+            )
+        c = reasoner.min_o_cardinality(card, prop, reasoner.concept_top())
+        reasoner.equal_concepts(cls, c)
+
+    card = fetch_object(graph, b, OWL.maxCardinality, int)
+    if card:
+        if __debug__:
+            logger.debug(
+                'max cardinality: {} {}: {}'
+                .format(cls.name, prop, card)
+            )
+        c = reasoner.max_o_cardinality(card, prop, reasoner.concept_top())
+        reasoner.equal_concepts(cls, c)
 
 def parse_q_cardinality(graph, reasoner, cls, b, prop):
     on_cls = fetch_object(graph, b, OWL.onClass, reasoner.concept)
@@ -337,6 +385,17 @@ def parse_q_cardinality(graph, reasoner, cls, b, prop):
         c = reasoner.max_o_cardinality(card, prop, on_cls)
         reasoner.equal_concepts(cls, c)
 
+def parse_has_value(graph, reasoner, cls, b, prop):
+    v_ind = fetch_object(graph, b, OWL.hasValue, reasoner.individual)
+    if v_ind:
+        if __debug__:
+            logger.debug(
+                'has value: {} {}: {}'
+                .format(cls.name, prop, v_ind.name)
+            )
+        c = reasoner.o_value(prop, v_ind)
+        reasoner.equal_concepts(cls, c)
+
 def parse_some_values_from(graph, reasoner, cls, b, prop):
     v_cls = fetch_object(graph, b, OWL.someValuesFrom, reasoner.concept)
     if v_cls:
@@ -346,6 +405,17 @@ def parse_some_values_from(graph, reasoner, cls, b, prop):
                 .format(cls.name, prop, v_cls.name)
             )
         c = reasoner.o_exists(prop, v_cls)
+        reasoner.equal_concepts(cls, c)
+
+def parse_all_values_from(graph, reasoner, cls, b, prop):
+    v_cls = fetch_object(graph, b, OWL.allValuesFrom, reasoner.concept)
+    if v_cls:
+        if __debug__:
+            logger.debug(
+                'all values from: {} {}: {}'
+                .format(cls.name, prop, v_cls.name)
+            )
+        c = reasoner.o_forall(prop, v_cls)
         reasoner.equal_concepts(cls, c)
 
 def fetch_object(graph, sub, pred, f):

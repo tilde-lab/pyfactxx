@@ -18,10 +18,13 @@
 #
 
 import os.path
+import sys
 
 FILE_FORMAT = {
     'rdf': 'xml',
+    'owl': 'xml',
     'n3': 'n3',
+    'ttl': 'turtle'
 }
 
 def load_and_parse(crs, *input):

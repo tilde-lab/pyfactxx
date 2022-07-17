@@ -36,7 +36,7 @@ class QueryStore(rdflib.store.Store):
     def __init__(self, tgraph, reasoner):
         self._triples_graph = tgraph
         self._reasoner = reasoner
-        self._uri_pattern = re.compile('\w+://')
+        self._uri_pattern = re.compile(r'\w+://')
 
         # TODO: research the settings below; set all of them to true to
         # allow loading N3 files at the moment
@@ -45,7 +45,7 @@ class QueryStore(rdflib.store.Store):
 
     def get_term(self, node_name, datatype=''):
         if datatype == 'default':
-            return rdflib.Literal(node_name)
+            return rdflib.util.from_n3(node_name)
         elif datatype != '':
             return rdflib.Literal(node_name, datatype=datatype)
         elif self._uri_pattern.match(node_name):

@@ -164,13 +164,18 @@ cdef extern from 'tExpressionManager.h':
 
         TDLConceptExpression* Top()
         TDLConceptExpression* Bottom()
+        TDLConceptExpression* Value(const TDLObjectRoleExpression*, const TDLIndividualExpression*)
         TDLConceptExpression* Exists(const TDLObjectRoleExpression*, const TDLConceptExpression*)
         TDLConceptExpression* Exists(const TDLDataRoleExpression*, const TDLDataExpression*)
+        TDLConceptExpression* Forall(const TDLObjectRoleExpression*, const TDLConceptExpression*)
+        TDLConceptExpression* Forall(const TDLDataRoleExpression*, const TDLDataExpression*)
         TDLObjectRoleExpression* Inverse(const TDLObjectRoleExpression*)
         TDLObjectRoleComplexExpression* Compose()
 
         TDLConceptExpression* And()
+        TDLConceptExpression* Or()
         TDLConceptExpression* OneOf()
+        TDLConceptExpression* Not(const TDLConceptExpression*)
 
         TDLConceptExpression* Cardinality(unsigned int, const TDLObjectRoleExpression*, const TDLConceptExpression*)
         TDLConceptExpression* Cardinality(unsigned int, const TDLDataRoleExpression*, const TDLDataExpression*)
@@ -446,15 +451,9 @@ cdef class Reasoner:
         self._arg_list(classes)
         self.c_kernel.disjointConcepts()
 
-    def union_of(self, ConceptExpr c, *classes):
-        """
-        Concept `c` is union of collection of concepts.
-
-        :param c: The union concept.
-        :param classes: Collection of concepts in the union.
-        """
+    def union(self, *classes):
         self._arg_list(classes)
-        self.c_kernel.disjointUnion(c.c_obj())
+        return self._get(ConceptExpr, self.c_mgr.Or())
 
     def intersection(self, *classes):
         self._arg_list(classes)
@@ -472,6 +471,9 @@ cdef class Reasoner:
     def one_of(self, *instances):
         self._arg_list(instances)
         return self._get(ConceptExpr, self.c_mgr.OneOf())
+
+    def complement_of(self, ConceptExpr c):
+        return self._get(ConceptExpr, self.c_mgr.Not(c.c_obj()))
 
     def same_individuals(self, instances):
         self._arg_list(instances)
@@ -506,8 +508,14 @@ cdef class Reasoner:
     def set_o_range(self, ObjectRoleExpr r, ConceptExpr c):
         self.c_kernel.setORange(r.c_obj(), c.c_obj())
 
+    def o_value(self, ObjectRoleExpr r, IndividualExpr i):
+        return self._get(ConceptExpr, self.c_mgr.Value(r.c_obj(), i.c_obj()))
+
     def o_exists(self, ObjectRoleExpr r, ConceptExpr c):
         return self._get(ConceptExpr, self.c_mgr.Exists(r.c_obj(), c.c_obj()))
+
+    def o_forall(self, ObjectRoleExpr r, ConceptExpr c):
+        return self._get(ConceptExpr, self.c_mgr.Forall(r.c_obj(), c.c_obj()))
 
     def o_cardinality(self, unsigned int n, ObjectRoleExpr r, ConceptExpr c):
         return self._get(ConceptExpr, self.c_mgr.Cardinality(n, r.c_obj(), c.c_obj()))

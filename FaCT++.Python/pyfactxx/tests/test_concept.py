@@ -61,7 +61,7 @@ def test_equal_concepts(reasoner):
     assert reasoner.is_instance(a, cls_b)
 
 
-def test_union_of(reasoner):
+def test_disjoint_union(reasoner):
     """
     Test union of concepts.
     """
@@ -72,7 +72,8 @@ def test_union_of(reasoner):
     a = reasoner.individual('a')
     reasoner.instance_of(a, cls_a)
 
-    reasoner.union_of(cls_c, cls_a, cls_b)
+    reasoner.equal_concepts(cls_c, reasoner.union(cls_a, cls_b))
+    reasoner.disjoint_concepts(cls_a, cls_b)
 
     assert not reasoner.is_instance(a, cls_b)
     assert reasoner.is_instance(a, cls_c)
