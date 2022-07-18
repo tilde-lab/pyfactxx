@@ -1043,56 +1043,59 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
 
         if (q_subj_role->isDataRole())
         {
-            // Data role properties
+        	if (q_subj_name != OWL_TOP_DATA_PROPERTY)
+        	{
+		        // Data role properties
 
-            if (q_role_name.empty() || q_role_name == RDF_TYPE)
-            {
-                if (q_obj_name.empty() || q_obj_name == OWL_DATATYPE_PROPERTY)
-                    pushTriple(triples, q_subj_name.c_str(), RDF_TYPE, OWL_DATATYPE_PROPERTY);
+		        if (q_role_name.empty() || q_role_name == RDF_TYPE)
+		        {
+		            if (q_obj_name.empty() || q_obj_name == OWL_DATATYPE_PROPERTY)
+		                pushTriple(triples, q_subj_name.c_str(), RDF_TYPE, OWL_DATATYPE_PROPERTY);
 
-                if (isFunctional(q_subj_d_role_exp) && (q_obj_name.empty() || q_obj_name == OWL_FUNCTIONAL_PROPERTY))
-                    pushTriple(triples, q_subj_name.c_str(), RDF_TYPE, OWL_FUNCTIONAL_PROPERTY);
-            }
+		            if (isFunctional(q_subj_d_role_exp) && (q_obj_name.empty() || q_obj_name == OWL_FUNCTIONAL_PROPERTY))
+		                pushTriple(triples, q_subj_name.c_str(), RDF_TYPE, OWL_FUNCTIONAL_PROPERTY);
+		        }
 
-            if (q_role_name.empty() || q_role_name == RDFS_DOMAIN)
-            {
-                TripleGatherer gatherer(&triples, true, RDFS_DOMAIN, q_subj_name.c_str(), [q_obj_name, q_obj](const ClassifiableEntry* entry)
-                {
-                    return !entry->isSystem() && (q_obj_name.empty() || entry == q_obj);
-                });
+		        if (q_role_name.empty() || q_role_name == RDFS_DOMAIN)
+		        {
+		            TripleGatherer gatherer(&triples, true, RDFS_DOMAIN, q_subj_name.c_str(), [q_obj_name, q_obj](const ClassifiableEntry* entry)
+		            {
+		                return !entry->isSystem() && (q_obj_name.empty() || entry == q_obj);
+		            });
 
-                getDRoleDomain(q_subj_d_role_exp, true, gatherer);
-            }
+		            getDRoleDomain(q_subj_d_role_exp, true, gatherer);
+		        }
 
-            if (q_role_name.empty() || q_role_name == RDFS_SUBPROPERTY_OF)
-            {
-                if (q_obj_role != nullptr)
-                {
-                    if (q_obj_role->isDataRole() && isSubRoles(q_subj_d_role_exp, q_obj_d_role_exp))
-                        pushTriple(triples, q_subj_name.c_str(), RDFS_SUBPROPERTY_OF, q_obj_name.c_str());
-                }
-                else if (q_obj_name.empty())
-                {
-                    TripleGatherer gatherer(&triples, true, RDFS_SUBPROPERTY_OF, q_subj_name.c_str(), [q_subj_role](const ClassifiableEntry* entry)
-                    {
-                        return entry != q_subj_role;
-                    });
+		        if (q_role_name.empty() || q_role_name == RDFS_SUBPROPERTY_OF)
+		        {
+		            if (q_obj_role != nullptr)
+		            {
+		                if (q_obj_role->isDataRole() && isSubRoles(q_subj_d_role_exp, q_obj_d_role_exp))
+		                    pushTriple(triples, q_subj_name.c_str(), RDFS_SUBPROPERTY_OF, q_obj_name.c_str());
+		            }
+		            else if (q_obj_name.empty())
+		            {
+		                TripleGatherer gatherer(&triples, true, RDFS_SUBPROPERTY_OF, q_subj_name.c_str(), [q_subj_role](const ClassifiableEntry* entry)
+		                {
+		                    return entry != q_subj_role;
+		                });
 
-                    getSupRoles(q_subj_d_role_exp, false, gatherer);
-                }
-            }
+		                getSupRoles(q_subj_d_role_exp, false, gatherer);
+		            }
+		        }
 
-            if (q_role_name.empty() || q_role_name == OWL_EQUIVALENT_PROPERTY)
-            {
-                TripleGatherer gatherer(&triples, true, OWL_EQUIVALENT_PROPERTY, q_subj_name.c_str(), [q_subj_role, q_obj_name, q_obj_role](const ClassifiableEntry* entry)
-                {
-                    return entry != q_subj_role && (q_obj_name.empty() || entry == q_obj_role);
-                });
+		        if (q_role_name.empty() || q_role_name == OWL_EQUIVALENT_PROPERTY)
+		        {
+		            TripleGatherer gatherer(&triples, true, OWL_EQUIVALENT_PROPERTY, q_subj_name.c_str(), [q_subj_role, q_obj_name, q_obj_role](const ClassifiableEntry* entry)
+		            {
+		                return entry != q_subj_role && (q_obj_name.empty() || entry == q_obj_role);
+		            });
 
-                getEquivalentRoles(q_subj_d_role_exp, gatherer);
+		            getEquivalentRoles(q_subj_d_role_exp, gatherer);
+		        }
             }
         }
-        else
+        else if (q_subj_name != OWL_TOP_OBJECT_PROPERTY)
         {
             // Object role properties
 

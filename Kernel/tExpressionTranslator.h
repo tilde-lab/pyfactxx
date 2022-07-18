@@ -298,7 +298,8 @@ public:		// visitor interface
 		else if ( isTimeDataType(&expr) )
 			tree = DTC.getTimeType();
 		else
-			THROW_UNSUPPORTED("data type name");
+			tree = DTC.getStringType();
+			//THROW_UNSUPPORTED("data type name");
 	}
 	void visit ( const TDLDataTypeRestriction& expr ) override
 	{

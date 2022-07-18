@@ -80,16 +80,19 @@ def parse(graph, reasoner):
         if isinstance(o, rdflib.Literal):
             data_properties.add(p)
             
+    
     parse_items(graph, data_properties, parsers[3][1], parsers[3][2])
 
 def data_value(graph, reasoner, individual, role, literal):
-    for cls in {OWL.Class, RDFS.Class, OWL.ObjectProperty, OWL.DatatypeProperty}:
-        if list(find_triples((individual, RDF.type, cls), graph)) != []:
+    for cls in {OWL.Class, RDFS.Class, OWL.Restriction, OWL.AllDisjointClasses, RDF.Property, OWL.ObjectProperty, OWL.DatatypeProperty}:
+        if list(find_triples((individual, RDF.type, cls), graph)):
             return
             
     individual = reasoner.individual(individual)
     
-    if literal.datatype == rdflib.URIRef("http://www.w3.org/2001/XMLSchema#integer"):
+    if (not isinstance(literal, rdflib.Literal)):
+        reasoner.value_of_str(individual, role, '"' + str(literal) + '"')
+    elif literal.datatype == rdflib.URIRef("http://www.w3.org/2001/XMLSchema#integer"):
         reasoner.value_of_int(individual, role, int(literal.value))
     elif literal.datatype == rdflib.URIRef("http://www.w3.org/2001/XMLSchema#float"):
         reasoner.value_of_float(individual, role, float(literal.value))
@@ -101,6 +104,14 @@ def data_value(graph, reasoner, individual, role, literal):
 def set_data_range(reasoner, role, datatype):
     if datatype != "http://www.w3.org/2000/01/rdf-schema#Literal": # ignore top generic datatype to avoid (pseudo-)inconsistency
         reasoner.set_d_range(role, reasoner.data_type(datatype))
+        
+def set_o_sub_role(reasoner, sub_role, super_role):
+    if super_role != rdflib.URIRef('http://www.w3.org/2002/07/owl#topObjectProperty'):
+        reasoner.implies_o_roles(sub_role, reasoner.object_role(super_role))
+
+def set_d_sub_role(reasoner, sub_role, super_role):
+    if super_role != rdflib.URIRef('http://www.w3.org/2002/07/owl#topDataProperty'):
+        reasoner.implies_d_roles(sub_role, reasoner.data_role(super_role))
 
 def create_parsers(graph, reasoner):
     sq = lambda pred: MetaAttrQuery(pred, None)
@@ -167,7 +178,7 @@ def create_parsers(graph, reasoner):
             (tq(OWL.IrreflexiveProperty), reasoner.set_irreflexive, None),
             (sq(RDFS.domain), reasoner.set_o_domain, reasoner.concept),
             (sq(RDFS.range), reasoner.set_o_range, reasoner.concept),
-            (sq(RDFS.subPropertyOf), reasoner.implies_o_roles, reasoner.object_role),
+            (sq(RDFS.subPropertyOf), lambda sub_role, super_role: set_o_sub_role(reasoner, sub_role, super_role), lambda x: x),
             (sq(OWL.equivalentProperty), reasoner.equal_o_roles, reasoner.object_role),
             (sq(OWL.inverseOf), reasoner.set_inverse_roles, reasoner.object_role),
             (sq(OWL.propertyChainAxiom), p_property_chain, p_list_obj_prop),
@@ -181,7 +192,7 @@ def create_parsers(graph, reasoner):
             (tq(OWL.FunctionalProperty), reasoner.set_d_functional, None),
             (sq(RDFS.domain), reasoner.set_d_domain, reasoner.concept),
             (sq(RDFS.range), lambda role, range: set_data_range(reasoner, role, range), lambda datatype: str(datatype)),
-            (sq(RDFS.subPropertyOf), reasoner.implies_d_roles, reasoner.data_role),
+            (sq(RDFS.subPropertyOf), lambda sub_role, super_role: set_d_sub_role(reasoner, sub_role, super_role), lambda x: x),
             (sq(OWL.equivalentProperty), reasoner.equal_d_roles, reasoner.data_role),
         ),
         [],
@@ -204,7 +215,7 @@ def create_parsers(graph, reasoner):
         (QUERY_AXIOM, lambda v: v, axiom_meta),
     )
     return parsers
-
+    
 def parse_items(graph, items, ctor, meta):
     # declare each item in the reasoner; this might seem unnecessary, but
     # see declaration consistency in OWL 2
@@ -386,8 +397,9 @@ def parse_q_cardinality(graph, reasoner, cls, b, prop):
         reasoner.equal_concepts(cls, c)
 
 def parse_has_value(graph, reasoner, cls, b, prop):
-    v_ind = fetch_object(graph, b, OWL.hasValue, reasoner.individual)
-    if v_ind:
+    v_ind = fetch_object(graph, b, OWL.hasValue, lambda x: x)
+    if v_ind and isinstance(v_ind, rdflib.URIRef):
+        v_ind = reasoner.individual(v_ind)
         if __debug__:
             logger.debug(
                 'has value: {} {}: {}'

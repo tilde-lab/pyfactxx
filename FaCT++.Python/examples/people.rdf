@@ -1,0 +1,985 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<rdf:RDF xmlns:ns0="http://cohse.semanticweb.org/ontologies/people#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+    <owl:Ontology rdf:about=""/>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#white_van_man">
+        <rdfs:label>white van man</rdfs:label>
+        <rdfs:comment><![CDATA[A white van man is a man who drives a white van.]]></rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#man"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#drives"/>
+                        <owl:someValuesFrom>
+                            <owl:Class>
+                                <owl:intersectionOf rdf:parseType="Collection">
+                                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#van"/>
+                                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#white_thing"/>
+                                </owl:intersectionOf>
+                            </owl:Class>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#publication">
+        <rdfs:label>publication</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#giraffe">
+        <rdfs:label>giraffe</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#animal"/>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#eats"/>
+                <owl:allValuesFrom>
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#leaf"/>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#cat_liker">
+        <rdfs:label>cat liker</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#likes"/>
+                        <owl:someValuesFrom>
+                            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#cat"/>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#cat_owner">
+        <rdfs:label>cat owner</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#has_pet"/>
+                        <owl:someValuesFrom>
+                            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#cat"/>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#grownup">
+        <rdfs:label>grownup</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#adult"/>
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#quality_broadsheet">
+        <rdfs:label>quality broadsheet</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#broadsheet"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#vehicle">
+        <rdfs:label>vehicle</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#newspaper">
+        <rdfs:label>newspaper</rdfs:label>
+        <rdfs:comment><![CDATA[All newspapers are either broadsheets or tabloids.]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#publication"/>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#tabloid"/>
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#broadsheet"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#bus_company">
+        <rdfs:label>bus company</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#company"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#pet_owner">
+        <rdfs:label>pet owner</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#has_pet"/>
+                        <owl:someValuesFrom>
+                            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#animal"/>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#mad_cow">
+        <rdfs:label>mad cow</rdfs:label>
+        <rdfs:comment><![CDATA[A mad cow is a cow that has been eating the brains of sheep.]]></rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#cow"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#eats"/>
+                        <owl:someValuesFrom>
+                            <owl:Class>
+                                <owl:intersectionOf rdf:parseType="Collection">
+                                    <owl:Restriction>
+                                    <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#part_of"/>
+                                    <owl:someValuesFrom>
+                                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#sheep"/>
+                                    </owl:someValuesFrom>
+                                    </owl:Restriction>
+                                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#brain"/>
+                                </owl:intersectionOf>
+                            </owl:Class>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#bus">
+        <rdfs:label>bus</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#vehicle"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#car">
+        <rdfs:label>car</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#vehicle"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#cat">
+        <rdfs:label>cat</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#animal"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#cow">
+        <rdfs:label>cow</rdfs:label>
+        <rdfs:comment><![CDATA[Cows are naturally vegetarians.]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#vegetarian"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#dog">
+        <rdfs:label>dog</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#eats"/>
+                <owl:someValuesFrom>
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#bone"/>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#kid">
+        <rdfs:label>kid</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#young"/>
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#man">
+        <rdfs:label>man</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#adult"/>
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person"/>
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#male"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#pet">
+        <rdfs:label>pet</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#is_pet_of"/>
+                <owl:someValuesFrom>
+                    <owl:Class rdf:about="http://www.w3.org/2002/07/owl#Thing"/>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#van">
+        <rdfs:label>van</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#vehicle"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#company">
+        <rdfs:label>company</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#red_top">
+        <rdfs:label>red top</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#tabloid"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#bone">
+        <rdfs:label>bone</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#duck">
+        <rdfs:label>duck</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#animal"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#leaf">
+        <rdfs:label>leaf</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#part_of"/>
+                <owl:someValuesFrom>
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#tree"/>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#male">
+        <rdfs:label>male</rdfs:label>
+        <rdfs:comment><![CDATA[The class of all male things.]]></rdfs:comment>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#tree">
+        <rdfs:label>tree</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#plant"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#broadsheet">
+        <rdfs:label>broadsheet</rdfs:label>
+        <rdfs:comment><![CDATA[A newspaper. Broadsheets are usually considered to be more "high-brow" than tabloids.]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#newspaper"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#haulage_worker">
+        <rdfs:label>haulage worker</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#works_for"/>
+                <owl:someValuesFrom>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#part_of"/>
+                                <owl:someValuesFrom>
+                                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#haulage_company"/>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#haulage_company"/>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#haulage_truck_driver">
+        <rdfs:label>haulage truck driver</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#works_for"/>
+                        <owl:someValuesFrom>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#part_of"/>
+                                <owl:someValuesFrom>
+                                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#haulage_company"/>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#drives"/>
+                        <owl:someValuesFrom>
+                            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#truck"/>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#bus_driver">
+        <rdfs:label>bus driver</rdfs:label>
+        <rdfs:comment><![CDATA[Someone who drives a bus.]]></rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#drives"/>
+                        <owl:someValuesFrom>
+                            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#bus"/>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#vegetarian">
+        <rdfs:label>vegetarian</rdfs:label>
+        <rdfs:comment><![CDATA[A vegetarian is defined as an animal that eats no other animals, or parts of animals.]]></rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#animal"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#eats"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:complementOf>
+                                    <owl:Restriction>
+                                    <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#part_of"/>
+                                    <owl:someValuesFrom>
+                                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#animal"/>
+                                    </owl:someValuesFrom>
+                                    </owl:Restriction>
+                                </owl:complementOf>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#eats"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:complementOf>
+                                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#animal"/>
+                                </owl:complementOf>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#animal_lover">
+        <rdfs:label>animal lover</rdfs:label>
+        <rdfs:comment><![CDATA[Someone who really likes animals]]></rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#has_pet"/>
+                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">3</owl:minCardinality>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#dog_liker">
+        <rdfs:label>dog liker</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#likes"/>
+                        <owl:someValuesFrom>
+                            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#dog"/>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#dog_owner">
+        <rdfs:label>dog owner</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#has_pet"/>
+                        <owl:someValuesFrom>
+                            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#dog"/>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#elderly">
+        <rdfs:label>elderly</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#adult"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#tabloid">
+        <rdfs:label>tabloid</rdfs:label>
+        <rdfs:comment><![CDATA[A newspaper. Tabloids are usually thought of as more "down-market" than broadsheets.]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#newspaper"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#lorry_driver">
+        <rdfs:label>lorry driver</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#drives"/>
+                        <owl:someValuesFrom>
+                            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#lorry"/>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#animal">
+        <rdfs:label>animal</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#eats"/>
+                <owl:someValuesFrom>
+                    <owl:Class rdf:about="http://www.w3.org/2002/07/owl#Thing"/>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#driver">
+        <rdfs:label>driver</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#drives"/>
+                        <owl:someValuesFrom>
+                            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#vehicle"/>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#female">
+        <rdfs:label>female</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#adult">
+        <rdfs:label>adult</rdfs:label>
+        <rdfs:comment><![CDATA[Things that are adult.]]></rdfs:comment>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#brain">
+        <rdfs:label>brain</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#grass">
+        <rdfs:label>grass</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#plant"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#lorry">
+        <rdfs:label>lorry</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#vehicle"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#plant">
+        <rdfs:label>plant</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#sheep">
+        <rdfs:label>sheep</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#animal"/>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#eats"/>
+                <owl:allValuesFrom>
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#grass"/>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#tiger">
+        <rdfs:label>tiger</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#animal"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#truck">
+        <rdfs:label>truck</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#vehicle"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#woman">
+        <rdfs:label>woman</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#adult"/>
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#female"/>
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#young">
+        <rdfs:label>young</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#haulage_company">
+        <rdfs:label>haulage company</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#company"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#white_thing">
+        <rdfs:label>white thing</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person">
+        <rdfs:label>person</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#animal"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#magazine">
+        <rdfs:label>magazine</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#publication"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#old_lady">
+        <rdfs:label>old lady</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#female"/>
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person"/>
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#elderly"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#van_driver">
+        <rdfs:label>van driver</rdfs:label>
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#drives"/>
+                        <owl:someValuesFrom>
+                            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#van"/>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#bicycle">
+        <rdfs:label>bicycle</rdfs:label>
+        <rdfs:comment><![CDATA[A human propelled vehicle, with two wheels]]></rdfs:comment>
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#vehicle"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:ObjectProperty rdf:about="http://cohse.semanticweb.org/ontologies/people#has_child">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>has_child</rdfs:label>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://cohse.semanticweb.org/ontologies/people#has_pet">
+        <rdfs:comment><![CDATA[Anyone that has a pet must like that pet.]]></rdfs:comment>
+        <rdfs:label>has_pet</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="http://cohse.semanticweb.org/ontologies/people#likes"/>
+        <rdfs:domain>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person"/>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#animal"/>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://cohse.semanticweb.org/ontologies/people#eats">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>eats</rdfs:label>
+        <owl:inverseOf rdf:resource="http://cohse.semanticweb.org/ontologies/people#eaten_by"/>
+        <rdfs:domain>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#animal"/>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://cohse.semanticweb.org/ontologies/people#works_for">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>works_for</rdfs:label>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://cohse.semanticweb.org/ontologies/people#has_father">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>has_father</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="http://cohse.semanticweb.org/ontologies/people#has_parent"/>
+        <rdfs:range>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#man"/>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://cohse.semanticweb.org/ontologies/people#has_mother">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>has_mother</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="http://cohse.semanticweb.org/ontologies/people#has_parent"/>
+        <rdfs:range>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#woman"/>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://cohse.semanticweb.org/ontologies/people#has_parent">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>has_parent</rdfs:label>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://cohse.semanticweb.org/ontologies/people#eaten_by">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>eaten_by</rdfs:label>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://cohse.semanticweb.org/ontologies/people#drives">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>drives</rdfs:label>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://cohse.semanticweb.org/ontologies/people#likes">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>likes</rdfs:label>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://cohse.semanticweb.org/ontologies/people#reads">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>reads</rdfs:label>
+        <rdfs:range>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#publication"/>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://cohse.semanticweb.org/ontologies/people#part_of">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>part_of</rdfs:label>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://cohse.semanticweb.org/ontologies/people#has_part">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>has_part</rdfs:label>
+        <owl:inverseOf rdf:resource="http://cohse.semanticweb.org/ontologies/people#part_of"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://cohse.semanticweb.org/ontologies/people#is_pet_of">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>is_pet_of</rdfs:label>
+        <owl:inverseOf rdf:resource="http://cohse.semanticweb.org/ontologies/people#has_pet"/>
+    </owl:ObjectProperty>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#driver">
+        <rdfs:subClassOf>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#adult"/>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#white_van_man">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#reads"/>
+                <owl:allValuesFrom>
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#tabloid"/>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#old_lady">
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#has_pet"/>
+                        <owl:allValuesFrom>
+                            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#cat"/>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#has_pet"/>
+                        <owl:someValuesFrom>
+                            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#animal"/>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+    </owl:Class>
+    <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#plant"/>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#part_of"/>
+                <owl:someValuesFrom>
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#plant"/>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </owl:unionOf>
+        <owl:disjointWith>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#part_of"/>
+                        <owl:someValuesFrom>
+                            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#animal"/>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#animal"/>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:disjointWith>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#tabloid">
+        <owl:disjointWith>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#broadsheet"/>
+        </owl:disjointWith>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#young">
+        <owl:disjointWith>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#adult"/>
+        </owl:disjointWith>
+    </owl:Class>
+    <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#cat">
+        <owl:disjointWith>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#dog"/>
+        </owl:disjointWith>
+    </owl:Class>
+    <rdf:Description rdf:about="http://cohse.semanticweb.org/ontologies/people#The_Times">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>The Times</rdfs:label>
+        <rdf:type>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#broadsheet"/>
+        </rdf:type>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://cohse.semanticweb.org/ontologies/people#The_Sun">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>The Sun</rdfs:label>
+        <rdf:type>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#tabloid"/>
+        </rdf:type>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://cohse.semanticweb.org/ontologies/people#Daily_Mirror">
+        <rdfs:comment><![CDATA[The paper read by Mick (a white van man).]]></rdfs:comment>
+        <rdfs:label>Daily Mirror</rdfs:label>
+        <rdf:type>
+            <owl:Class rdf:about="http://www.w3.org/2002/07/owl#Thing"/>
+        </rdf:type>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://cohse.semanticweb.org/ontologies/people#Q123_ABC">
+        <rdfs:comment><![CDATA[A white van]]></rdfs:comment>
+        <rdfs:label>Q123 ABC</rdfs:label>
+        <rdf:type>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#van"/>
+        </rdf:type>
+        <rdf:type>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#white_thing"/>
+        </rdf:type>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://cohse.semanticweb.org/ontologies/people#Joe">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>Joe</rdfs:label>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://cohse.semanticweb.org/ontologies/people#has_pet"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person"/>
+        </rdf:type>
+        <ns0:has_pet rdf:resource="http://cohse.semanticweb.org/ontologies/people#Fido"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://cohse.semanticweb.org/ontologies/people#Rex">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>Rex</rdfs:label>
+        <rdf:type>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#dog"/>
+        </rdf:type>
+        <ns0:is_pet_of rdf:resource="http://cohse.semanticweb.org/ontologies/people#Mick"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://cohse.semanticweb.org/ontologies/people#Tom">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>Tom</rdfs:label>
+        <rdf:type>
+            <owl:Class rdf:about="http://www.w3.org/2002/07/owl#Thing"/>
+        </rdf:type>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://cohse.semanticweb.org/ontologies/people#Flossie">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>Flossie</rdfs:label>
+        <rdf:type>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#cow"/>
+        </rdf:type>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://cohse.semanticweb.org/ontologies/people#Fido">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>Fido</rdfs:label>
+        <rdf:type>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#dog"/>
+        </rdf:type>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://cohse.semanticweb.org/ontologies/people#Fred">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>Fred</rdfs:label>
+        <rdf:type>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person"/>
+        </rdf:type>
+        <ns0:has_pet rdf:resource="http://cohse.semanticweb.org/ontologies/people#Tibbs"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://cohse.semanticweb.org/ontologies/people#Huey">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>Huey</rdfs:label>
+        <rdf:type>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#duck"/>
+        </rdf:type>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://cohse.semanticweb.org/ontologies/people#Mick">
+        <rdfs:comment><![CDATA[Mick is male and drives a white van. Due to the axiom concerning drivers, we know that Mick must be a man, and is therefore a white van man. The axiom about the reading material of a white van man then allows us to infer things about the Daily Mirror.]]></rdfs:comment>
+        <rdfs:label>Mick</rdfs:label>
+        <rdf:type>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#male"/>
+        </rdf:type>
+        <ns0:drives rdf:resource="http://cohse.semanticweb.org/ontologies/people#Q123_ABC"/>
+        <ns0:reads rdf:resource="http://cohse.semanticweb.org/ontologies/people#Daily_Mirror"/>
+    </rdf:Description>
+    <owl:Thing rdf:about="http://cohse.semanticweb.org/ontologies/people#Pete">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>Pete</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    </owl:Thing>
+    <rdf:Description rdf:about="http://cohse.semanticweb.org/ontologies/people#Walt">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>Walt</rdfs:label>
+        <rdf:type>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person"/>
+        </rdf:type>
+        <ns0:has_pet rdf:resource="http://cohse.semanticweb.org/ontologies/people#Huey"/>
+        <ns0:has_pet rdf:resource="http://cohse.semanticweb.org/ontologies/people#Louie"/>
+        <ns0:has_pet rdf:resource="http://cohse.semanticweb.org/ontologies/people#Dewey"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://cohse.semanticweb.org/ontologies/people#The_Guardian">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>The Guardian</rdfs:label>
+        <rdf:type>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#broadsheet"/>
+        </rdf:type>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://cohse.semanticweb.org/ontologies/people#Fluffy">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>Fluffy</rdfs:label>
+        <rdf:type>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#tiger"/>
+        </rdf:type>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://cohse.semanticweb.org/ontologies/people#Minnie">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>Minnie</rdfs:label>
+        <rdf:type>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#female"/>
+        </rdf:type>
+        <rdf:type>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#elderly"/>
+        </rdf:type>
+        <ns0:has_pet rdf:resource="http://cohse.semanticweb.org/ontologies/people#Tom"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://cohse.semanticweb.org/ontologies/people#Dewey">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>Dewey</rdfs:label>
+        <rdf:type>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#duck"/>
+        </rdf:type>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://cohse.semanticweb.org/ontologies/people#Kevin">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>Kevin</rdfs:label>
+        <rdf:type>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#person"/>
+        </rdf:type>
+        <ns0:has_pet rdf:resource="http://cohse.semanticweb.org/ontologies/people#Flossie"/>
+        <ns0:has_pet rdf:resource="http://cohse.semanticweb.org/ontologies/people#Fluffy"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://cohse.semanticweb.org/ontologies/people#Louie">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>Louie</rdfs:label>
+        <rdf:type>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#duck"/>
+        </rdf:type>
+    </rdf:Description>
+    <owl:Thing rdf:about="http://cohse.semanticweb.org/ontologies/people#Spike">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>Spike</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <ns0:is_pet_of rdf:resource="http://cohse.semanticweb.org/ontologies/people#Pete"/>
+    </owl:Thing>
+    <rdf:Description rdf:about="http://cohse.semanticweb.org/ontologies/people#Tibbs">
+        <rdfs:comment><![CDATA[]]></rdfs:comment>
+        <rdfs:label>Tibbs</rdfs:label>
+        <rdf:type>
+            <owl:Class rdf:about="http://cohse.semanticweb.org/ontologies/people#cat"/>
+        </rdf:type>
+    </rdf:Description>
+</rdf:RDF>

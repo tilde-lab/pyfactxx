@@ -161,10 +161,13 @@ cdef extern from 'tExpressionManager.h':
         TDLDataExpression* DataTop()
         TDLDataExpression* DataBottom()
         TDLDataTypeName* DataType(string)
+        TDLObjectRoleExpression* ObjectRoleTop()
+        TDLDataRoleExpression* DataRoleTop()
 
         TDLConceptExpression* Top()
         TDLConceptExpression* Bottom()
         TDLConceptExpression* Value(const TDLObjectRoleExpression*, const TDLIndividualExpression*)
+        TDLConceptExpression* Value(const TDLDataRoleExpression*, const TDLDataValue*)
         TDLConceptExpression* Exists(const TDLObjectRoleExpression*, const TDLConceptExpression*)
         TDLConceptExpression* Exists(const TDLDataRoleExpression*, const TDLDataExpression*)
         TDLConceptExpression* Forall(const TDLObjectRoleExpression*, const TDLConceptExpression*)
@@ -316,6 +319,9 @@ cdef class DataRole(DataRoleExpr):
 
 cdef class DataExpr:
     cdef const TDLDataExpression *c_obj
+
+#cdef class DataValue:
+#    cdef const TDLDataValue *c_obj
 
 cdef class DataType:
     cdef TDLDataTypeName *c_obj
@@ -492,6 +498,9 @@ cdef class Reasoner:
     #
     # object roles
     #
+    def object_role_top(self):
+        return self._get(ObjectRole, self.c_mgr.ObjectRoleTop())
+
     def object_role(self, name not None):
         return self._get(ObjectRole, self.c_mgr.ObjectRole(name.encode()))
 
@@ -603,6 +612,9 @@ cdef class Reasoner:
     #
     # data roles
     #
+    def data_role_top(self):
+        return self._get(DataRole, self.c_mgr.DataRoleTop())
+
     def data_role(self, name not None):
         return self._get(DataRole, self.c_mgr.DataRole(name.encode()))
 
@@ -643,6 +655,9 @@ cdef class Reasoner:
 
     def set_d_functional(self, DataRoleExpr r):
         self.c_kernel.setDFunctional(r.c_obj())
+
+#    def d_value(self, DataRoleExpr r, DataValue d):
+#        return self._get(ConceptExpr, self.c_mgr.Value(r.c_obj(), d.c_obj()))
 
 #   def data_value(self, string v, DataType t):
 #       cdef DataExpr result = DataExpr.__new__(DataExpr)
