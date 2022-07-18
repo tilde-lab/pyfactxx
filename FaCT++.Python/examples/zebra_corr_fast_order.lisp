@@ -98,4 +98,4 @@
 (related ub1bL148C1 smokes OldGold)
 (related Japanese smokes Parliament)
 (related ub1bL148C1 hasPet Snails)
-(instance House5 (all isNextTo(not House1)))
+(instance House5 (all isNextTo (not (one-of House1))))
