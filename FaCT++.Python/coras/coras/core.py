@@ -43,8 +43,6 @@ class Coras:
         """
         Load an ontology from a file.
 
-        Format can be one of `xml` or `n3'.
-
         :param f: File object with an ontology data.
         :param format: Format of the data.
         """

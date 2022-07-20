@@ -1,6 +1,8 @@
+
 from pyfactxx import coras
 from pyfactxx.coras.cli import load_and_parse
 import rdflib
+
 
 crs = coras.Coras()
 load_and_parse(crs, 'people.rdf')

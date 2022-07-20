@@ -1,17 +1,19 @@
+
+import sys
+
 from pyfactxx import coras
 from pyfactxx.coras.cli import load_and_parse
 import rdflib
 
-import sys
 
 def describe(crs, node, nsm, visited, with_inferences=False, level=1):
 
 	if node in visited:
 		return
-		
+
 	a_po = list(crs._graph.predicate_objects(node))
 	b_po = list(crs._query_graph.predicate_objects(node)) if with_inferences else []
-	
+
 	a_set = set(a_po)
 	predicate_objects = list(a_po) + [po for po in b_po if po not in a_set]
 
@@ -25,7 +27,7 @@ def describe(crs, node, nsm, visited, with_inferences=False, level=1):
 				describe(crs, row[1], nsm, visited | {node}, with_inferences, level + 1)
 			else:
 				print(' ', row[1].n3(nsm))
-				
+
 if len(sys.argv) < 3:
 	print("Usage: describe.py <ontology filename> <object URI> [<with_inferences? (0/1)>]")
 else:
@@ -37,7 +39,7 @@ else:
 		with_inferences = (sys.argv[3] == '1')
 	else:
 		with_inferences = False
-		
+
 	crs = coras.Coras()
 	load_and_parse(crs, filename)
 

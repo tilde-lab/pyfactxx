@@ -1,8 +1,10 @@
+
 from pyfactxx import coras
 from pyfactxx.coras.cli import load_and_parse
 import rdflib
 
-def extract_name (node):
+
+def extract_name(node):
 	node = str(node)
 	return node[node.find('#') + 1:]
 
@@ -16,11 +18,11 @@ named_pizzas = crs.query('select ?p where {	?p <http://www.w3.org/2000/01/rdf-sc
 
 for pizza_row in named_pizzas:
 	print (extract_name(pizza_row[0]), 'is', end=' ')
-	
+
 	pizza_types = crs.query('select	?c where {	' + pizza_row[0].n3() + ' <http://www.w3.org/2000/01/rdf-schema#subClassOf> ?c . ?c <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza> . } order by ?c',	scope='inferred')
 
 	pizza_types = ', '.join(extract_name(type_row[0]) for type_row in pizza_types if not isinstance(type_row[0], rdflib.BNode) and str(type_row[0]).endswith('Pizza') and not str(type_row[0]).endswith('NamedPizza'))
-	
+
 	if pizza_types == '':
 		print('special')
 	else:

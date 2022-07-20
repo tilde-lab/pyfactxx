@@ -74,22 +74,21 @@ def parse(graph, reasoner):
     for q, ctor, meta in parsers:
         items = [s for s, p, o in find_triples(q, graph)]
         parse_items(graph, items, ctor, meta)
-        
+
     data_properties = set()
     for s, p, o in find_triples((None, None, None), graph):
         if isinstance(o, rdflib.Literal):
             data_properties.add(p)
-            
-    
+
     parse_items(graph, data_properties, parsers[3][1], parsers[3][2])
 
 def data_value(graph, reasoner, individual, role, literal):
     for cls in {OWL.Class, RDFS.Class, OWL.Restriction, OWL.AllDisjointClasses, RDF.Property, OWL.ObjectProperty, OWL.DatatypeProperty}:
         if list(find_triples((individual, RDF.type, cls), graph)):
             return
-            
+
     individual = reasoner.individual(individual)
-    
+
     if (not isinstance(literal, rdflib.Literal)):
         reasoner.value_of_str(individual, role, '"' + str(literal) + '"')
     elif literal.datatype == rdflib.URIRef("http://www.w3.org/2001/XMLSchema#integer"):
@@ -104,7 +103,7 @@ def data_value(graph, reasoner, individual, role, literal):
 def set_data_range(reasoner, role, datatype):
     if datatype != "http://www.w3.org/2000/01/rdf-schema#Literal": # ignore top generic datatype to avoid (pseudo-)inconsistency
         reasoner.set_d_range(role, reasoner.data_type(datatype))
-        
+
 def set_o_sub_role(reasoner, sub_role, super_role):
     if super_role != rdflib.URIRef('http://www.w3.org/2002/07/owl#topObjectProperty'):
         reasoner.implies_o_roles(sub_role, reasoner.object_role(super_role))
@@ -215,7 +214,7 @@ def create_parsers(graph, reasoner):
         (QUERY_AXIOM, lambda v: v, axiom_meta),
     )
     return parsers
-    
+
 def parse_items(graph, items, ctor, meta):
     # declare each item in the reasoner; this might seem unnecessary, but
     # see declaration consistency in OWL 2
