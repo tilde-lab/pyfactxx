@@ -66,6 +66,9 @@ class QueryStore(rdflib.store.Store):
 
         for subj, role, obj, datatype in  self._reasoner.get_triples(ref_s, ref_p, ref_o):
             yield ((self.get_term(subj), self.get_term(role), self.get_term(obj, datatype)), context)
+            
+    def __len__(self, context=None):
+        return len(list(self.triples((None, None, None), context)))
 
     def role_triples_(self, s, ref_p, context):
         ref_s = self._reasoner.individual(s)
