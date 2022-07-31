@@ -5,7 +5,7 @@
 
 FaCT++ is a well-optimized [open-source](https://bitbucket.org/dtsarkov/factplusplus) reasoner for **_SROIQ(D)_** description logic with simple datatypes (OWL 2), written in C++. FaCT++ was created in 2003-2015 by [Dmitry Tsarkov](https://scholar.google.com/citations?user=jDcQ7vQAAAAJ) and [Ian Horrocks](https://scholar.google.com/citations?user=0ypdmcYAAAAJ) in the University of Manchester, UK.
 
-This repository is the **work in progress** for linking the FaCT++ with the Python's [RDFLib](https://rdflib.dev) package. This repository is based on the works of Artur Wroblewski [factpp](https://bitbucket.org/wrobell/factplusplus/src/factpp/factpp) and [coras](https://bitbucket.org/wrobell/coras). The goals are to create the RDFLib store with inference capabilities and to demonstrate the use of the FaCT++ API.
+The `pyfactxx` links the FaCT++ reasoner to the Python's [RDFLib](https://rdflib.dev) package. The code is based on the works of Artur Wroblewski: [factpp](https://bitbucket.org/wrobell/factplusplus/src/factpp/factpp) and [coras](https://bitbucket.org/wrobell/coras) interfaces.
 
 
 ## Reasoner details
@@ -31,36 +31,36 @@ The mentioned above allows to achieve a very good performance on such known onto
 Apart of our present work, the FaCT++ supports [Java OWL-API](https://github.com/owlcs/owlapi), Lisp API, and [DIG interface](http://dl.kr.org/dig/interface.html). It can also be [used in C](https://bitbucket.org/dtsarkov/factplusplus/src/master/FaCT++.C/test.c). There is also a [work of Levin and Cowell](https://doi.org/10.1186/s13326-015-0035-z) on C++ usage (unmaintained).
 
 
+## Reasoner optimizations for RDFLib
+
+The `pyfactxx` presents the following updates to FaCT++:
+
+- drastically improved individuals support (`precacheIndividuals`)
+- unified access point allowing arbitrary SPARQL queries
+- exposing all the required C++ interfaces to RDFLib via the `coras` interface
+
+
 ## Installation
 
-As easy as `pip install pyfactxx`, or if you cloned the repository:
-```
-pip install cython
-cd FaCT++.Python
-cmake .
-make && make install
-```
+`pip install pyfactxx`
+
 NB the PyPI releases plus wheels are done via GitHub action.
 
 
 ## Usage
 
-Try some Python examples:
+See `examples` folder. In essense:
 
 ```
-python examples/imply-class.py
-python examples/zebra-puzzle.py
-python coras/examples/run_rdf.py examples/tsars_corr.rdf
-```
+from pyfactxx import coras
 
-Try some ontologies shipped in the `coras/integration` folder:
+crs = coras.Coras()
+crs.load(ontology, format='turtle')
 
-```
-./coras/bin/coras-query coras/integration/foaf/01-foaf.sq coras/integration/foaf/foaf.rdf coras/integration/foaf/tbl-foaf-card.n3
-./coras/bin/coras-query coras/integration/foaf/02-foaf.sq coras/integration/foaf/foaf.rdf coras/integration/foaf/tbl-foaf-card.n3
-./coras/bin/coras-query coras/integration/foaf/03-foaf.sq coras/integration/foaf/foaf.rdf coras/integration/foaf/03-foaf-ex.n3
-./coras/bin/coras-query coras/integration/tsars/01-tsars.sq coras/integration/tsars/tsars.rdf
-./coras/bin/coras-query coras/integration/tsars/01-tsars.sq coras/examples/tsars_corr.rdf
+crs.parse()
+crs.realise()
+
+result = crs.query('SELECT ?a ?b ?c WHERE {?a ?b ?c}')
 ```
 
 

@@ -20,6 +20,7 @@
 import os.path
 import sys
 
+
 FILE_FORMAT = {
     'rdf': 'xml',
     'owl': 'xml',
@@ -28,11 +29,13 @@ FILE_FORMAT = {
 }
 
 def load_and_parse(crs, *input):
+
     for fn in input:
         format = FILE_FORMAT.get(os.path.splitext(fn)[1][1:])
         if not format:
             print('coras-load: unknown file format for file {}'.format(fn))
             sys.exit(1)
+
         crs.load(fn, format=format)
 
     crs.parse()
