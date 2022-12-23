@@ -55,7 +55,7 @@ See `examples` folder. In essense:
 from pyfactxx import coras
 
 crs = coras.Coras()
-crs.load(ontology, format='turtle')
+crs.load(ontology_file, format='turtle')
 
 crs.parse()
 crs.realise()
