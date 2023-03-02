@@ -1,5 +1,6 @@
 # Python bindings for FaCT++ reasoner
 
+[![DOI](https://zenodo.org/badge/331395431.svg)](https://doi.org/10.5281/zenodo.7693502)
 [![PyPI](https://img.shields.io/pypi/v/pyfactxx.svg?style=flat)](https://pypi.org/project/pyfactxx)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftilde-lab%2Fpyfactxx.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftilde-lab%2Fpyfactxx?ref=badge_shield)
 
