@@ -30,6 +30,7 @@ cdef extern from "<vector>" namespace "std":
         cppclass iterator:
             T operator*()
             iterator operator++()
+            iterator operator++(int)
             bint operator==(iterator)
             bint operator!=(iterator)
 
