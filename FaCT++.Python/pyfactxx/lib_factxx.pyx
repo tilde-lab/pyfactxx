@@ -219,6 +219,7 @@ cdef extern from 'Kernel.h':
         ReasoningKernel() except +
         TExpressionManager* getExpressionManager()
         ifOptionSet* getOptions()
+        void setUseIncrementalReasoning(bool)
 
         TDLAxiom* equalORoles()
         TDLAxiom* equalDRoles()
@@ -353,11 +354,14 @@ cdef class Reasoner:
         cdef string value
         for k, v in kwds.items():
             name = k.encode('UTF-8')
-            value = v.encode('UTF-8')
+            value = str(v).replace('False', 'false').replace('True', 'true').encode('UTF-8')
             if self.c_kernel.getOptions().setOption(name, value):
                 raise ValueError(f'Error setting value {v} for option {k}. \n'
                 'Either option does not exist or value is of incorrect type')
 
+        #if 'useIncrementalReasoning' in kwds:
+        #    self.c_kernel.setUseIncrementalReasoning(kwds['useIncrementalReasoning'] == '1' or kwds['useIncrementalReasoning'] == 'true')
+        
         self._cache = {}  # it should be weakref dict
 
     def parse_lisp(self, str fn):

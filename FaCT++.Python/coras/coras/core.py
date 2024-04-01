@@ -17,6 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import os.path
 import logging
 
 import pyfactxx
@@ -27,10 +28,18 @@ from .query import QueryStore
 
 logger = logging.getLogger(__name__)
 
+FILE_FORMAT = {
+    'rdf': 'xml',
+    'owl': 'xml',
+    'n3': 'n3',
+    'ttl': 'turtle'
+}
+
 class Coras:
-    def __init__(self):
-        self._reasoner = pyfactxx.Reasoner()
+    def __init__(self, **kwargs):
+        self._reasoner = pyfactxx.Reasoner(**kwargs)
         self._graph = rdflib.ConjunctiveGraph()
+        self._parse_graph = rdflib.ConjunctiveGraph()
 
         store = QueryStore(self._graph, self._reasoner)
         self._query_graph = rdflib.ConjunctiveGraph(store=store)
@@ -39,14 +48,42 @@ class Coras:
     def reasoner(self):
         return self._reasoner
 
-    def load(self, f, format='xml'):
+    def load(self, f, format=None):
         """
         Load an ontology from a file.
 
         :param f: File object with an ontology data.
         :param format: Format of the data.
         """
-        self._graph.parse(f, format=format)
+        
+        if format is None:
+            format = FILE_FORMAT.get(os.path.splitext(f)[1][1:], 'xml')
+            
+        self._parse_graph.parse(f, format=format)
+        
+    def add_graph(self, graph):
+        self._parse_graph += graph
+        
+    def add_triple(self, triple):
+        self._parse_graph.add(triple)
+        
+    def parse(self):
+        logger.debug('parse graph')
+        parse(self._parse_graph, self._reasoner)
+        self._graph += self._parse_graph
+        self._parse_graph = rdflib.ConjunctiveGraph()
+
+    def load_and_parse(self, *input):
+        for fn in input:
+            self.load(fn)
+        self.parse()
+
+    def realise(self):
+        logger.debug('reasoner classification')
+        self._reasoner.classify()
+        logger.debug('reasoner realisation')
+        self._reasoner.realise()
+        logger.debug('reasoner realisation done')
 
     def query(self, *args, **kw):
         processed = set()
@@ -66,17 +103,6 @@ class Coras:
             for item in self._query_graph.query(*args, **kw):
                 if item not in processed:
                     yield item
-
-    def parse(self):
-        logger.debug('parse graph')
-        parse(self._graph, self._reasoner)
-
-    def realise(self):
-        logger.debug('reasoner classification')
-        self._reasoner.classify()
-        logger.debug('reasoner realisation')
-        self._reasoner.realise()
-        logger.debug('reasoner realisation done')
 
 def as_labels(graph, items):
     """
