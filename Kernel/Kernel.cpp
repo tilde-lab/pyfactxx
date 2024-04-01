@@ -1,7 +1,7 @@
 /* This file is part of the FaCT++ DL reasoner
 Copyright (C) 2003-2015 Dmitry Tsarkov and The University of Manchester
 Copyright (C) 2015-2017 Dmitry Tsarkov
-Copyright (C) 2021-2022 Ivan Rygaev and Tilde MI
+Copyright (C) 2021-2024 Ivan Rygaev and Tilde MI
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -27,11 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include "SaveLoadManager.h"
 #include "TripleGatherer.h"
 
-const char* ReasoningKernel :: Version = "1.8.1-SNAPSHOT";
+const char* ReasoningKernel :: Version = "1.8.2-SNAPSHOT";
 const char* ReasoningKernel :: SupportedDL = "SROIQ(D)";
 const char* ReasoningKernel :: Copyright =
-	"Copyright (C) Dmitry Tsarkov, Ivan Rygaev, 2002-2022";
-const char* ReasoningKernel :: ReleaseDate = "21 June 2022";
+	"Copyright (C) Dmitry Tsarkov, Ivan Rygaev, 2002-2024";
+const char* ReasoningKernel :: ReleaseDate = "2 February 2024";
 
 // print the FaCT++ information only once
 static bool KernelFirstRun = true;
@@ -1135,7 +1135,7 @@ void ReasoningKernel::getTriples(const std::string& q_subj_name, const std::stri
 
                 getORoleDomain(q_subj_o_role_exp, true, gatherer);
             }
-            
+
             if (q_role_name.empty() || q_role_name == RDFS_RANGE)
             {
                 TripleGatherer gatherer(&triples, true, RDFS_RANGE, q_subj_name.c_str(), [q_subj, q_obj_name, q_obj](const ClassifiableEntry* entry)
