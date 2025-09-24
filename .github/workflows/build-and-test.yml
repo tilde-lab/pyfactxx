@@ -3,13 +3,12 @@ name: Build and test pyfactxx
 on:
   workflow_dispatch:
   push:
-    branches: [ $default-branch, "wheels" ]
+    branches: [master, "wheels"]
   pull_request:
-    branches: [ $default-branch, "wheels" ]
+    branches: [master, "wheels"]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     defaults:
       run:
