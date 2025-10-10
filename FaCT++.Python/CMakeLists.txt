@@ -1,7 +1,9 @@
 set(CMAKE_VERBOSE_MAKEFILE ON)
-cmake_minimum_required(VERSION 3.13.0)
+cmake_minimum_required(VERSION 3.15)
 set(CMAKE_CXX_STANDARD 11)
-find_program(PYTHON "python")
+
+set(Python_FIND_VIRTUALENV FIRST)
+find_package(Python3 COMPONENTS Interpreter)
 
 if (PYTHON)
 
