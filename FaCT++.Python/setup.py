@@ -19,35 +19,29 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import re
 import ast
 import pathlib
-from skbuild import setup
+import re
 
+from skbuild import setup
 
 root = pathlib.Path(__file__).parent.resolve()
 DEBUG = False
 
-_version_re = re.compile(r'__version__\s+=\s+(.*)')
+_version_re = re.compile(r"__version__\s+=\s+(.*)")
 
-with open('pyfactxx/__init__.py', 'rb') as f:
-    version = str(ast.literal_eval(_version_re.search(
-        f.read().decode('utf-8')).group(1)))
+with open("src/__init__.py", "rb") as f:
+    version = str(
+        ast.literal_eval(_version_re.search(f.read().decode("utf-8")).group(1))
+    )
 
-config = 'Debug' if DEBUG else 'Release'
-cmake_args = [
-    f'-DCMAKE_BUILD_TYPE={config}',
-    f'-DPYFACTXX_ROOT={root.as_posix()}'
-]
+config = "Debug" if DEBUG else "Release"
+cmake_args = [f"-DCMAKE_BUILD_TYPE={config}", f"-DPYFACTXX_ROOT={root.as_posix()}"]
 
 setup(
     version=version,
-    packages=[
-        "pyfactxx",
-        "pyfactxx.coras"],
-    package_dir={
-        "pyfactxx": "pyfactxx", 
-        "pyfactxx.coras": "pyfactxx/coras"},
-    cmake_source_dir=str(root/'pyfactxx'),
-    cmake_args=cmake_args
+    packages=["pyfactxx", "pyfactxx.coras"],
+    package_dir={"pyfactxx": "src", "pyfactxx.coras": "src/coras"},
+    cmake_source_dir=str(root / "src"),
+    cmake_args=cmake_args,
 )

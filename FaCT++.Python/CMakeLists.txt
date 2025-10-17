@@ -10,7 +10,7 @@ if (PYTHON)
     file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
 
     set(SETUP_PY    "${CMAKE_CURRENT_BINARY_DIR}/setup.py")
-    set(DEPS        "${CMAKE_CURRENT_SOURCE_DIR}/pyfactxx/__init__.py")
+    set(DEPS        "${CMAKE_CURRENT_SOURCE_DIR}/src/__init__.py")
     set(OUTPUT      "${CMAKE_CURRENT_BINARY_DIR}/build/timestamp")
 
     add_custom_command(OUTPUT ${OUTPUT}

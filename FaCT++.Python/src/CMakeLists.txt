@@ -18,7 +18,7 @@ target_include_directories(lib_factxx PRIVATE ${FACT_DIR} Kernel)
 target_link_libraries(lib_factxx Kernel)
 python_extension_module(lib_factxx)
 
-install(TARGETS lib_factxx LIBRARY DESTINATION pyfactxx)
+install(TARGETS lib_factxx LIBRARY DESTINATION src)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
