@@ -7,6 +7,9 @@ on:
   pull_request:
     branches: [master, "wheels"]
 
+permissions:
+  contents: read # access to check out code and install dependencies
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,13 +18,13 @@ jobs:
         working-directory: ./FaCT++.Python
     strategy:
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
 
     steps:
       - uses: actions/checkout@v5
       - uses: ilammy/msvc-dev-cmd@v1
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
