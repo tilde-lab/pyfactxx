@@ -9,8 +9,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: ["ubuntu-20.04", "windows-latest"]
-        python-version: ["3.7", "3.8", "3.9", "3.10"]
+        os: ["ubuntu-22.04", "windows-2025"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
     defaults:
       run:
         working-directory: ./FaCT++.Python
@@ -32,7 +32,7 @@ jobs:
       - name: Audit a wheel
         if: runner.os == 'Linux'
         run: |
-          auditwheel repair --plat manylinux_2_27_x86_64 dist/*
+          auditwheel repair --plat manylinux_2_34_x86_64 dist/*whl
           rm -rf dist/*
           mv wheelhouse/* dist
       - name: Upload artifact
@@ -52,7 +52,7 @@ jobs:
       - name: Set up Python 3.8
         uses: actions/setup-python@v3
         with:
-          python-version: 3.8
+          python-version: 3.14
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
