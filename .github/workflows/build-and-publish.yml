@@ -17,9 +17,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
-      - uses: ilammy/msvc-dev-cmd@v1
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+      # TODO: migrate to the upstream
+      - uses: knopki/msvc-dev-cmd@221ec3af3b87c0c8189236347c1c0788d2022272
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
@@ -36,7 +40,7 @@ jobs:
           rm -rf dist/*
           mv wheelhouse/* dist
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ runner.os }}-${{ matrix.python-version }}
           path: FaCT++.Python/dist/pyfactxx*
@@ -48,9 +52,9 @@ jobs:
       run:
         working-directory: ./FaCT++.Python
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v3
+      - uses: actions/checkout@v5
+      - name: Set up Python
+        uses: actions/setup-python@v6
         with:
           python-version: 3.14
       - name: Install dependencies
@@ -61,14 +65,14 @@ jobs:
         run: |
           python setup.py sdist
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v5
         with:
           path: FaCT++.Python/wheels/
       - name: Move wheels
         run: |
           mv wheels/*/*.whl dist/
       - name: Publish packages
-        uses: pypa/gh-action-pypi-publish@release/v1
+        uses: pypa/gh-action-pypi-publish@v1.13.0
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
