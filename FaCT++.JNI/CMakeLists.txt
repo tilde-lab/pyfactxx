@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 3.15)
 
 # We are using JNI and need to #include <jni.h>
 find_package(JNI REQUIRED)
