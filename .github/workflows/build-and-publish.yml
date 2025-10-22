@@ -4,6 +4,9 @@ on:
   release:
     types: [created]
 
+permissions:
+  contents: read # access to check out code and install dependencies
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -29,7 +32,11 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install setuptools wheel auditwheel scikit-build cmake cython
+          pip install setuptools wheel scikit-build cmake cython
+      - name: Install Linux-only dependencies
+        if: runner.os == 'Linux'
+        run: |
+          pip install auditwheel patchelf
       - name: Build a wheel
         run: |
           python setup.py bdist_wheel
@@ -46,11 +53,16 @@ jobs:
           path: FaCT++.Python/dist/pyfactxx*
 
   publish:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: build
     defaults:
       run:
         working-directory: ./FaCT++.Python
+    environment:
+      name: pypi
+      url: https://pypi.org/p/pyfactxx
+    permissions:
+      id-token: write # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
       - uses: actions/checkout@v5
       - name: Set up Python
@@ -60,7 +72,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install setuptools wheel auditwheel scikit-build cmake cython
+          pip install setuptools wheel scikit-build cmake cython
       - name: Build a source distribution
         run: |
           python setup.py sdist
@@ -74,6 +86,9 @@ jobs:
       - name: Publish packages
         uses: pypa/gh-action-pypi-publish@v1.13.0
         with:
-          user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
-          packages_dir: FaCT++.Python/dist
+          packages-dir: FaCT++.Python/dist/
+          # # useful for testing:
+          # verbose: true
+          # repository-url: https://test.pypi.org/legacy/
+          # user: __token__
+          # password: ${{ secrets.PYPI_API_TOKEN }}
