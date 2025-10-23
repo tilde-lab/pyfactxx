@@ -36,6 +36,10 @@ jobs:
 
       # Upload the SARIF file generated in the previous step
       - name: Upload SARIF results file
-        uses: github/codeql-action/upload-sarif@v1
+        uses: github/codeql-action/upload-sarif@v4
+        # Codacy is broken now
+        # https://github.com/codacy/codacy-analysis-cli/issues/541
+        continue-on-error: true
         with:
           sarif_file: results.sarif
+          wait-for-processing: true
