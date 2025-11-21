@@ -17,3 +17,11 @@ CMakeFiles/
 fact_test
 libfact.so
 libKernel.*
+
+# Environments
+.venv
+venv
+.env
+.envrc
+.direnv
+.devenv
