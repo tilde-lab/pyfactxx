@@ -102,7 +102,7 @@ sdist.exclude = [
 [tool.cibuildwheel]
 test-extras = ["test"]
 test-command = "pytest {project}/FaCT++.Python/tests"
-skip = "cp38-* *-musllinux* *-win32"
+skip = ["cp38-*", "*-musllinux*", "*-win32"]
 build-frontend = "build[uv]"
 build-verbosity = 1
 repair-wheel-command = "uvx repairwheel -o {dest_dir} {wheel}"
