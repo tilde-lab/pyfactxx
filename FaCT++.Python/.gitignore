@@ -2,12 +2,7 @@
 __pycache__/
 *.egg-info/
 *.so
-dist/
-MANIFEST
 
 # cythonized files
-src/*.cpp
-src/*.so
-
-# scikit-build files
-_skbuild/
+src/**.cpp
+src/**.so

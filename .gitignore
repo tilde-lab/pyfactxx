@@ -6,6 +6,8 @@
 build/**
 .vscode
 .coverage
+dist/
+build/
 
 # cmake files
 CMakeCache.txt
