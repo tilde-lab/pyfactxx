@@ -8,85 +8,70 @@ permissions:
   contents: read # access to check out code and install dependencies
 
 jobs:
-  build:
+  build_wheels:
+    name: Build wheels on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: ["ubuntu-22.04", "windows-2025"]
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
-    defaults:
-      run:
-        working-directory: ./FaCT++.Python
+        os: [ubuntu-latest, windows-latest]
 
     steps:
       - uses: actions/checkout@v5
+
       - uses: actions/setup-node@v6
         with:
           node-version: "24"
-      # TODO: migrate to the upstream
+      # TODO: migrate to the upstream / bundle
+      # NOTE: https://github.com/ilammy/msvc-dev-cmd/pull/94
+      # NOTE: https://github.com/ilammy/msvc-dev-cmd/pull/95
       - uses: knopki/msvc-dev-cmd@221ec3af3b87c0c8189236347c1c0788d2022272
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v6
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v3.3.0
+
+      - uses: actions/upload-artifact@v4
         with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install setuptools wheel scikit-build cmake cython
-      - name: Install Linux-only dependencies
-        if: runner.os == 'Linux'
-        run: |
-          pip install auditwheel patchelf
-      - name: Build a wheel
-        run: |
-          python setup.py bdist_wheel
-      - name: Audit a wheel
-        if: runner.os == 'Linux'
-        run: |
-          auditwheel repair --plat manylinux_2_34_x86_64 dist/*whl
-          rm -rf dist/*
-          mv wheelhouse/* dist
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+          name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
+          path: ./wheelhouse/*.whl
+
+  build_sdist:
+    name: Build source distribution
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
+      - name: Build sdist
+        run: uv build --sdist
+
+      - uses: actions/upload-artifact@v4
         with:
-          name: ${{ runner.os }}-${{ matrix.python-version }}
-          path: FaCT++.Python/dist/pyfactxx*
+          name: cibw-sdist
+          path: dist/*.tar.gz
 
   publish:
-    runs-on: ubuntu-24.04
-    needs: build
-    defaults:
-      run:
-        working-directory: ./FaCT++.Python
+    runs-on: ubuntu-latest
+    needs: [build_wheels, build_sdist]
     environment:
       name: pypi
       url: https://pypi.org/p/pyfactxx
     permissions:
       id-token: write # IMPORTANT: this permission is mandatory for trusted publishing
+      contents: read
     steps:
-      - uses: actions/checkout@v5
-      - name: Set up Python
-        uses: actions/setup-python@v6
+      - uses: actions/download-artifact@v5
         with:
-          python-version: 3.14
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install setuptools wheel scikit-build cmake cython
-      - name: Build a source distribution
-        run: |
-          python setup.py sdist
-      - name: Download artifacts
-        uses: actions/download-artifact@v5
-        with:
-          path: FaCT++.Python/wheels/
-      - name: Move wheels
-        run: |
-          mv wheels/*/*.whl dist/
+          # unpacks all CIBW artifacts into dist/
+          pattern: cibw-*
+          path: dist
+          merge-multiple: true
+
       - name: Publish packages
         uses: pypa/gh-action-pypi-publish@v1.13.0
         with:
-          packages-dir: FaCT++.Python/dist/
+          packages-dir: dist/
           # # useful for testing:
           # verbose: true
           # repository-url: https://test.pypi.org/legacy/

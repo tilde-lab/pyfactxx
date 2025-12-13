@@ -100,12 +100,16 @@ sdist.exclude = [
 "pyfactxx/coras" = "FaCT++.Python/src/pyfactxx/coras"
 
 [tool.cibuildwheel]
-build = "cp39-* cp310-* cp311-* cp312-* cp313-* cp314-*"
-skip = "*-musllinux_* *-win32 *-manylinux_i686"
+test-extras = ["test"]
+test-command = "pytest {project}/FaCT++.Python/tests"
+skip = "cp38-*"
+build-frontend = "build[uv]"
+build-verbosity = 1
+repair-wheel-command = "uvx repairwheel -o {dest_dir} {wheel}"
 
 [tool.pytest.ini_options]
-addopts = "--cov=src"
-testpaths = ["tests"]
+addopts = "--cov=FaCT++.Python/src"
+testpaths = ["FaCT++.Python/tests"]
 
 [tool.coverage.report]
 show_missing = true
