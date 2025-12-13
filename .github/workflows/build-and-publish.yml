@@ -18,13 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v6
-        with:
-          node-version: "24"
-      # TODO: migrate to the upstream / bundle
-      # NOTE: https://github.com/ilammy/msvc-dev-cmd/pull/94
-      # NOTE: https://github.com/ilammy/msvc-dev-cmd/pull/95
-      - uses: knopki/msvc-dev-cmd@221ec3af3b87c0c8189236347c1c0788d2022272
+      - uses: ./.github/actions/msvc-dev-cmd
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v3.3.0

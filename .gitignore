@@ -6,7 +6,7 @@
 build/**
 .vscode
 .coverage
-dist/
+/dist/
 build/
 wheelhouse/
 
