@@ -1,0 +1,115 @@
+[build-system]
+requires = [
+    "scikit-build-core>=0.8.0",
+    "cython>=0.25",
+]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "pyfactxx"
+version = "1.8.1"
+description = "Python bindings to FaCT++ reasoner"
+readme = {file = "README.md", content-type = "text/markdown"}
+license = {text = "GPL-3.0-only"}
+authors = [
+    {name = "Artur Wroblewski", email = "wrobell@riseup.net"}
+]
+maintainers = [
+    {name = "Ivan Rygaev", email = "ir@tilde.pro"},
+    {name = "Andrey Sobolev"}
+]
+requires-python = ">=3.9"
+dependencies = [
+    "rdflib"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Programming Language :: C++",
+    "Programming Language :: Cython",
+    "Programming Language :: Lisp",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+
+[project.urls]
+Homepage = "https://github.com/tilde-lab/pyfactxx"
+Repository = "https://github.com/tilde-lab/pyfactxx"
+
+[project.optional-dependencies]
+test = ["pytest", "pytest-cov"]
+
+[tool.scikit-build]
+# Minimum version of CMake required
+cmake.version = ">=3.15"
+
+# Build directory
+build-dir = "build/{wheel_tag}"
+
+# Verbose output
+build.verbose = false
+
+# Build type (Release by default)
+# Override with --config-settings=cmake.build-type=Debug
+cmake.build-type = "Release"
+
+# Support editable installs
+editable.mode = "redirect"
+editable.verbose = true
+
+sdist.include = [
+    "CMakeLists.txt",
+    "README.md",
+    "LICENSE",
+    "CITATION.cff",
+    "pyproject.toml",
+    "FaCT++",
+    "FaCT++.C",
+    "FaCT++.Python/CMakeLists.txt",
+    "FaCT++.Python/src/pyfactxx/*.py",
+    "FaCT++.Python/src/pyfactxx/*.pyx",
+    "Kernel",
+]
+sdist.exclude = [
+    ".venv",
+    "venv",
+    ".git",
+    ".github",
+    ".gitignore",
+    "build",
+    "dist",
+    "FaCT++.JNI",
+    "FaCT++.Java",
+    "eclipsefiles",
+    ".bumpversion.cfg",
+    ".pylintrc",
+    "**/*.pyc",
+    "**/__pycache__",
+    "FaCT++.Python/coras",
+    "FaCT++.Python/coras/**",
+]
+
+[tool.scikit-build.wheel.packages]
+"pyfactxx" = "FaCT++.Python/src/pyfactxx"
+"pyfactxx/coras" = "FaCT++.Python/src/pyfactxx/coras"
+
+[tool.cibuildwheel]
+test-extras = ["test"]
+test-command = "pytest {project}/FaCT++.Python/tests"
+skip = ["cp38-*", "*-musllinux*", "*-win32"]
+build-frontend = "build[uv]"
+build-verbosity = 1
+repair-wheel-command = "uvx repairwheel -o {dest_dir} {wheel}"
+
+[tool.pytest.ini_options]
+addopts = "--cov=FaCT++.Python/src"
+testpaths = ["FaCT++.Python/tests"]
+
+[tool.coverage.report]
+show_missing = true

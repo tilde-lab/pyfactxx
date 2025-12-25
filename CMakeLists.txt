@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.15)
 project(factplusplus)
 
 # global definition
@@ -26,4 +26,6 @@ add_subdirectory(Kernel)
 add_subdirectory(FaCT++)
 add_subdirectory(FaCT++.C)
 add_subdirectory(FaCT++.JNI)
-add_subdirectory(FaCT++.Python)
+if(SKBUILD)
+    add_subdirectory(FaCT++.Python)
+endif()

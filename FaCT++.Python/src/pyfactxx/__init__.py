@@ -17,9 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from .lib_factxx import Reasoner  # pylint: disable=no-name-in-module
 from .coras import Coras
-
+from .lib_factxx import Reasoner  # pylint: disable=no-name-in-module
 
 __version__ = "1.8.1"
 

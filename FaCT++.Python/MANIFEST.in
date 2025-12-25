@@ -1,6 +1,0 @@
-global-include CMakeLists.txt
-prune _skbuild/ 
-recursive-include pyfactxx *.py *.pyx
-prune pyfactxx/tests
-graft lib
-include COPYING pyproject.toml README.md setup.py

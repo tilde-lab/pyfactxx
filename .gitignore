@@ -6,6 +6,9 @@
 build/**
 .vscode
 .coverage
+/dist/
+build/
+wheelhouse/
 
 # cmake files
 CMakeCache.txt
@@ -17,3 +20,11 @@ CMakeFiles/
 fact_test
 libfact.so
 libKernel.*
+
+# Environments
+.venv
+venv
+.env
+.envrc
+.direnv
+.devenv
