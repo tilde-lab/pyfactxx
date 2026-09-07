@@ -23,9 +23,19 @@ if (FPP_USE_LOGGING)
 endif()
 
 add_subdirectory(Kernel)
-add_subdirectory(FaCT++)
-add_subdirectory(FaCT++.C)
-add_subdirectory(FaCT++.JNI)
+
 if(SKBUILD)
-    add_subdirectory(FaCT++.Python)
+	# Building the Python distribution.  The extension module needs the
+	# reasoner kernel and the FaCT++ sources (globbed directly by
+	# FaCT++.Python/CMakeLists.txt), but none of the other targets: the
+	# command line tool, the C API and the JNI bindings are not shipped
+	# in the wheel.  FaCT++.JNI is also excluded from the sdist, so
+	# adding it unconditionally makes `pip install` from an sdist fail
+	# at configure time with "add_subdirectory given source
+	# FaCT++.JNI which is not an existing directory".
+	add_subdirectory(FaCT++.Python)
+else()
+	add_subdirectory(FaCT++)
+	add_subdirectory(FaCT++.C)
+	add_subdirectory(FaCT++.JNI)
 endif()
