@@ -36,13 +36,32 @@ FILE_FORMAT = {
 }
 
 class Coras:
-    def __init__(self, **kwargs):
+    def __init__(self, ignore_unsupported_datatypes=False, **kwargs):
+        """
+        :param ignore_unsupported_datatypes: skip data-property ranges whose
+            datatype is not one of the kernel's built-in types (xsd:string,
+            xsd:integer, xsd:float, xsd:boolean). The kernel registers any
+            other datatype (e.g. xsd:double or an anonymous union datatype)
+            as an uninterpreted type, which makes every value assertion
+            violate the range and the whole KB inconsistent. Mirrors
+            owlready2/HermiT's --ignoreUnsupportedDatatypes.
+        """
+        from . import parser as _parser
+        self._ignore_unsupported_datatypes = bool(ignore_unsupported_datatypes)
         self._reasoner = pyfactxx.Reasoner(**kwargs)
         self._graph = rdflib.ConjunctiveGraph()
         self._parse_graph = rdflib.ConjunctiveGraph()
 
         store = QueryStore(self._graph, self._reasoner)
         self._query_graph = rdflib.ConjunctiveGraph(store=store)
+
+    def parse(self):
+        logger.debug('parse graph')
+        from . import parser as _parser
+        _parser.IGNORE_UNSUPPORTED_DATATYPES = self._ignore_unsupported_datatypes
+        parse(self._parse_graph, self._reasoner)
+        self._graph += self._parse_graph
+        self._parse_graph = rdflib.ConjunctiveGraph()
 
     @property
     def reasoner(self):
@@ -66,12 +85,6 @@ class Coras:
         
     def add_triple(self, triple):
         self._parse_graph.add(triple)
-        
-    def parse(self):
-        logger.debug('parse graph')
-        parse(self._parse_graph, self._reasoner)
-        self._graph += self._parse_graph
-        self._parse_graph = rdflib.ConjunctiveGraph()
 
     def load_and_parse(self, *input):
         for fn in input:

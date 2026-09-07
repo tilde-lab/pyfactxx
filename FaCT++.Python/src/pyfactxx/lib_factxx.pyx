@@ -682,7 +682,9 @@ cdef class Reasoner:
         self.c_kernel.valueOf(i.c_obj(), r.c_obj(), value)
 
     def value_of_bool(self, IndividualExpr i, DataRoleExpr r, bool v):
-        value = self.c_mgr.DataValue(str(v).encode(), self.type_bool.c_obj)
+        # FaCT++'s bool datatype expects lowercase "true"/"false";
+        # Python's str(bool) yields "True"/"False" which the kernel rejects
+        value = self.c_mgr.DataValue(b'true' if v else b'false', self.type_bool.c_obj)
         self.c_kernel.valueOf(i.c_obj(), r.c_obj(), value)
 
     #

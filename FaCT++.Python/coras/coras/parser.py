@@ -82,6 +82,35 @@ def parse(graph, reasoner):
 
     parse_items(graph, data_properties, parsers[3][1], parsers[3][2])
 
+XSD = rdflib.Namespace('http://www.w3.org/2001/XMLSchema#')
+
+def resolve_data_value(reasoner, literal):
+    """Resolve an rdflib literal to a kernel DataValue.
+
+    The string form MUST be identical to what the value_of_* assertion helpers
+    register for the same literal, otherwise the kernel treats the definition
+    side and the assertion side as different values and realization can never
+    match them. The canonical forms per datatype:
+      - string (plain or xsd:string): literal.n3()  (rdflib keeps the two
+        textual forms distinct; both sides use n3(), so they stay consistent
+        with the assertion path and with the SPARQL layer's view of the graph)
+      - integer:  str(int(value))        e.g. "42"
+      - float/double: str(float(value))  e.g. "14.0"
+      - boolean:  "true"/"false"        (FaCT++ bool type expects lowercase)
+    """
+    if not isinstance(literal, rdflib.Literal):
+        return reasoner.data_value('"' + str(literal) + '"', reasoner.type_str), reasoner.type_str
+
+    datatype = literal.datatype
+    if datatype == XSD.integer:
+        return reasoner.data_value(str(int(literal.value)), reasoner.type_int), reasoner.type_int
+    if datatype in (XSD.float, XSD.double):
+        return reasoner.data_value(str(float(literal.value)), reasoner.type_float), reasoner.type_float
+    if datatype == XSD.boolean:
+        return reasoner.data_value('true' if literal.value == True else 'false',
+                                   reasoner.type_bool), reasoner.type_bool
+    return reasoner.data_value(literal.n3(), reasoner.type_str), reasoner.type_str
+
 def data_value(graph, reasoner, individual, role, literal):
     for cls in {OWL.Class, RDFS.Class, OWL.Restriction, OWL.AllDisjointClasses, RDF.Property, OWL.ObjectProperty, OWL.DatatypeProperty}:
         if list(find_triples((individual, RDF.type, cls), graph)):
@@ -91,18 +120,44 @@ def data_value(graph, reasoner, individual, role, literal):
 
     if (not isinstance(literal, rdflib.Literal)):
         reasoner.value_of_str(individual, role, '"' + str(literal) + '"')
-    elif literal.datatype == rdflib.URIRef("http://www.w3.org/2001/XMLSchema#integer"):
+        return
+
+    datatype = literal.datatype
+    if datatype == XSD.integer:
         reasoner.value_of_int(individual, role, int(literal.value))
-    elif literal.datatype == rdflib.URIRef("http://www.w3.org/2001/XMLSchema#float"):
+    elif datatype in (XSD.float, XSD.double):
         reasoner.value_of_float(individual, role, float(literal.value))
-    elif literal.datatype == rdflib.URIRef("http://www.w3.org/2001/XMLSchema#bool"):
-        reasoner.value_of_bool(individual, role, literal.value == 'true')
+    elif datatype == XSD.boolean:
+        reasoner.value_of_bool(individual, role, literal.value == True)
     else:
         reasoner.value_of_str(individual, role, literal.n3())
 
+IGNORE_UNSUPPORTED_DATATYPES = False
+"""When True, data-property ranges whose datatype is not one of the kernel's
+built-in types (xsd:string, xsd:integer, xsd:float, xsd:boolean) are skipped
+instead of being registered as uninterpreted datatypes. Registering an
+unsupported range (e.g. xsd:double, or an anonymous union datatype) makes
+every value assertion violate the range and the KB inconsistent. Mirrors
+owlready2/HermiT's --ignoreUnsupportedDatatypes."""
+
+BUILTIN_DATATYPES = frozenset((
+    "http://www.w3.org/2001/XMLSchema#string",
+    "http://www.w3.org/2001/XMLSchema#integer",
+    "http://www.w3.org/2001/XMLSchema#float",
+    "http://www.w3.org/2001/XMLSchema#boolean",
+))
+
 def set_data_range(reasoner, role, datatype):
-    if datatype != "http://www.w3.org/2000/01/rdf-schema#Literal": # ignore top generic datatype to avoid (pseudo-)inconsistency
-        reasoner.set_d_range(role, reasoner.data_type(datatype))
+    # ignore top generic datatype to avoid (pseudo-)inconsistency
+    if datatype == "http://www.w3.org/2000/01/rdf-schema#Literal":
+        return
+    if IGNORE_UNSUPPORTED_DATATYPES and str(datatype) not in BUILTIN_DATATYPES:
+        if __debug__:
+            logger.debug(
+                'ignoring unsupported data range: {} on {}'.format(datatype, role)
+            )
+        return
+    reasoner.set_d_range(role, reasoner.data_type(datatype))
 
 def set_o_sub_role(reasoner, sub_role, super_role):
     if super_role != rdflib.URIRef('http://www.w3.org/2002/07/owl#topObjectProperty'):
@@ -405,6 +460,20 @@ def parse_has_value(graph, reasoner, cls, b, prop):
                 .format(cls.name, prop, v_ind.name)
             )
         c = reasoner.o_value(prop, v_ind)
+        reasoner.equal_concepts(cls, c)
+    elif v_ind and isinstance(v_ind, rdflib.Literal):
+        # data property hasValue restriction (e.g. hasName "energy gap");
+        # re-resolve the property as a DATA role (parse_restriction passed an
+        # object role) and build the value via the shared resolver so the
+        # definition side registers the same kernel value as ABox assertions
+        d_prop = reasoner.data_role(prop.name)
+        if __debug__:
+            logger.debug(
+                'has data value: {} {}: {}'
+                .format(cls.name, prop, str(v_ind))
+            )
+        dv, _ = resolve_data_value(reasoner, v_ind)
+        c = reasoner.d_value(d_prop, dv)
         reasoner.equal_concepts(cls, c)
 
 def parse_some_values_from(graph, reasoner, cls, b, prop):
