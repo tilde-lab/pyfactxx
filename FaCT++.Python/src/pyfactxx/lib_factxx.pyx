@@ -21,6 +21,7 @@
 # cython: c_string_type=unicode, c_string_encoding=utf8, embedsignature=True, language_level=3
 
 from libcpp cimport bool
+from cpython.bool cimport PyBool_Check
 from libcpp.string cimport string
 from cython.operator cimport dereference, postincrement
 from libcpp.set cimport set
@@ -122,7 +123,7 @@ cdef extern from 'tDLExpression.h':
     cdef cppclass TDLObjectRoleName(TDLObjectRoleExpression):
         pass
 
-    cdef cppclass TDLDataExpression:
+    cdef cppclass TDLDataExpression(TDLExpression):
         pass
 
     cdef cppclass TDLDataValue(TDLDataExpression):
@@ -132,6 +133,12 @@ cdef extern from 'tDLExpression.h':
         pass
 
     cdef cppclass TDLDataTypeName(TDLDataTypeExpression):
+        pass
+
+    cdef cppclass TDLDataTypeRestriction(TDLDataTypeExpression):
+        pass
+
+    cdef cppclass TDLFacetExpression(TDLDataExpression):
         pass
 
     cdef cppclass TDLConceptExpression(TDLExpression):
@@ -188,7 +195,21 @@ cdef extern from 'tExpressionManager.h':
         TDLConceptExpression* MaxCardinality(unsigned int, const TDLObjectRoleExpression*, const TDLConceptExpression*)
         TDLConceptExpression* MaxCardinality(unsigned int, const TDLDataRoleExpression*, const TDLDataExpression*)
 
-        const TDLDataValue* DataValue(string, const TDLDataTypeExpression*);
+        const TDLDataValue* DataValue(string, TDLDataTypeExpression*);
+
+        # OWL 2 data ranges: datatype restrictions with facets, and the
+        # boolean/enumeration constructors.  RestrictedType adds a facet to
+        # TYPE, returning the (possibly newly created) restriction, so several
+        # facets are applied by chaining the calls.
+        TDLDataTypeRestriction* RestrictedType(TDLDataTypeExpression*, const TDLFacetExpression*)
+        const TDLFacetExpression* FacetMinInclusive(const TDLDataValue*)
+        const TDLFacetExpression* FacetMinExclusive(const TDLDataValue*)
+        const TDLFacetExpression* FacetMaxInclusive(const TDLDataValue*)
+        const TDLFacetExpression* FacetMaxExclusive(const TDLDataValue*)
+        TDLDataExpression* DataNot(const TDLDataExpression*)
+        TDLDataExpression* DataAnd()
+        TDLDataExpression* DataOr()
+        TDLDataExpression* DataOneOf()
 
         void newArgList()
         void addArg(const TDLExpression*)
@@ -319,14 +340,44 @@ cdef class DataRole(DataRoleExpr):
     def __repr__(self):
         return '<{} object at {}: {}>'.format(self.__class__.__name__, id(self), self.name)
 
+cdef data_literal(value):
+    """
+    Lexical form of a Python value as expected by FaCT++ datatypes.
+    """
+    if PyBool_Check(value):
+        return 'true' if value else 'false'
+    elif isinstance(value, str):
+        return value
+    else:
+        return str(value)
+
 cdef class DataExpr:
+    """
+    Any OWL 2 data range: a datatype, a datatype restriction, a data value
+    or a boolean/enumeration combination of those.
+    """
     cdef const TDLDataExpression *c_obj
 
-#cdef class DataValue:
-#    cdef const TDLDataValue *c_obj
+    cdef TDLDataExpression* c_data(self):
+        return <TDLDataExpression*>self.c_obj
 
-cdef class DataType:
-    cdef TDLDataTypeName *c_obj
+cdef class DataValue(DataExpr):
+    """ Typed literal, i.e. a data value of a given datatype. """
+    cdef const TDLDataValue* c_value(self):
+        return <const TDLDataValue*>self.c_obj
+
+cdef class Facet(DataExpr):
+    """ Datatype facet, i.e. one bound of a datatype restriction. """
+    cdef const TDLFacetExpression* c_facet(self):
+        return <const TDLFacetExpression*>self.c_obj
+
+cdef class DataType(DataExpr):
+    """ Named datatype, for example xsd:integer. """
+    cdef TDLDataTypeExpression* c_type(self):
+        return <TDLDataTypeExpression*>self.c_obj
+
+cdef class DataTypeRestriction(DataType):
+    """ Datatype restricted by one or more facets, for example xsd:integer[>= 1, <= 230]. """
 
 cdef class Reasoner:
     cdef ReasoningKernel *c_kernel
@@ -429,6 +480,11 @@ cdef class Reasoner:
         self.c_mgr.newArgList()
         for e in items:
             self.c_mgr.addArg((<Expression>e)._obj)
+
+    def _data_arg_list(self, items):
+        self.c_mgr.newArgList()
+        for e in items:
+            self.c_mgr.addArg(<const TDLExpression*>(<DataExpr>e).c_obj)
 
     #
     # concepts
@@ -633,7 +689,104 @@ cdef class Reasoner:
 
     def data_type(self, name not None):
         cdef DataType result = DataType.__new__(DataType)
-        result.c_obj = self.c_mgr.DataType(name.encode())
+        result.c_obj = <const TDLDataExpression*>self.c_mgr.DataType(name.encode())
+        return result
+
+    def data_value(self, value not None, DataType t=None):
+        """
+        Create a typed literal.
+
+        The datatype defaults to the FaCT++ basic datatype matching the type
+        of the Python value.
+
+        :param value: Value of the literal.
+        :param t: Datatype of the literal.
+        """
+        cdef DataType dt
+        if t is None:
+            if PyBool_Check(value):
+                dt = self.type_bool
+            elif isinstance(value, int):
+                dt = self.type_int
+            elif isinstance(value, float):
+                dt = self.type_float
+            else:
+                dt = self.type_str
+        else:
+            dt = t
+
+        cdef DataValue result = DataValue.__new__(DataValue)
+        result.c_obj = <const TDLDataExpression*>self.c_mgr.DataValue(
+            data_literal(value).encode(), dt.c_type()
+        )
+        return result
+
+    def facet_min_inclusive(self, DataValue v):
+        cdef Facet result = Facet.__new__(Facet)
+        result.c_obj = <const TDLDataExpression*>self.c_mgr.FacetMinInclusive(v.c_value())
+        return result
+
+    def facet_min_exclusive(self, DataValue v):
+        cdef Facet result = Facet.__new__(Facet)
+        result.c_obj = <const TDLDataExpression*>self.c_mgr.FacetMinExclusive(v.c_value())
+        return result
+
+    def facet_max_inclusive(self, DataValue v):
+        cdef Facet result = Facet.__new__(Facet)
+        result.c_obj = <const TDLDataExpression*>self.c_mgr.FacetMaxInclusive(v.c_value())
+        return result
+
+    def facet_max_exclusive(self, DataValue v):
+        cdef Facet result = Facet.__new__(Facet)
+        result.c_obj = <const TDLDataExpression*>self.c_mgr.FacetMaxExclusive(v.c_value())
+        return result
+
+    def restricted_type(self, DataType t, facets):
+        """
+        Restrict a datatype with one or more facets, i.e. build an OWL 2
+        datatype restriction such as xsd:integer[>= 1, <= 230].
+
+        :param t: Datatype or datatype restriction to restrict.
+        :param facets: Single facet or an iterable of facets.
+        """
+        if isinstance(facets, Facet):
+            facets = (facets,)
+
+        cdef TDLDataTypeExpression *current = t.c_type()
+        cdef Facet f
+        for f in facets:
+            current = <TDLDataTypeExpression*>self.c_mgr.RestrictedType(current, f.c_facet())
+
+        cdef DataTypeRestriction result = DataTypeRestriction.__new__(DataTypeRestriction)
+        result.c_obj = <const TDLDataExpression*>current
+        return result
+
+    def data_not(self, DataExpr d):
+        cdef DataExpr result = DataExpr.__new__(DataExpr)
+        result.c_obj = self.c_mgr.DataNot(d.c_obj)
+        return result
+
+    def data_and(self, *ranges):
+        self._data_arg_list(ranges)
+        cdef DataExpr result = DataExpr.__new__(DataExpr)
+        result.c_obj = self.c_mgr.DataAnd()
+        return result
+
+    def data_or(self, *ranges):
+        self._data_arg_list(ranges)
+        cdef DataExpr result = DataExpr.__new__(DataExpr)
+        result.c_obj = self.c_mgr.DataOr()
+        return result
+
+    def data_one_of(self, *values):
+        """
+        Enumerated data range; values which are not data values are converted
+        with the `data_value` method.
+        """
+        items = [v if isinstance(v, DataValue) else self.data_value(v) for v in values]
+        self._data_arg_list(items)
+        cdef DataExpr result = DataExpr.__new__(DataExpr)
+        result.c_obj = self.c_mgr.DataOneOf()
         return result
 
     def equal_d_roles(self, *roles):
@@ -643,14 +796,23 @@ cdef class Reasoner:
     def set_d_domain(self, DataRoleExpr r, ConceptExpr c):
         self.c_kernel.setDDomain(r.c_obj(), c.c_obj())
 
-    def set_d_range(self, DataRoleExpr r, DataType t):
-        self.c_kernel.setDRange(r.c_obj(), t.c_obj)
+    def set_d_range(self, DataRoleExpr r, DataExpr t):
+        self.c_kernel.setDRange(r.c_obj(), t.c_data())
 
     def d_cardinality(self, unsigned int n, DataRoleExpr r, DataExpr d):
         return self._get(ConceptExpr, self.c_mgr.Cardinality(n, r.c_obj(), d.c_obj))
 
+    def min_d_cardinality(self, unsigned int n, DataRoleExpr r, DataExpr d):
+        return self._get(ConceptExpr, self.c_mgr.MinCardinality(n, r.c_obj(), d.c_obj))
+
     def max_d_cardinality(self, unsigned int n, DataRoleExpr r, DataExpr d):
         return self._get(ConceptExpr, self.c_mgr.MaxCardinality(n, r.c_obj(), d.c_obj))
+
+    def d_exists(self, DataRoleExpr r, DataExpr d):
+        return self._get(ConceptExpr, self.c_mgr.Exists(r.c_obj(), d.c_obj))
+
+    def d_forall(self, DataRoleExpr r, DataExpr d):
+        return self._get(ConceptExpr, self.c_mgr.Forall(r.c_obj(), d.c_obj))
 
     def implies_d_roles(self, DataRoleExpr r1, DataRoleExpr r2):
         self.c_kernel.impliesDRoles(r1.c_obj(), r2.c_obj())
@@ -661,29 +823,25 @@ cdef class Reasoner:
     def set_d_functional(self, DataRoleExpr r):
         self.c_kernel.setDFunctional(r.c_obj())
 
-#    def d_value(self, DataRoleExpr r, DataValue d):
-#        return self._get(ConceptExpr, self.c_mgr.Value(r.c_obj(), d.c_obj()))
+    def d_value(self, DataRoleExpr r, DataValue v):
+        """ Concept of individuals having value V for the data role R. """
+        return self._get(ConceptExpr, self.c_mgr.Value(r.c_obj(), v.c_value()))
 
-#   def data_value(self, string v, DataType t):
-#       cdef DataExpr result = DataExpr.__new__(DataExpr)
-#       result.c_obj = self.c_mgr.DataValue(v, t.c_obj)
-#       return result
+    def value_of(self, IndividualExpr i, DataRoleExpr r, DataValue v):
+        """ Assert a typed literal value of a data role for an individual. """
+        self.c_kernel.valueOf(i.c_obj(), r.c_obj(), v.c_value())
 
     def value_of_int(self, IndividualExpr i, DataRoleExpr r, int v):
-        value = self.c_mgr.DataValue(str(v).encode(), self.type_int.c_obj)
-        self.c_kernel.valueOf(i.c_obj(), r.c_obj(), value)
+        self.value_of(i, r, self.data_value(v, self.type_int))
 
     def value_of_str(self, IndividualExpr i, DataRoleExpr r, str v):
-        value = self.c_mgr.DataValue(v.encode(), self.type_str.c_obj)
-        self.c_kernel.valueOf(i.c_obj(), r.c_obj(), value)
+        self.value_of(i, r, self.data_value(v, self.type_str))
 
     def value_of_float(self, IndividualExpr i, DataRoleExpr r, float v):
-        value = self.c_mgr.DataValue(str(v).encode(), self.type_float.c_obj)
-        self.c_kernel.valueOf(i.c_obj(), r.c_obj(), value)
+        self.value_of(i, r, self.data_value(v, self.type_float))
 
     def value_of_bool(self, IndividualExpr i, DataRoleExpr r, bool v):
-        value = self.c_mgr.DataValue(str(v).encode(), self.type_bool.c_obj)
-        self.c_kernel.valueOf(i.c_obj(), r.c_obj(), value)
+        self.value_of(i, r, self.data_value(True if v else False, self.type_bool))
 
     #
     # general
