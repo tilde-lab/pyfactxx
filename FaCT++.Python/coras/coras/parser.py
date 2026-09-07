@@ -115,6 +115,16 @@ def set_data_range(graph, reasoner, role, term):
     if data_range is not None:
         reasoner.set_d_range(role, data_range)
 
+IGNORE_UNSUPPORTED_DATATYPES = False
+"""When True, data-property ranges whose datatype is not one of the kernel's
+built-in types (xsd:string, xsd:integer, xsd:float and their derived types,
+xsd:boolean) are skipped instead of being registered as uninterpreted
+datatypes. Registering an unsupported range makes every value assertion
+violate the range and the KB inconsistent. Mirrors owlready2/HermiT's
+--ignoreUnsupportedDatatypes. Set via Coras(ignore_unsupported_datatypes=...)."""
+
+BUILTIN_DATATYPES = INT_TYPE | FLOAT_TYPE | {XSD.string, XSD.boolean}
+
 def parse_data_range(graph, reasoner, term):
     """
     Translate an OWL 2 data range into a reasoner data range expression.
@@ -135,6 +145,11 @@ def parse_data_range(graph, reasoner, term):
 
     if not isinstance(term, rdflib.BNode):
         if term == RDFS.Literal:
+            return None
+        if IGNORE_UNSUPPORTED_DATATYPES and term not in BUILTIN_DATATYPES:
+            logger.debug(
+                'data range of unsupported datatype skipped: {}'.format(term)
+            )
             return None
         return datatype_of(reasoner, term)
 

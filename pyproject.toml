@@ -7,7 +7,7 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "pyfactxx"
-version = "1.8.1"
+version = "1.9.0"
 description = "Python bindings to FaCT++ reasoner"
 readme = {file = "README.md", content-type = "text/markdown"}
 license = {text = "GPL-3.0-only"}
