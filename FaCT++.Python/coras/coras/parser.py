@@ -28,13 +28,23 @@ from collections import namedtuple
 from functools import partial, singledispatch
 
 import rdflib
-from rdflib.namespace import RDF, RDFS, OWL
+from rdflib.namespace import RDF, RDFS, OWL, XSD
 
 from . import debug
 
 logger = logging.getLogger(__name__)
 
 CLASS_TYPE = {RDFS.Class, OWL.Class}
+
+# XSD datatypes mapped onto the FaCT++ basic integer and floating point
+# datatypes; anything else is handled as a string
+INT_TYPE = {
+    XSD.integer, XSD.int, XSD.long, XSD.short, XSD.byte,
+    XSD.nonNegativeInteger, XSD.positiveInteger,
+    XSD.nonPositiveInteger, XSD.negativeInteger,
+    XSD.unsignedLong, XSD.unsignedInt, XSD.unsignedShort, XSD.unsignedByte,
+}
+FLOAT_TYPE = {XSD.decimal, XSD.float, XSD.double}
 
 QUERY_CLASS = [
     (None, RDF.type, OWL.Class),
@@ -59,6 +69,12 @@ QUERY_OBJ_PROPERTY = [
 
 QUERY_AXIOM = [
     (None, RDF.type, OWL.NegativePropertyAssertion),
+]
+
+# pairwise individual inequality; owl:AllDifferent and owl:distinctMembers
+# are handled with the class queries
+QUERY_INDIVIDUAL_AXIOM = [
+    (None, OWL.differentFrom, None),
 ]
 
 QUERY_DATA_PROPERTY = (None, RDF.type, OWL.DatatypeProperty)
@@ -89,20 +105,156 @@ def data_value(graph, reasoner, individual, role, literal):
 
     individual = reasoner.individual(individual)
 
-    if (not isinstance(literal, rdflib.Literal)):
+    if not isinstance(literal, rdflib.Literal):
         reasoner.value_of_str(individual, role, '"' + str(literal) + '"')
-    elif literal.datatype == rdflib.URIRef("http://www.w3.org/2001/XMLSchema#integer"):
-        reasoner.value_of_int(individual, role, int(literal.value))
-    elif literal.datatype == rdflib.URIRef("http://www.w3.org/2001/XMLSchema#float"):
-        reasoner.value_of_float(individual, role, float(literal.value))
-    elif literal.datatype == rdflib.URIRef("http://www.w3.org/2001/XMLSchema#bool"):
-        reasoner.value_of_bool(individual, role, literal.value == 'true')
     else:
-        reasoner.value_of_str(individual, role, literal.n3())
+        reasoner.value_of(individual, role, data_value_of(reasoner, literal))
 
-def set_data_range(reasoner, role, datatype):
-    if datatype != "http://www.w3.org/2000/01/rdf-schema#Literal": # ignore top generic datatype to avoid (pseudo-)inconsistency
-        reasoner.set_d_range(role, reasoner.data_type(datatype))
+def set_data_range(graph, reasoner, role, term):
+    data_range = parse_data_range(graph, reasoner, term)
+    if data_range is not None:
+        reasoner.set_d_range(role, data_range)
+
+def parse_data_range(graph, reasoner, term):
+    """
+    Translate an OWL 2 data range into a reasoner data range expression.
+
+    Named datatypes, datatype restrictions (`owl:onDatatype` with
+    `owl:withRestrictions`), enumerations (`owl:oneOf`), complements
+    (`owl:datatypeComplementOf`) and intersections/unions of the above are
+    supported.  `None` is returned for the top generic datatype, which is
+    left implicit to avoid (pseudo-)inconsistency, and for a data range which
+    cannot be translated.
+
+    :param graph: RDFLib graph with the ontology data.
+    :param reasoner: Reasoner object.
+    :param term: RDF term denoting the data range.
+    """
+    if isinstance(term, rdflib.Literal):
+        return reasoner.data_one_of(data_value_of(reasoner, term))
+
+    if not isinstance(term, rdflib.BNode):
+        if term == RDFS.Literal:
+            return None
+        return datatype_of(reasoner, term)
+
+    fetch = partial(fetch_object, graph, term, f=lambda v: v)
+
+    on_datatype = fetch(pred=OWL.onDatatype)
+    if on_datatype is not None:
+        base = parse_data_range(graph, reasoner, on_datatype)
+        facets = fetch(pred=OWL.withRestrictions)
+        if base is None or facets is None:
+            return base
+        items = [
+            facet
+            for node in graph.items(facets)
+            for facet in parse_facets(graph, reasoner, node)
+        ]
+        return reasoner.restricted_type(base, items) if items else base
+
+    one_of = fetch(pred=OWL.oneOf)
+    if one_of is not None:
+        values = [
+            data_value_of(reasoner, v) for v in graph.items(one_of)
+            if isinstance(v, rdflib.Literal)
+        ]
+        return reasoner.data_one_of(*values) if values else None
+
+    complement = fetch(pred=OWL.datatypeComplementOf)
+    if complement is not None:
+        base = parse_data_range(graph, reasoner, complement)
+        return None if base is None else reasoner.data_not(base)
+
+    for pred, op in ((OWL.intersectionOf, reasoner.data_and), (OWL.unionOf, reasoner.data_or)):
+        items = fetch(pred=pred)
+        if items is not None:
+            ranges = [parse_data_range(graph, reasoner, v) for v in graph.items(items)]
+            ranges = [r for r in ranges if r is not None]
+            return op(*ranges) if ranges else None
+
+    logger.debug('data range not translated: {}'.format(term))
+    return None
+
+FACET_METHOD = {
+    XSD.minInclusive: 'facet_min_inclusive',
+    XSD.minExclusive: 'facet_min_exclusive',
+    XSD.maxInclusive: 'facet_max_inclusive',
+    XSD.maxExclusive: 'facet_max_exclusive',
+}
+
+def parse_facets(graph, reasoner, node):
+    """
+    Translate the facets asserted on a single node of an
+    `owl:withRestrictions` list.
+
+    Facets which FaCT++ does not support, for example `xsd:pattern` or the
+    length facets, are skipped with a warning, as skipping them weakens the
+    data range instead of making it wrong.
+    """
+    for pred, value in graph.predicate_objects(node):
+        method = FACET_METHOD.get(pred)
+        if method is None:
+            logger.warning('facet not supported: {}'.format(pred))
+        else:
+            yield getattr(reasoner, method)(data_value_of(reasoner, value))
+
+def datatype_of(reasoner, datatype):
+    """
+    Translate an XSD datatype into a reasoner datatype.
+
+    The XSD datatypes matching a basic datatype of the reasoner are mapped
+    onto it, so that the values of a data property are interpreted as
+    numbers, strings or booleans.  Any other datatype is used by its name,
+    which leaves its values uninterpreted; the reasoner does not check them,
+    but it does not report a clash where there is none either.
+
+    :param reasoner: Reasoner object.
+    :param datatype: Datatype IRI or null for an untyped literal.
+    """
+    if datatype in INT_TYPE:
+        return reasoner.type_int
+    elif datatype in FLOAT_TYPE:
+        return reasoner.type_float
+    elif datatype == XSD.boolean:
+        return reasoner.type_bool
+    elif datatype in (None, XSD.string):
+        # a literal without a datatype is a string, see RDF 1.1
+        return reasoner.type_str
+    else:
+        return reasoner.data_type(str(datatype))
+
+def data_value_of(reasoner, literal):
+    """
+    Translate an RDF literal into a reasoner data value, mapping the XSD
+    datatype onto one of the FaCT++ basic datatypes.
+
+    :param reasoner: Reasoner object.
+    :param literal: RDFLib literal.
+    """
+    datatype = getattr(literal, 'datatype', None)
+    language = getattr(literal, 'language', None)
+
+    if datatype in INT_TYPE:
+        value = int(literal)
+    elif datatype in FLOAT_TYPE:
+        value = float(literal)
+    elif datatype == XSD.boolean:
+        value = bool(literal)
+    elif language is not None:
+        # the string values of the reasoner are read back with the N3 parser,
+        # see coras.query; the N3 form keeps the language tag significant
+        value = literal.n3()
+    elif datatype in (None, XSD.string):
+        # the N3 form of the plain literal, so that a string is the same value
+        # whether it is typed with xsd:string or untyped, see RDF 1.1
+        value = rdflib.Literal(str(literal)).n3()
+    else:
+        # a value of an uninterpreted datatype is read back with its datatype,
+        # so it is stored in its lexical form
+        value = str(literal)
+
+    return reasoner.data_value(value, datatype_of(reasoner, datatype))
 
 def set_o_sub_role(reasoner, sub_role, super_role):
     if super_role != rdflib.URIRef('http://www.w3.org/2002/07/owl#topObjectProperty'):
@@ -190,7 +342,7 @@ def create_parsers(graph, reasoner):
         (
             (tq(OWL.FunctionalProperty), reasoner.set_d_functional, None),
             (sq(RDFS.domain), reasoner.set_d_domain, reasoner.concept),
-            (sq(RDFS.range), lambda role, range: set_data_range(reasoner, role, range), lambda datatype: str(datatype)),
+            (sq(RDFS.range), lambda role, range: set_data_range(graph, reasoner, role, range), lambda term: term),
             (sq(RDFS.subPropertyOf), lambda sub_role, super_role: set_d_sub_role(reasoner, sub_role, super_role), lambda x: x),
             (sq(OWL.equivalentProperty), reasoner.equal_d_roles, reasoner.data_role),
         ),
@@ -206,12 +358,21 @@ def create_parsers(graph, reasoner):
         [],
     )
 
+    ind_axiom_meta = Meta(
+        (
+            (sq(OWL.differentFrom), reasoner.different_individuals, reasoner.individual),
+        ),
+        [],
+        [],
+    )
+
     parsers = (
         (QUERY_CLASS, reasoner.concept, cls_meta),
         (QUERY_INSTANCES, reasoner.individual, inst_meta),
         (QUERY_OBJ_PROPERTY, reasoner.object_role, obj_p_meta),
         (QUERY_DATA_PROPERTY, reasoner.data_role, data_p_meta),
         (QUERY_AXIOM, lambda v: v, axiom_meta),
+        (QUERY_INDIVIDUAL_AXIOM, reasoner.individual, ind_axiom_meta),
     )
     return parsers
 
@@ -307,8 +468,14 @@ def parse_restriction(graph, reasoner, cls):
     # FIXME: pass bnode directly
     from rdflib import BNode
     b = BNode(cls.name)
-    prop = fetch_object(graph, b, OWL.onProperty, reasoner.object_role)
-    assert prop is not None
+    on_property = fetch_object(graph, b, OWL.onProperty, lambda v: v)
+    assert on_property is not None
+
+    if is_data_property(graph, b, on_property):
+        parse_d_restriction(graph, reasoner, cls, b, reasoner.data_role(on_property))
+        return
+
+    prop = reasoner.object_role(on_property)
 
     inv_prop = fetch_object(graph, BNode(prop.name), OWL.inverseOf, reasoner.object_role)
 
@@ -320,6 +487,101 @@ def parse_restriction(graph, reasoner, cls):
     parse_has_value(graph, reasoner, cls, b, prop)
     parse_some_values_from(graph, reasoner, cls, b, prop)
     parse_all_values_from(graph, reasoner, cls, b, prop)
+
+def is_data_property(graph, restriction, prop):
+    """
+    Determine whether a property restriction restricts a data property.
+
+    The property declaration is used when present.  Otherwise the shape of
+    the restriction decides: a literal value, a data range filler or an
+    `owl:onDataRange` qualifier all imply a data property.
+
+    :param graph: RDFLib graph with the ontology data.
+    :param restriction: Node of the property restriction.
+    :param prop: Property being restricted.
+    """
+    if (prop, RDF.type, OWL.DatatypeProperty) in graph:
+        return True
+    elif (prop, RDF.type, OWL.ObjectProperty) in graph:
+        return False
+    elif (restriction, OWL.onDataRange, None) in graph:
+        return True
+
+    value = next(graph.objects(restriction, OWL.hasValue), None)
+    if isinstance(value, rdflib.Literal):
+        return True
+
+    for pred in (OWL.someValuesFrom, OWL.allValuesFrom):
+        filler = next(graph.objects(restriction, pred), None)
+        if isinstance(filler, rdflib.URIRef):
+            if filler.startswith(str(XSD)) or filler == RDFS.Literal:
+                return True
+        elif isinstance(filler, rdflib.BNode):
+            if any(
+                (filler, p, None) in graph
+                for p in (OWL.onDatatype, OWL.datatypeComplementOf)
+            ):
+                return True
+    return False
+
+D_CARDINALITY_METHOD = (
+    (OWL.cardinality, OWL.qualifiedCardinality, 'd_cardinality'),
+    (OWL.minCardinality, OWL.minQualifiedCardinality, 'min_d_cardinality'),
+    (OWL.maxCardinality, OWL.maxQualifiedCardinality, 'max_d_cardinality'),
+)
+
+def parse_d_restriction(graph, reasoner, cls, b, prop):
+    """
+    Translate a property restriction of a data property, i.e. a data value,
+    a data range or a cardinality restriction of the property.
+
+    :param graph: RDFLib graph with the ontology data.
+    :param reasoner: Reasoner object.
+    :param cls: Concept of the restriction.
+    :param b: Node of the property restriction.
+    :param prop: Data role being restricted.
+    """
+    top = reasoner.data_top()
+
+    for pred, q_pred, method in D_CARDINALITY_METHOD:
+        card = fetch_object(graph, b, pred, int)
+        if card is not None:
+            if __debug__:
+                logger.debug('data {}: {} {}: {}'.format(pred, cls.name, prop.name, card))
+            c = getattr(reasoner, method)(card, prop, top)
+            reasoner.equal_concepts(cls, c)
+
+        card = fetch_object(graph, b, q_pred, int)
+        if card is not None:
+            data_range = fetch_object(graph, b, OWL.onDataRange, lambda v: v)
+            d = None if data_range is None else parse_data_range(graph, reasoner, data_range)
+            if __debug__:
+                logger.debug('data {}: {} {}: {}'.format(q_pred, cls.name, prop.name, card))
+            c = getattr(reasoner, method)(card, prop, top if d is None else d)
+            reasoner.equal_concepts(cls, c)
+
+    value = fetch_object(graph, b, OWL.hasValue, lambda v: v)
+    if isinstance(value, rdflib.Literal):
+        if __debug__:
+            logger.debug('data has value: {} {}: {}'.format(cls.name, prop.name, value))
+        c = reasoner.d_value(prop, data_value_of(reasoner, value))
+        reasoner.equal_concepts(cls, c)
+
+    for pred, method in ((OWL.someValuesFrom, 'd_exists'), (OWL.allValuesFrom, 'd_forall')):
+        data_range = fetch_object(graph, b, pred, lambda v: v)
+        if data_range is not None:
+            d = parse_data_range(graph, reasoner, data_range)
+            if d is None:
+                logger.debug(
+                    'data range of {} dropped for {}'.format(pred, cls.name)
+                )
+            else:
+                if __debug__:
+                    logger.debug(
+                        'data {}: {} {}: {}'.format(pred, cls.name, prop.name, data_range)
+                    )
+                c = getattr(reasoner, method)(prop, d)
+                reasoner.equal_concepts(cls, c)
 
 def parse_negative_assert_obj_property(graph, reasoner, axiom):
     prop = fetch_object(graph, axiom, OWL.assertionProperty, reasoner.object_role)
