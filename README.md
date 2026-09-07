@@ -38,6 +38,15 @@ The `pyfactxx` presents the following updates to FaCT++:
 
 - drastically improved individuals support (`precacheIndividuals`)
 - unified access point allowing arbitrary SPARQL queries
+
+### Literal `owl:hasValue` support (1.9.0)
+
+Classes defined via data-property value restrictions (e.g. `C ≡ Property ⊓ hasName.{"energy gap"}`, the pattern Protege emits for enumerated data ranges and that data-driven ontology refinement produces) are now parsed and reasoned over. Both the class-definition side and the ABox-assertion side register kernel data values through one canonical resolver, so an individual `i` with `hasName "energy gap"` is classified into `C` and its superclasses. Supported datatypes: `xsd:string`, `xsd:integer`, `xsd:float`, `xsd:double` (coerced to the kernel's float), `xsd:boolean`.
+
+Two accompanying fixes and one escape hatch:
+
+- `value_of_bool` registered Python's `str(True)` (`'True'`) instead of the `'true'` the kernel's boolean datatype expects — every realized boolean value previously raised `RuntimeError: Unable to register 'True' as a bool`.
+- `Coras(ignore_unsupported_datatypes=True)` skips data-property ranges whose datatype is not one of the kernel's four built-ins. Without it, a declared `xsd:double` range (or the anonymous union datatypes Protege emits for e.g. `hasSgN`) is registered as an uninterpreted datatype and *every* value assertion violates the range — the KB is detected as inconsistent. Mirrors owlready2/HermiT's `--ignoreUnsupportedDatatypes`.
 - exposing all the required C++ interfaces to RDFLib via the `coras` interface
 
 
