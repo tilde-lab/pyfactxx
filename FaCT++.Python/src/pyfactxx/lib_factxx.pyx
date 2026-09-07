@@ -322,8 +322,8 @@ cdef class DataRole(DataRoleExpr):
 cdef class DataExpr:
     cdef const TDLDataExpression *c_obj
 
-#cdef class DataValue:
-#    cdef const TDLDataValue *c_obj
+cdef class DataValue:
+    cdef const TDLDataValue *_value
 
 cdef class DataType:
     cdef TDLDataTypeName *c_obj
@@ -661,13 +661,13 @@ cdef class Reasoner:
     def set_d_functional(self, DataRoleExpr r):
         self.c_kernel.setDFunctional(r.c_obj())
 
-#    def d_value(self, DataRoleExpr r, DataValue d):
-#        return self._get(ConceptExpr, self.c_mgr.Value(r.c_obj(), d.c_obj()))
+    def data_value(self, str v, DataType t):
+        cdef DataValue result = DataValue.__new__(DataValue)
+        result._value = self.c_mgr.DataValue(v.encode(), t.c_obj)
+        return result
 
-#   def data_value(self, string v, DataType t):
-#       cdef DataExpr result = DataExpr.__new__(DataExpr)
-#       result.c_obj = self.c_mgr.DataValue(v, t.c_obj)
-#       return result
+    def d_value(self, DataRoleExpr r, DataValue d):
+        return self._get(ConceptExpr, self.c_mgr.Value(r.c_obj(), d._value))
 
     def value_of_int(self, IndividualExpr i, DataRoleExpr r, int v):
         value = self.c_mgr.DataValue(str(v).encode(), self.type_int.c_obj)
