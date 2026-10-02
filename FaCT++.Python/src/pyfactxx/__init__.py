@@ -17,9 +17,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from importlib.metadata import PackageNotFoundError, version
+
 from .coras import Coras
 from .lib_factxx import Reasoner  # pylint: disable=no-name-in-module
 
-__version__ = "1.8.1"
+try:
+    # The single source of truth for the package version is
+    # pyproject.toml's [project] version; this import reads it from the
+    # installed distribution metadata (setuptools/scikit-build-core write
+    # it at build time), so the two can never drift apart again.
+    __version__ = version("pyfactxx")
+except PackageNotFoundError:  # running from a source tree, not installed
+    __version__ = "unknown"
 
 # vim: sw=4:et:ai

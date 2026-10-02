@@ -38,6 +38,31 @@ The `pyfactxx` presents the following updates to FaCT++:
 
 - drastically improved individuals support (`precacheIndividuals`)
 - unified access point allowing arbitrary SPARQL queries
+
+### OWL 2 data ranges & literal `owl:hasValue` (1.9.0)
+
+OWL 2 data ranges are now translated from RDF and reasoned over: named
+datatypes (mapped onto the kernel's int/float/bool/string), datatype
+restrictions with facets (`owl:onDatatype` + `owl:withRestrictions`),
+enumerations (`owl:oneOf`), complement (`owl:datatypeComplementOf`) and
+intersection/union. Classes defined via data-property restrictions —
+`owl:hasValue` with a literal, `owl:someValuesFrom`/`owl:allValuesFrom` over a
+data range, and (qualified) cardinality on data properties — are parsed, so an
+individual `i` with `hasName "energy gap"` is classified into a class defined
+as `C ≡ hasName.{"energy gap"}`. Individual inequality (`owl:differentFrom`)
+is also translated.
+
+One accompanying fix and one escape hatch:
+
+- `value_of_bool` registered Python's `str(True)` (`'True'`) instead of the
+  `'true'` the kernel's boolean datatype expects — every realized boolean
+  value previously raised `RuntimeError: Unable to register 'True' as a bool`.
+- `Coras(ignore_unsupported_datatypes=True)` skips data-property ranges whose
+  datatype is not one of the kernel's built-ins. Without it, a declared range
+  with an uninterpreted datatype (e.g. an `xsd:dateTime` or a custom datatype)
+  makes *every* value assertion violate the range — the KB is detected as
+  inconsistent. Mirrors owlready2/HermiT's `--ignoreUnsupportedDatatypes`.
+
 - exposing all the required C++ interfaces to RDFLib via the `coras` interface
 
 

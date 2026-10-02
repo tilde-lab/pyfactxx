@@ -7,7 +7,13 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "pyfactxx"
-version = "1.8.1"
+# Single source of truth for the package version. __init__.py derives
+# __version__ from the installed distribution metadata at import time,
+# so no second version literal exists anywhere in the Python package.
+# (The C++ kernel and Java plugin keep their own release lines —
+# "1.8.2-SNAPSHOT" in Kernel/Kernel.cpp — they version the reasoner
+# core, not the Python bindings.)
+version = "1.9.1"
 description = "Python bindings to FaCT++ reasoner"
 readme = {file = "README.md", content-type = "text/markdown"}
 license = {text = "GPL-3.0-only"}

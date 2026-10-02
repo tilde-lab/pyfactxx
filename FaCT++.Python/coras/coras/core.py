@@ -36,7 +36,17 @@ FILE_FORMAT = {
 }
 
 class Coras:
-    def __init__(self, **kwargs):
+    def __init__(self, ignore_unsupported_datatypes=False, **kwargs):
+        """
+        :param ignore_unsupported_datatypes: skip data-property ranges whose
+            datatype is not one of the kernel's built-in types (xsd:string,
+            xsd:integer/derived, xsd:float/decimal/double, xsd:boolean). The
+            kernel registers any other datatype as an uninterpreted type,
+            which makes every value assertion violate the range and the whole
+            KB inconsistent. Mirrors owlready2/HermiT's
+            --ignoreUnsupportedDatatypes.
+        """
+        self._ignore_unsupported_datatypes = bool(ignore_unsupported_datatypes)
         self._reasoner = pyfactxx.Reasoner(**kwargs)
         self._graph = rdflib.ConjunctiveGraph()
         self._parse_graph = rdflib.ConjunctiveGraph()
@@ -69,6 +79,8 @@ class Coras:
         
     def parse(self):
         logger.debug('parse graph')
+        from . import parser as _parser
+        _parser.IGNORE_UNSUPPORTED_DATATYPES = self._ignore_unsupported_datatypes
         parse(self._parse_graph, self._reasoner)
         self._graph += self._parse_graph
         self._parse_graph = rdflib.ConjunctiveGraph()
