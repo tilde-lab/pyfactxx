@@ -28,6 +28,7 @@ from collections import namedtuple
 from functools import partial, singledispatch
 
 import rdflib
+from rdflib import BNode, URIRef
 from rdflib.namespace import RDF, RDFS, OWL, XSD
 
 from . import debug
@@ -480,28 +481,40 @@ def parse_property_chain(reasoner, prop, items):
     reasoner.implies_o_roles(chain, prop)
 
 def parse_restriction(graph, reasoner, cls):
-    # FIXME: pass bnode directly
-    from rdflib import BNode
-    b = BNode(cls.name)
-    on_property = fetch_object(graph, b, OWL.onProperty, lambda v: v)
+    # A restriction subject is normally a blank node, but OWL 2 RDF syntax
+    # also allows a NAMED restriction (e.g. "ex:r a owl:Restriction" with
+    # the owl:onProperty triples under the URI).  Reconstructing the
+    # subject as BNode(cls.name) only works for blank nodes: for a named
+    # restriction the fabricated bnode never carries its triples, so the
+    # owl:onProperty lookup failed and the assert crashed (found by the
+    # CADE-2011 Fullish suite, test 001_Subgraph_Entailment).
+    # Fix: reconstruct the rdflib node from the concept name, choosing
+    # URIRef for URIs (containing a scheme separator ':') and BNode for
+    # blank-node ids (which never contain ':').
+    node = URIRef(cls.name) if ':' in cls.name else BNode(cls.name)
+    on_property = fetch_object(graph, node, OWL.onProperty, lambda v: v)
     assert on_property is not None
 
-    if is_data_property(graph, b, on_property):
-        parse_d_restriction(graph, reasoner, cls, b, reasoner.data_role(on_property))
+    if is_data_property(graph, node, on_property):
+        parse_d_restriction(graph, reasoner, cls, node, reasoner.data_role(on_property))
         return
 
     prop = reasoner.object_role(on_property)
 
-    inv_prop = fetch_object(graph, BNode(prop.name), OWL.inverseOf, reasoner.object_role)
+    # same URI-vs-bnode reconstruction for the (possibly named) property
+    # node in the owl:inverseOf lookup
+    inv_prop = fetch_object(
+        graph, URIRef(prop.name) if ':' in prop.name else BNode(prop.name),
+        OWL.inverseOf, reasoner.object_role)
 
     if inv_prop is not None:
         reasoner.set_inverse_roles(prop, inv_prop);
 
-    parse_cardinality(graph, reasoner, cls, b, prop)
-    parse_q_cardinality(graph, reasoner, cls, b, prop)
-    parse_has_value(graph, reasoner, cls, b, prop)
-    parse_some_values_from(graph, reasoner, cls, b, prop)
-    parse_all_values_from(graph, reasoner, cls, b, prop)
+    parse_cardinality(graph, reasoner, cls, node, prop)
+    parse_q_cardinality(graph, reasoner, cls, node, prop)
+    parse_has_value(graph, reasoner, cls, node, prop)
+    parse_some_values_from(graph, reasoner, cls, node, prop)
+    parse_all_values_from(graph, reasoner, cls, node, prop)
 
 def is_data_property(graph, restriction, prop):
     """
